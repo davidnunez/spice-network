@@ -1,99 +1,4073 @@
-@prefix spice: <http://example.org/spice#> .
+
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <http://schema.org/> .
-@prefix food: <http://example.org/food#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix food:  <http://example.org/food#> .
 
-spice:cumin a food:Spice ;
-    schema:name "Cumin" ;
-    food:flavorProfile "Earthy, Warm, Nutty" ;
-    food:cuisine "Indian", "Mexican", "Middle-Eastern" ;
-    food:pairsWellWith spice:coriander, spice:paprika, spice:chili, spice:turmeric .
+# Classes
+food:Spice a rdfs:Class ; rdfs:label "Spice" .
+food:Blend a rdfs:Class ; rdfs:label "Blend" .
 
-spice:coriander a food:Spice ;
-    schema:name "Coriander" ;
-    food:flavorProfile "Citrus, Fresh, Sweet" ;
-    food:cuisine "Indian", "Thai", "Middle-Eastern" ;
-    food:pairsWellWith spice:cumin, spice:turmeric, spice:ginger .
+# Properties (light schema)
+food:flavorProfile a rdf:Property ; rdfs:label "flavor profile" .
+food:cuisine a rdf:Property ; rdfs:label "cuisine" .
+food:pairsWellWith a rdf:Property ; rdfs:label "pairs well with" ; rdfs:domain food:Spice ; rdfs:range food:Spice .
+food:category a rdf:Property ; rdfs:label "category" .
+food:plantPart a rdf:Property ; rdfs:label "plant part used" .
+food:originRegion a rdf:Property ; rdfs:label "origin/region" .
+food:form a rdf:Property ; rdfs:label "common form" .
+food:processing a rdf:Property ; rdfs:label "processing" .
+food:alias a rdf:Property ; rdfs:label "alias/common name" .
+food:heatScoville a rdf:Property ; rdfs:label "heat (Scoville SHU)" ; rdfs:range xsd:integer .
+food:signatureDish a rdf:Property ; rdfs:label "signature dish/example" .
+food:substitutes a rdf:Property ; rdfs:label "substitutes" ; rdfs:domain food:Spice ; rdfs:range food:Spice .
 
-spice:cinnamon a food:Spice ;
-    schema:name "Cinnamon" ;
-    food:flavorProfile "Sweet, Warm, Woody" ;
-    food:cuisine "Middle-Eastern", "American", "Indian" ;
-    food:pairsWellWith spice:cardamom, spice:clove, spice:nutmeg, spice:ginger .
+food:black_pepper a food:Spice ;
+        schema:name "Black pepper" ;
+        rdfs:label "Black pepper" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, woody, citrusy" ;
+        food:cuisine "Global" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Indian" ;
+        food:plantPart "dried fruit/peppercorn" ;
+        food:originRegion "South & East Asia" ;
+        food:form "whole, cracked, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Steak au poivre" ;
+        food:signatureDish "Pepper crab" .
+food:white_pepper a food:Spice ;
+        schema:name "White pepper" ;
+        rdfs:label "White pepper" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, woody, citrusy" ;
+        food:cuisine "Global" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Indian" ;
+        food:plantPart "dried fruit/peppercorn" ;
+        food:originRegion "South & East Asia" ;
+        food:form "whole, cracked, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Steak au poivre" ;
+        food:signatureDish "Pepper crab" .
+food:green_peppercorns a food:Spice ;
+        schema:name "Green peppercorns" ;
+        rdfs:label "Green peppercorns" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, woody, citrusy" ;
+        food:cuisine "Global" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Indian" ;
+        food:plantPart "dried fruit/peppercorn" ;
+        food:originRegion "South & East Asia" ;
+        food:form "whole, cracked, ground" ;
+        food:processing "dried" ;
+        food:alias "Green pepper" ;
+        food:signatureDish "Steak au poivre" ;
+        food:signatureDish "Pepper crab" .
+food:sichuan_pepper a food:Spice ;
+        schema:name "Sichuan pepper" ;
+        rdfs:label "Sichuan pepper" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, woody, citrusy" ;
+        food:cuisine "Global" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Indian" ;
+        food:plantPart "dried fruit/peppercorn" ;
+        food:originRegion "South & East Asia" ;
+        food:form "whole, cracked, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Steak au poivre" ;
+        food:signatureDish "Pepper crab" .
+food:sansho_pepper a food:Spice ;
+        schema:name "Sansho pepper" ;
+        rdfs:label "Sansho pepper" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, woody, citrusy" ;
+        food:cuisine "Global" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Indian" ;
+        food:plantPart "dried fruit/peppercorn" ;
+        food:originRegion "South & East Asia" ;
+        food:form "whole, cracked, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Steak au poivre" ;
+        food:signatureDish "Pepper crab" .
+food:pink_peppercorn a food:Spice ;
+        schema:name "Pink peppercorn" ;
+        rdfs:label "Pink peppercorn" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, woody, citrusy" ;
+        food:cuisine "Global" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Indian" ;
+        food:plantPart "dried fruit/peppercorn" ;
+        food:originRegion "South & East Asia" ;
+        food:form "whole, cracked, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Steak au poivre" ;
+        food:signatureDish "Pepper crab" .
+food:cubeb a food:Spice ;
+        schema:name "Cubeb" ;
+        rdfs:label "Cubeb" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, woody, citrusy" ;
+        food:cuisine "Global" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Indian" ;
+        food:plantPart "dried fruit/peppercorn" ;
+        food:originRegion "South & East Asia" ;
+        food:form "whole, cracked, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Steak au poivre" ;
+        food:signatureDish "Pepper crab" .
+food:long_pepper a food:Spice ;
+        schema:name "Long pepper" ;
+        rdfs:label "Long pepper" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, woody, citrusy" ;
+        food:cuisine "Global" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Indian" ;
+        food:plantPart "dried fruit/peppercorn" ;
+        food:originRegion "South & East Asia" ;
+        food:form "whole, cracked, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Steak au poivre" ;
+        food:signatureDish "Pepper crab" .
+food:grains_of_paradise a food:Spice ;
+        schema:name "Grains of paradise" ;
+        rdfs:label "Grains of paradise" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, woody, citrusy" ;
+        food:cuisine "Global" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Indian" ;
+        food:plantPart "dried fruit/peppercorn" ;
+        food:originRegion "South & East Asia" ;
+        food:form "whole, cracked, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Steak au poivre" ;
+        food:signatureDish "Pepper crab" .
+food:timut_pepper a food:Spice ;
+        schema:name "Timut pepper" ;
+        rdfs:label "Timut pepper" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, woody, citrusy" ;
+        food:cuisine "Global" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Indian" ;
+        food:plantPart "dried fruit/peppercorn" ;
+        food:originRegion "South & East Asia" ;
+        food:form "whole, cracked, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Steak au poivre" ;
+        food:signatureDish "Pepper crab" .
+food:aleppo_pepper a food:Spice ;
+        schema:name "Aleppo pepper" ;
+        rdfs:label "Aleppo pepper" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "10000"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:urfa_biber a food:Spice ;
+        schema:name "Urfa biber" ;
+        rdfs:label "Urfa biber" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "8000"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:gochugaru a food:Spice ;
+        schema:name "Gochugaru" ;
+        rdfs:label "Gochugaru" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "8000"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:ancho_chili a food:Spice ;
+        schema:name "Ancho chili" ;
+        rdfs:label "Ancho chili" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "1500"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:guajillo_chili a food:Spice ;
+        schema:name "Guajillo chili" ;
+        rdfs:label "Guajillo chili" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "5000"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:pasilla_chili a food:Spice ;
+        schema:name "Pasilla chili" ;
+        rdfs:label "Pasilla chili" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "2500"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:chipotle_chili a food:Spice ;
+        schema:name "Chipotle chili" ;
+        rdfs:label "Chipotle chili" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "8000"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:kashmiri_chili a food:Spice ;
+        schema:name "Kashmiri chili" ;
+        rdfs:label "Kashmiri chili" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "2000"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:bird_s_eye_chili a food:Spice ;
+        schema:name "Bird's eye chili" ;
+        rdfs:label "Bird's eye chili" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "100000"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:habanero_powder a food:Spice ;
+        schema:name "Habanero powder" ;
+        rdfs:label "Habanero powder" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "250000"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:scotch_bonnet_powder a food:Spice ;
+        schema:name "Scotch bonnet powder" ;
+        rdfs:label "Scotch bonnet powder" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "200000"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:chili_flakes a food:Spice ;
+        schema:name "Chili flakes" ;
+        rdfs:label "Chili flakes" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "20000"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:chiltepin a food:Spice ;
+        schema:name "Chiltepin" ;
+        rdfs:label "Chiltepin" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "70000"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:piment_d_espelette a food:Spice ;
+        schema:name "Piment d'Espelette" ;
+        rdfs:label "Piment d'Espelette" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, smoky, warm" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "Turkish" ;
+        food:cuisine "Korean" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Americas/Global" ;
+        food:form "flakes, powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:heatScoville "4000"^^xsd:integer ;
+        food:signatureDish "Chili con carne" ;
+        food:signatureDish "Kimchi" ;
+        food:signatureDish "Mexican moles" .
+food:cumin a food:Spice ;
+        schema:name "Cumin" ;
+        rdfs:label "Cumin" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:coriander_seed a food:Spice ;
+        schema:name "Coriander seed" ;
+        rdfs:label "Coriander seed" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:alias "Coriander" ;
+        food:alias "Dhania" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:fennel_seed a food:Spice ;
+        schema:name "Fennel seed" ;
+        rdfs:label "Fennel seed" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:fenugreek_seed a food:Spice ;
+        schema:name "Fenugreek seed" ;
+        rdfs:label "Fenugreek seed" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:caraway a food:Spice ;
+        schema:name "Caraway" ;
+        rdfs:label "Caraway" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:dill_seed a food:Spice ;
+        schema:name "Dill seed" ;
+        rdfs:label "Dill seed" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:celery_seed a food:Spice ;
+        schema:name "Celery seed" ;
+        rdfs:label "Celery seed" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:mustard_seed_yellow a food:Spice ;
+        schema:name "Mustard seed (yellow)" ;
+        rdfs:label "Mustard seed (yellow)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:mustard_seed_brown a food:Spice ;
+        schema:name "Mustard seed (brown)" ;
+        rdfs:label "Mustard seed (brown)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:mustard_seed_black a food:Spice ;
+        schema:name "Mustard seed (black)" ;
+        rdfs:label "Mustard seed (black)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:nigella_kalonji a food:Spice ;
+        schema:name "Nigella (kalonji)" ;
+        rdfs:label "Nigella (kalonji)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:alias "Nigella" ;
+        food:alias "Kalonji" ;
+        food:alias "Black cumin (culinary misnomer)" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:ajwain_carom a food:Spice ;
+        schema:name "Ajwain (carom)" ;
+        rdfs:label "Ajwain (carom)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:alias "Ajwain" ;
+        food:alias "Carom seed" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:cardamom_green a food:Spice ;
+        schema:name "Cardamom (green)" ;
+        rdfs:label "Cardamom (green)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:cardamom_black a food:Spice ;
+        schema:name "Cardamom (black)" ;
+        rdfs:label "Cardamom (black)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:mahleb a food:Spice ;
+        schema:name "Mahleb" ;
+        rdfs:label "Mahleb" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:poppy_seed a food:Spice ;
+        schema:name "Poppy seed" ;
+        rdfs:label "Poppy seed" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:sesame_seed_toasted a food:Spice ;
+        schema:name "Sesame seed (toasted)" ;
+        rdfs:label "Sesame seed (toasted)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:angelica_seed a food:Spice ;
+        schema:name "Angelica seed" ;
+        rdfs:label "Angelica seed" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:annatto a food:Spice ;
+        schema:name "Annatto" ;
+        rdfs:label "Annatto" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:allspice a food:Spice ;
+        schema:name "Allspice" ;
+        rdfs:label "Allspice" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutty, aromatic" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "seed or seed pod" ;
+        food:originRegion "Eurasia" ;
+        food:form "whole, toasted, ground" ;
+        food:processing "dried, toasted" ;
+        food:signatureDish "Rye bread" ;
+        food:signatureDish "Pickles" ;
+        food:signatureDish "Masalas" .
+food:cinnamon_ceylon a food:Spice ;
+        schema:name "Cinnamon (Ceylon)" ;
+        rdfs:label "Cinnamon (Ceylon)" ;
+        food:category "Barks, Buds, and Aromatic Parts" ;
+        food:flavorProfile "warm, sweet, woody" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "European" ;
+        food:plantPart "bark/bud/leaf" ;
+        food:originRegion "Tropics/Eurasia" ;
+        food:form "whole, ground" ;
+        food:processing "dried" ;
+        food:alias "True cinnamon" ;
+        food:signatureDish "Mulled wine" ;
+        food:signatureDish "Biryani" ;
+        food:signatureDish "Pho" .
+food:cassia a food:Spice ;
+        schema:name "Cassia" ;
+        rdfs:label "Cassia" ;
+        food:category "Barks, Buds, and Aromatic Parts" ;
+        food:flavorProfile "warm, sweet, woody" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "European" ;
+        food:plantPart "bark/bud/leaf" ;
+        food:originRegion "Tropics/Eurasia" ;
+        food:form "whole, ground" ;
+        food:processing "dried" ;
+        food:alias "Chinese cinnamon" ;
+        food:signatureDish "Mulled wine" ;
+        food:signatureDish "Biryani" ;
+        food:signatureDish "Pho" .
+food:clove a food:Spice ;
+        schema:name "Clove" ;
+        rdfs:label "Clove" ;
+        food:category "Barks, Buds, and Aromatic Parts" ;
+        food:flavorProfile "warm, sweet, woody" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "European" ;
+        food:plantPart "bark/bud/leaf" ;
+        food:originRegion "Tropics/Eurasia" ;
+        food:form "whole, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Mulled wine" ;
+        food:signatureDish "Biryani" ;
+        food:signatureDish "Pho" .
+food:mace a food:Spice ;
+        schema:name "Mace" ;
+        rdfs:label "Mace" ;
+        food:category "Barks, Buds, and Aromatic Parts" ;
+        food:flavorProfile "warm, sweet, woody" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "European" ;
+        food:plantPart "bark/bud/leaf" ;
+        food:originRegion "Tropics/Eurasia" ;
+        food:form "whole, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Mulled wine" ;
+        food:signatureDish "Biryani" ;
+        food:signatureDish "Pho" .
+food:nutmeg a food:Spice ;
+        schema:name "Nutmeg" ;
+        rdfs:label "Nutmeg" ;
+        food:category "Barks, Buds, and Aromatic Parts" ;
+        food:flavorProfile "warm, sweet, woody" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "European" ;
+        food:plantPart "bark/bud/leaf" ;
+        food:originRegion "Tropics/Eurasia" ;
+        food:form "whole, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Mulled wine" ;
+        food:signatureDish "Biryani" ;
+        food:signatureDish "Pho" .
+food:star_anise a food:Spice ;
+        schema:name "Star anise" ;
+        rdfs:label "Star anise" ;
+        food:category "Barks, Buds, and Aromatic Parts" ;
+        food:flavorProfile "warm, sweet, woody" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "European" ;
+        food:plantPart "bark/bud/leaf" ;
+        food:originRegion "Tropics/Eurasia" ;
+        food:form "whole, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Mulled wine" ;
+        food:signatureDish "Biryani" ;
+        food:signatureDish "Pho" .
+food:bay_leaf a food:Spice ;
+        schema:name "Bay leaf" ;
+        rdfs:label "Bay leaf" ;
+        food:category "Barks, Buds, and Aromatic Parts" ;
+        food:flavorProfile "warm, sweet, woody" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "European" ;
+        food:plantPart "bark/bud/leaf" ;
+        food:originRegion "Tropics/Eurasia" ;
+        food:form "whole, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Mulled wine" ;
+        food:signatureDish "Biryani" ;
+        food:signatureDish "Pho" .
+food:kaffir_lime_leaf a food:Spice ;
+        schema:name "Kaffir lime leaf" ;
+        rdfs:label "Kaffir lime leaf" ;
+        food:category "Barks, Buds, and Aromatic Parts" ;
+        food:flavorProfile "warm, sweet, woody" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "European" ;
+        food:plantPart "bark/bud/leaf" ;
+        food:originRegion "Tropics/Eurasia" ;
+        food:form "whole, ground" ;
+        food:processing "dried" ;
+        food:alias "Makrut lime leaf" ;
+        food:signatureDish "Mulled wine" ;
+        food:signatureDish "Biryani" ;
+        food:signatureDish "Pho" .
+food:curry_leaves a food:Spice ;
+        schema:name "Curry leaves" ;
+        rdfs:label "Curry leaves" ;
+        food:category "Barks, Buds, and Aromatic Parts" ;
+        food:flavorProfile "warm, sweet, woody" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "European" ;
+        food:plantPart "bark/bud/leaf" ;
+        food:originRegion "Tropics/Eurasia" ;
+        food:form "whole, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Mulled wine" ;
+        food:signatureDish "Biryani" ;
+        food:signatureDish "Pho" .
+food:juniper_berry a food:Spice ;
+        schema:name "Juniper berry" ;
+        rdfs:label "Juniper berry" ;
+        food:category "Barks, Buds, and Aromatic Parts" ;
+        food:flavorProfile "warm, sweet, woody" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "European" ;
+        food:plantPart "bark/bud/leaf" ;
+        food:originRegion "Tropics/Eurasia" ;
+        food:form "whole, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Mulled wine" ;
+        food:signatureDish "Biryani" ;
+        food:signatureDish "Pho" .
+food:turmeric a food:Spice ;
+        schema:name "Turmeric" ;
+        rdfs:label "Turmeric" ;
+        food:category "Rhizomes, Roots, and Underground" ;
+        food:flavorProfile "earthy, citrusy, pungent" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Japanese" ;
+        food:cuisine "European" ;
+        food:plantPart "rhizome/root" ;
+        food:originRegion "South & Southeast Asia" ;
+        food:form "dried, ground" ;
+        food:processing "dried; sometimes toasted" ;
+        food:signatureDish "Golden milk" ;
+        food:signatureDish "Tom yum" .
+food:ginger_dried a food:Spice ;
+        schema:name "Ginger (dried)" ;
+        rdfs:label "Ginger (dried)" ;
+        food:category "Rhizomes, Roots, and Underground" ;
+        food:flavorProfile "earthy, citrusy, pungent" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Japanese" ;
+        food:cuisine "European" ;
+        food:plantPart "rhizome/root" ;
+        food:originRegion "South & Southeast Asia" ;
+        food:form "dried, ground" ;
+        food:processing "dried; sometimes toasted" ;
+        food:alias "Ground ginger" ;
+        food:signatureDish "Golden milk" ;
+        food:signatureDish "Tom yum" .
+food:galangal_dried a food:Spice ;
+        schema:name "Galangal (dried)" ;
+        rdfs:label "Galangal (dried)" ;
+        food:category "Rhizomes, Roots, and Underground" ;
+        food:flavorProfile "earthy, citrusy, pungent" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Japanese" ;
+        food:cuisine "European" ;
+        food:plantPart "rhizome/root" ;
+        food:originRegion "South & Southeast Asia" ;
+        food:form "dried, ground" ;
+        food:processing "dried; sometimes toasted" ;
+        food:signatureDish "Golden milk" ;
+        food:signatureDish "Tom yum" .
+food:horseradish_powder a food:Spice ;
+        schema:name "Horseradish powder" ;
+        rdfs:label "Horseradish powder" ;
+        food:category "Rhizomes, Roots, and Underground" ;
+        food:flavorProfile "earthy, citrusy, pungent" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Japanese" ;
+        food:cuisine "European" ;
+        food:plantPart "rhizome/root" ;
+        food:originRegion "South & Southeast Asia" ;
+        food:form "dried, ground" ;
+        food:processing "dried; sometimes toasted" ;
+        food:signatureDish "Golden milk" ;
+        food:signatureDish "Tom yum" .
+food:wasabi_powder a food:Spice ;
+        schema:name "Wasabi powder" ;
+        rdfs:label "Wasabi powder" ;
+        food:category "Rhizomes, Roots, and Underground" ;
+        food:flavorProfile "earthy, citrusy, pungent" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Japanese" ;
+        food:cuisine "European" ;
+        food:plantPart "rhizome/root" ;
+        food:originRegion "South & Southeast Asia" ;
+        food:form "dried, ground" ;
+        food:processing "dried; sometimes toasted" ;
+        food:signatureDish "Golden milk" ;
+        food:signatureDish "Tom yum" .
+food:licorice_root a food:Spice ;
+        schema:name "Licorice root" ;
+        rdfs:label "Licorice root" ;
+        food:category "Rhizomes, Roots, and Underground" ;
+        food:flavorProfile "earthy, citrusy, pungent" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Japanese" ;
+        food:cuisine "European" ;
+        food:plantPart "rhizome/root" ;
+        food:originRegion "South & Southeast Asia" ;
+        food:form "dried, ground" ;
+        food:processing "dried; sometimes toasted" ;
+        food:signatureDish "Golden milk" ;
+        food:signatureDish "Tom yum" .
+food:sumac a food:Spice ;
+        schema:name "Sumac" ;
+        rdfs:label "Sumac" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "tart, floral, fruity" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Persian" ;
+        food:cuisine "Levantine" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit/petal/stigma" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "flakes, powder, threads" ;
+        food:processing "dried" ;
+        food:signatureDish "Fattoush (sumac)" ;
+        food:signatureDish "Tahdig (saffron)" .
+food:black_lime_loomi a food:Spice ;
+        schema:name "Black lime (loomi)" ;
+        rdfs:label "Black lime (loomi)" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "tart, floral, fruity" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Persian" ;
+        food:cuisine "Levantine" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit/petal/stigma" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "flakes, powder, threads" ;
+        food:processing "dried" ;
+        food:alias "Dried lime" ;
+        food:alias "Loomi" ;
+        food:alias "Noomi basra" ;
+        food:signatureDish "Fattoush (sumac)" ;
+        food:signatureDish "Tahdig (saffron)" .
+food:amchoor_mango_powder a food:Spice ;
+        schema:name "Amchoor (mango powder)" ;
+        rdfs:label "Amchoor (mango powder)" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "tart, floral, fruity" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Persian" ;
+        food:cuisine "Levantine" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit/petal/stigma" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "flakes, powder, threads" ;
+        food:processing "dried" ;
+        food:signatureDish "Fattoush (sumac)" ;
+        food:signatureDish "Tahdig (saffron)" .
+food:anardana_dried_pomegranate a food:Spice ;
+        schema:name "Anardana (dried pomegranate)" ;
+        rdfs:label "Anardana (dried pomegranate)" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "tart, floral, fruity" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Persian" ;
+        food:cuisine "Levantine" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit/petal/stigma" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "flakes, powder, threads" ;
+        food:processing "dried" ;
+        food:signatureDish "Fattoush (sumac)" ;
+        food:signatureDish "Tahdig (saffron)" .
+food:barberry_zereshk a food:Spice ;
+        schema:name "Barberry (zereshk)" ;
+        rdfs:label "Barberry (zereshk)" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "tart, floral, fruity" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Persian" ;
+        food:cuisine "Levantine" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit/petal/stigma" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "flakes, powder, threads" ;
+        food:processing "dried" ;
+        food:signatureDish "Fattoush (sumac)" ;
+        food:signatureDish "Tahdig (saffron)" .
+food:hibiscus_dried a food:Spice ;
+        schema:name "Hibiscus (dried)" ;
+        rdfs:label "Hibiscus (dried)" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "tart, floral, fruity" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Persian" ;
+        food:cuisine "Levantine" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit/petal/stigma" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "flakes, powder, threads" ;
+        food:processing "dried" ;
+        food:signatureDish "Fattoush (sumac)" ;
+        food:signatureDish "Tahdig (saffron)" .
+food:rose_petals_dried a food:Spice ;
+        schema:name "Rose petals (dried)" ;
+        rdfs:label "Rose petals (dried)" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "tart, floral, fruity" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Persian" ;
+        food:cuisine "Levantine" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit/petal/stigma" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "flakes, powder, threads" ;
+        food:processing "dried" ;
+        food:signatureDish "Fattoush (sumac)" ;
+        food:signatureDish "Tahdig (saffron)" .
+food:saffron a food:Spice ;
+        schema:name "Saffron" ;
+        rdfs:label "Saffron" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "tart, floral, fruity" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Persian" ;
+        food:cuisine "Levantine" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit/petal/stigma" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "flakes, powder, threads" ;
+        food:processing "dried" ;
+        food:signatureDish "Fattoush (sumac)" ;
+        food:signatureDish "Tahdig (saffron)" .
+food:vanilla_powder a food:Spice ;
+        schema:name "Vanilla powder" ;
+        rdfs:label "Vanilla powder" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "tart, floral, fruity" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Persian" ;
+        food:cuisine "Levantine" ;
+        food:cuisine "Global" ;
+        food:plantPart "dried fruit/petal/stigma" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "flakes, powder, threads" ;
+        food:processing "dried" ;
+        food:signatureDish "Fattoush (sumac)" ;
+        food:signatureDish "Tahdig (saffron)" .
+food:oregano a food:Spice ;
+        schema:name "Oregano" ;
+        rdfs:label "Oregano" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbaceous, resinous, sweet" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "French" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Global" ;
+        food:plantPart "leaf (dried)" ;
+        food:originRegion "Mediterranean & Global" ;
+        food:form "crumbled, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Herb-roast chicken" ;
+        food:signatureDish "Marinara" .
+food:thyme a food:Spice ;
+        schema:name "Thyme" ;
+        rdfs:label "Thyme" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbaceous, resinous, sweet" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "French" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Global" ;
+        food:plantPart "leaf (dried)" ;
+        food:originRegion "Mediterranean & Global" ;
+        food:form "crumbled, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Herb-roast chicken" ;
+        food:signatureDish "Marinara" .
+food:sage a food:Spice ;
+        schema:name "Sage" ;
+        rdfs:label "Sage" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbaceous, resinous, sweet" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "French" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Global" ;
+        food:plantPart "leaf (dried)" ;
+        food:originRegion "Mediterranean & Global" ;
+        food:form "crumbled, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Herb-roast chicken" ;
+        food:signatureDish "Marinara" .
+food:rosemary a food:Spice ;
+        schema:name "Rosemary" ;
+        rdfs:label "Rosemary" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbaceous, resinous, sweet" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "French" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Global" ;
+        food:plantPart "leaf (dried)" ;
+        food:originRegion "Mediterranean & Global" ;
+        food:form "crumbled, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Herb-roast chicken" ;
+        food:signatureDish "Marinara" .
+food:tarragon a food:Spice ;
+        schema:name "Tarragon" ;
+        rdfs:label "Tarragon" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbaceous, resinous, sweet" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "French" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Global" ;
+        food:plantPart "leaf (dried)" ;
+        food:originRegion "Mediterranean & Global" ;
+        food:form "crumbled, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Herb-roast chicken" ;
+        food:signatureDish "Marinara" .
+food:marjoram a food:Spice ;
+        schema:name "Marjoram" ;
+        rdfs:label "Marjoram" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbaceous, resinous, sweet" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "French" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Global" ;
+        food:plantPart "leaf (dried)" ;
+        food:originRegion "Mediterranean & Global" ;
+        food:form "crumbled, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Herb-roast chicken" ;
+        food:signatureDish "Marinara" .
+food:savory a food:Spice ;
+        schema:name "Savory" ;
+        rdfs:label "Savory" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbaceous, resinous, sweet" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "French" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Global" ;
+        food:plantPart "leaf (dried)" ;
+        food:originRegion "Mediterranean & Global" ;
+        food:form "crumbled, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Herb-roast chicken" ;
+        food:signatureDish "Marinara" .
+food:basil_dried a food:Spice ;
+        schema:name "Basil (dried)" ;
+        rdfs:label "Basil (dried)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbaceous, resinous, sweet" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "French" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Global" ;
+        food:plantPart "leaf (dried)" ;
+        food:originRegion "Mediterranean & Global" ;
+        food:form "crumbled, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Herb-roast chicken" ;
+        food:signatureDish "Marinara" .
+food:mint_dried a food:Spice ;
+        schema:name "Mint (dried)" ;
+        rdfs:label "Mint (dried)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbaceous, resinous, sweet" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "French" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Global" ;
+        food:plantPart "leaf (dried)" ;
+        food:originRegion "Mediterranean & Global" ;
+        food:form "crumbled, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Herb-roast chicken" ;
+        food:signatureDish "Marinara" .
+food:chive_dried a food:Spice ;
+        schema:name "Chive (dried)" ;
+        rdfs:label "Chive (dried)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbaceous, resinous, sweet" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "French" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Global" ;
+        food:plantPart "leaf (dried)" ;
+        food:originRegion "Mediterranean & Global" ;
+        food:form "crumbled, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Herb-roast chicken" ;
+        food:signatureDish "Marinara" .
+food:lemongrass_dried a food:Spice ;
+        schema:name "Lemongrass (dried)" ;
+        rdfs:label "Lemongrass (dried)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbaceous, resinous, sweet" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "French" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Global" ;
+        food:plantPart "leaf (dried)" ;
+        food:originRegion "Mediterranean & Global" ;
+        food:form "crumbled, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Herb-roast chicken" ;
+        food:signatureDish "Marinara" .
+food:pandan_leaf_dried a food:Spice ;
+        schema:name "Pandan leaf (dried)" ;
+        rdfs:label "Pandan leaf (dried)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbaceous, resinous, sweet" ;
+        food:cuisine "Mediterranean" ;
+        food:cuisine "French" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Global" ;
+        food:plantPart "leaf (dried)" ;
+        food:originRegion "Mediterranean & Global" ;
+        food:form "crumbled, ground" ;
+        food:processing "dried" ;
+        food:signatureDish "Herb-roast chicken" ;
+        food:signatureDish "Marinara" .
+food:garlic_powder a food:Spice ;
+        schema:name "Garlic powder" ;
+        rdfs:label "Garlic powder" ;
+        food:category "Onion/Garlic Family" ;
+        food:flavorProfile "savory, sulfurous, sweet" ;
+        food:cuisine "Global" ;
+        food:plantPart "bulb (dehydrated)" ;
+        food:originRegion "Global" ;
+        food:form "powder, granules" ;
+        food:processing "dehydrated" ;
+        food:signatureDish "Dry rubs" ;
+        food:signatureDish "Soup mixes" .
+food:onion_powder a food:Spice ;
+        schema:name "Onion powder" ;
+        rdfs:label "Onion powder" ;
+        food:category "Onion/Garlic Family" ;
+        food:flavorProfile "savory, sulfurous, sweet" ;
+        food:cuisine "Global" ;
+        food:plantPart "bulb (dehydrated)" ;
+        food:originRegion "Global" ;
+        food:form "powder, granules" ;
+        food:processing "dehydrated" ;
+        food:signatureDish "Dry rubs" ;
+        food:signatureDish "Soup mixes" .
+food:black_garlic_powder a food:Spice ;
+        schema:name "Black garlic powder" ;
+        rdfs:label "Black garlic powder" ;
+        food:category "Onion/Garlic Family" ;
+        food:flavorProfile "savory, sulfurous, sweet" ;
+        food:cuisine "Global" ;
+        food:plantPart "bulb (dehydrated)" ;
+        food:originRegion "Global" ;
+        food:form "powder, granules" ;
+        food:processing "dehydrated" ;
+        food:signatureDish "Dry rubs" ;
+        food:signatureDish "Soup mixes" .
+food:shallot_powder a food:Spice ;
+        schema:name "Shallot powder" ;
+        rdfs:label "Shallot powder" ;
+        food:category "Onion/Garlic Family" ;
+        food:flavorProfile "savory, sulfurous, sweet" ;
+        food:cuisine "Global" ;
+        food:plantPart "bulb (dehydrated)" ;
+        food:originRegion "Global" ;
+        food:form "powder, granules" ;
+        food:processing "dehydrated" ;
+        food:signatureDish "Dry rubs" ;
+        food:signatureDish "Soup mixes" .
+food:asafoetida_hing a food:Spice ;
+        schema:name "Asafoetida (hing)" ;
+        rdfs:label "Asafoetida (hing)" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "umami, savory, funky" ;
+        food:cuisine "Japanese" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:plantPart "various (gum/seaweed/mushroom)" ;
+        food:originRegion "Global" ;
+        food:form "powder, flakes" ;
+        food:processing "dried, fermented" ;
+        food:signatureDish "Dashi" ;
+        food:signatureDish "Mushroom risotto" .
+food:kombu_powder a food:Spice ;
+        schema:name "Kombu powder" ;
+        rdfs:label "Kombu powder" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "umami, savory, funky" ;
+        food:cuisine "Japanese" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:plantPart "various (gum/seaweed/mushroom)" ;
+        food:originRegion "Global" ;
+        food:form "powder, flakes" ;
+        food:processing "dried, fermented" ;
+        food:signatureDish "Dashi" ;
+        food:signatureDish "Mushroom risotto" .
+food:nori_flakes a food:Spice ;
+        schema:name "Nori flakes" ;
+        rdfs:label "Nori flakes" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "umami, savory, funky" ;
+        food:cuisine "Japanese" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:plantPart "various (gum/seaweed/mushroom)" ;
+        food:originRegion "Global" ;
+        food:form "powder, flakes" ;
+        food:processing "dried, fermented" ;
+        food:signatureDish "Dashi" ;
+        food:signatureDish "Mushroom risotto" .
+food:dried_shiitake_powder a food:Spice ;
+        schema:name "Dried shiitake powder" ;
+        rdfs:label "Dried shiitake powder" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "umami, savory, funky" ;
+        food:cuisine "Japanese" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:plantPart "various (gum/seaweed/mushroom)" ;
+        food:originRegion "Global" ;
+        food:form "powder, flakes" ;
+        food:processing "dried, fermented" ;
+        food:signatureDish "Dashi" ;
+        food:signatureDish "Mushroom risotto" .
+food:dried_porcini_powder a food:Spice ;
+        schema:name "Dried porcini powder" ;
+        rdfs:label "Dried porcini powder" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "umami, savory, funky" ;
+        food:cuisine "Japanese" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Global" ;
+        food:cuisine "Indian" ;
+        food:plantPart "various (gum/seaweed/mushroom)" ;
+        food:originRegion "Global" ;
+        food:form "powder, flakes" ;
+        food:processing "dried, fermented" ;
+        food:signatureDish "Dashi" ;
+        food:signatureDish "Mushroom risotto" .
+food:paprika_sweet a food:Spice ;
+        schema:name "Paprika (sweet)" ;
+        rdfs:label "Paprika (sweet)" ;
+        food:category "Paprikas" ;
+        food:flavorProfile "sweet, smoky" ;
+        food:cuisine "Global" ;
+        food:cuisine "Spanish" ;
+        food:cuisine "Hungarian" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Spain/Hungary" ;
+        food:form "powder" ;
+        food:processing "dried or smoked" ;
+        food:alias "Noble sweet paprika" ;
+        food:heatScoville "0"^^xsd:integer ;
+        food:signatureDish "Goulash" ;
+        food:signatureDish "Patatas bravas" .
+food:paprika_hot a food:Spice ;
+        schema:name "Paprika (hot)" ;
+        rdfs:label "Paprika (hot)" ;
+        food:category "Paprikas" ;
+        food:flavorProfile "sweet, smoky" ;
+        food:cuisine "Global" ;
+        food:cuisine "Spanish" ;
+        food:cuisine "Hungarian" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Spain/Hungary" ;
+        food:form "powder" ;
+        food:processing "dried or smoked" ;
+        food:alias "Hot Hungarian paprika" ;
+        food:heatScoville "5000"^^xsd:integer ;
+        food:signatureDish "Goulash" ;
+        food:signatureDish "Patatas bravas" .
+food:smoked_paprika a food:Spice ;
+        schema:name "Smoked paprika" ;
+        rdfs:label "Smoked paprika" ;
+        food:category "Paprikas" ;
+        food:flavorProfile "sweet, smoky" ;
+        food:cuisine "Global" ;
+        food:cuisine "Spanish" ;
+        food:cuisine "Hungarian" ;
+        food:plantPart "dried fruit" ;
+        food:originRegion "Spain/Hungary" ;
+        food:form "powder" ;
+        food:processing "dried or smoked" ;
+        food:heatScoville "0"^^xsd:integer ;
+        food:signatureDish "Goulash" ;
+        food:signatureDish "Patatas bravas" .
+food:omani_black_lemon a food:Spice ;
+        schema:name "Omani black lemon" ;
+        rdfs:label "Omani black lemon" ;
+        food:category "Additional" ;
+        food:flavorProfile "tart, smoky" ;
+        food:cuisine "Middle Eastern" ;
+        food:plantPart "various" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:signatureDish "Kabsa" ;
+        food:signatureDish "Stews" .
+food:black_cardamom a food:Spice ;
+        schema:name "Black cardamom" ;
+        rdfs:label "Black cardamom" ;
+        food:category "Additional" ;
+        food:flavorProfile "smoky, camphor" ;
+        food:cuisine "Indian" ;
+        food:plantPart "various" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:signatureDish "Kabsa" ;
+        food:signatureDish "Stews" .
+food:white_poppy_seed a food:Spice ;
+        schema:name "White poppy seed" ;
+        rdfs:label "White poppy seed" ;
+        food:category "Additional" ;
+        food:flavorProfile "nutty, sweet" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Middle Eastern" ;
+        food:plantPart "various" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:signatureDish "Kabsa" ;
+        food:signatureDish "Stews" .
+food:green_pepper_fresh_dried a food:Spice ;
+        schema:name "Green pepper (fresh dried)" ;
+        rdfs:label "Green pepper (fresh dried)" ;
+        food:category "Additional" ;
+        food:flavorProfile "grassy, peppery" ;
+        food:cuisine "Global" ;
+        food:plantPart "various" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:signatureDish "Kabsa" ;
+        food:signatureDish "Stews" .
+food:lavender_culinary a food:Spice ;
+        schema:name "Lavender (culinary)" ;
+        rdfs:label "Lavender (culinary)" ;
+        food:category "Additional" ;
+        food:flavorProfile "floral, sweet" ;
+        food:cuisine "French" ;
+        food:cuisine "Mediterranean" ;
+        food:plantPart "various" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:signatureDish "Kabsa" ;
+        food:signatureDish "Stews" .
+food:epazote_dried a food:Spice ;
+        schema:name "Epazote (dried)" ;
+        rdfs:label "Epazote (dried)" ;
+        food:category "Additional" ;
+        food:flavorProfile "herbal, resinous" ;
+        food:cuisine "Mexican" ;
+        food:plantPart "various" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:signatureDish "Kabsa" ;
+        food:signatureDish "Stews" .
+food:mexican_oregano a food:Spice ;
+        schema:name "Mexican oregano" ;
+        rdfs:label "Mexican oregano" ;
+        food:category "Additional" ;
+        food:flavorProfile "citrus, earthy" ;
+        food:cuisine "Mexican" ;
+        food:plantPart "various" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:signatureDish "Kabsa" ;
+        food:signatureDish "Stews" .
+food:pilpelchuma_spice a food:Spice ;
+        schema:name "Pilpelchuma spice" ;
+        rdfs:label "Pilpelchuma spice" ;
+        food:category "Additional" ;
+        food:flavorProfile "garlicky, chili" ;
+        food:cuisine "Levantine" ;
+        food:plantPart "various" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:signatureDish "Kabsa" ;
+        food:signatureDish "Stews" .
+food:shichimi_togarashi_base a food:Spice ;
+        schema:name "Shichimi togarashi (base)" ;
+        rdfs:label "Shichimi togarashi (base)" ;
+        food:category "Additional" ;
+        food:flavorProfile "citrus, chili, sesame" ;
+        food:cuisine "Japanese" ;
+        food:plantPart "various" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:signatureDish "Kabsa" ;
+        food:signatureDish "Stews" .
+food:berbere_base a food:Spice ;
+        schema:name "Berbere (base)" ;
+        rdfs:label "Berbere (base)" ;
+        food:category "Additional" ;
+        food:flavorProfile "warm, chili, fenugreek" ;
+        food:cuisine "Ethiopian" ;
+        food:plantPart "various" ;
+        food:originRegion "Middle East & Asia" ;
+        food:form "powder, whole" ;
+        food:processing "dried; sometimes smoked" ;
+        food:signatureDish "Kabsa" ;
+        food:signatureDish "Stews" .
+food:za_atar_base a food:Spice ;
+        schema:name "Za'atar (base)" ;
+        rdfs:label "Za'atar (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "herbal, sesame, tangy" ;
+        food:cuisine "Levantine" ;
+        food:cuisine "Middle Eastern" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:advieh_base a food:Spice ;
+        schema:name "Advieh (base)" ;
+        rdfs:label "Advieh (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "warm, floral" ;
+        food:cuisine "Persian" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:baharat_base a food:Spice ;
+        schema:name "Baharat (base)" ;
+        rdfs:label "Baharat (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "warm, peppery" ;
+        food:cuisine "Middle Eastern" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:dukkah_base a food:Spice ;
+        schema:name "Dukkah (base)" ;
+        rdfs:label "Dukkah (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "nutty, herbaceous" ;
+        food:cuisine "Egyptian" ;
+        food:cuisine "Middle Eastern" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:ras_el_hanout_base a food:Spice ;
+        schema:name "Ras el hanout (base)" ;
+        rdfs:label "Ras el hanout (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "complex, floral, warm" ;
+        food:cuisine "North African" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:chaat_masala_base a food:Spice ;
+        schema:name "Chaat masala (base)" ;
+        rdfs:label "Chaat masala (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "tangy, sulfurous" ;
+        food:cuisine "Indian" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:panch_phoron_base a food:Spice ;
+        schema:name "Panch phoron (base)" ;
+        rdfs:label "Panch phoron (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "aniseed, bitter-sweet" ;
+        food:cuisine "Bengali" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:sazon_base a food:Spice ;
+        schema:name "Sazon (base)" ;
+        rdfs:label "Sazon (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "garlicky, annatto" ;
+        food:cuisine "Caribbean" ;
+        food:cuisine "Latin American" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:italian_seasoning_base a food:Spice ;
+        schema:name "Italian seasoning (base)" ;
+        rdfs:label "Italian seasoning (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "herbaceous" ;
+        food:cuisine "Italian" ;
+        food:cuisine "Global" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:herbes_de_provence_base a food:Spice ;
+        schema:name "Herbes de Provence (base)" ;
+        rdfs:label "Herbes de Provence (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "herbal, floral" ;
+        food:cuisine "French" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:tandoori_masala_base a food:Spice ;
+        schema:name "Tandoori masala (base)" ;
+        rdfs:label "Tandoori masala (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "warm, chili" ;
+        food:cuisine "Indian" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:garam_masala_base a food:Spice ;
+        schema:name "Garam masala (base)" ;
+        rdfs:label "Garam masala (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "warm, sweet" ;
+        food:cuisine "Indian" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:cajun_seasoning_base a food:Spice ;
+        schema:name "Cajun seasoning (base)" ;
+        rdfs:label "Cajun seasoning (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "spicy, garlicky" ;
+        food:cuisine "American" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:creole_seasoning_base a food:Spice ;
+        schema:name "Creole seasoning (base)" ;
+        rdfs:label "Creole seasoning (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "paprika, herbal" ;
+        food:cuisine "American" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:jerk_seasoning_base a food:Spice ;
+        schema:name "Jerk seasoning (base)" ;
+        rdfs:label "Jerk seasoning (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "allspice, chili, thyme" ;
+        food:cuisine "Caribbean" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:chinese_five_spice_base a food:Spice ;
+        schema:name "Chinese five spice (base)" ;
+        rdfs:label "Chinese five spice (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "aniseed, sweet" ;
+        food:cuisine "Chinese" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:vadouvan_base a food:Spice ;
+        schema:name "Vadouvan (base)" ;
+        rdfs:label "Vadouvan (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "onion, curry" ;
+        food:cuisine "French" ;
+        food:cuisine "Indian" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:gochujang_powder_base a food:Spice ;
+        schema:name "Gochujang powder (base)" ;
+        rdfs:label "Gochujang powder (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "fermented chili" ;
+        food:cuisine "Korean" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:togarashi_base a food:Spice ;
+        schema:name "Togarashi (base)" ;
+        rdfs:label "Togarashi (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "citrus, chili, sesame" ;
+        food:cuisine "Japanese" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:zhoug_dry_base a food:Spice ;
+        schema:name "Zhoug (dry base)" ;
+        rdfs:label "Zhoug (dry base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "cilantro, chili" ;
+        food:cuisine "Yemeni" ;
+        food:cuisine "Middle Eastern" ;
+        food:plantPart "various (blend)" ;
+        food:originRegion "Regional" ;
+        food:form "powder" ;
+        food:processing "ground & mixed" ;
+        food:signatureDish "Signature regional dishes" .
+food:black_pepper food:pairsWellWith food:coriander_seed .
+food:black_pepper food:pairsWellWith food:garlic_powder .
+food:black_pepper food:pairsWellWith food:grains_of_paradise .
+food:black_pepper food:pairsWellWith food:green_peppercorns .
+food:black_pepper food:pairsWellWith food:timut_pepper .
+food:black_pepper food:pairsWellWith food:white_pepper .
+food:white_pepper food:pairsWellWith food:black_pepper .
+food:white_pepper food:pairsWellWith food:coriander_seed .
+food:white_pepper food:pairsWellWith food:garlic_powder .
+food:white_pepper food:pairsWellWith food:green_peppercorns .
+food:white_pepper food:pairsWellWith food:sichuan_pepper .
+food:white_pepper food:pairsWellWith food:timut_pepper .
+food:green_peppercorns food:pairsWellWith food:black_pepper .
+food:green_peppercorns food:pairsWellWith food:coriander_seed .
+food:green_peppercorns food:pairsWellWith food:garlic_powder .
+food:green_peppercorns food:pairsWellWith food:sansho_pepper .
+food:green_peppercorns food:pairsWellWith food:sichuan_pepper .
+food:green_peppercorns food:pairsWellWith food:white_pepper .
+food:coriander_seed food:pairsWellWith food:advieh_base .
+food:coriander_seed food:pairsWellWith food:ajwain_carom .
+food:coriander_seed food:pairsWellWith food:aleppo_pepper .
+food:coriander_seed food:pairsWellWith food:allspice .
+food:coriander_seed food:pairsWellWith food:amchoor_mango_powder .
+food:coriander_seed food:pairsWellWith food:anardana_dried_pomegranate .
+food:coriander_seed food:pairsWellWith food:ancho_chili .
+food:coriander_seed food:pairsWellWith food:angelica_seed .
+food:coriander_seed food:pairsWellWith food:annatto .
+food:coriander_seed food:pairsWellWith food:asafoetida_hing .
+food:coriander_seed food:pairsWellWith food:baharat_base .
+food:coriander_seed food:pairsWellWith food:barberry_zereshk .
+food:coriander_seed food:pairsWellWith food:basil_dried .
+food:coriander_seed food:pairsWellWith food:bay_leaf .
+food:coriander_seed food:pairsWellWith food:berbere_base .
+food:coriander_seed food:pairsWellWith food:bird_s_eye_chili .
+food:coriander_seed food:pairsWellWith food:black_cardamom .
+food:coriander_seed food:pairsWellWith food:black_garlic_powder .
+food:coriander_seed food:pairsWellWith food:black_lime_loomi .
+food:coriander_seed food:pairsWellWith food:black_pepper .
+food:coriander_seed food:pairsWellWith food:cajun_seasoning_base .
+food:coriander_seed food:pairsWellWith food:caraway .
+food:coriander_seed food:pairsWellWith food:cardamom_black .
+food:coriander_seed food:pairsWellWith food:cardamom_green .
+food:coriander_seed food:pairsWellWith food:cassia .
+food:coriander_seed food:pairsWellWith food:celery_seed .
+food:coriander_seed food:pairsWellWith food:chaat_masala_base .
+food:coriander_seed food:pairsWellWith food:chili_flakes .
+food:coriander_seed food:pairsWellWith food:chiltepin .
+food:coriander_seed food:pairsWellWith food:chinese_five_spice_base .
+food:coriander_seed food:pairsWellWith food:chipotle_chili .
+food:coriander_seed food:pairsWellWith food:chive_dried .
+food:coriander_seed food:pairsWellWith food:cinnamon_ceylon .
+food:coriander_seed food:pairsWellWith food:clove .
+food:coriander_seed food:pairsWellWith food:creole_seasoning_base .
+food:coriander_seed food:pairsWellWith food:cubeb .
+food:coriander_seed food:pairsWellWith food:cumin .
+food:coriander_seed food:pairsWellWith food:curry_leaves .
+food:coriander_seed food:pairsWellWith food:dill_seed .
+food:coriander_seed food:pairsWellWith food:dried_porcini_powder .
+food:coriander_seed food:pairsWellWith food:dried_shiitake_powder .
+food:coriander_seed food:pairsWellWith food:dukkah_base .
+food:coriander_seed food:pairsWellWith food:epazote_dried .
+food:coriander_seed food:pairsWellWith food:fennel_seed .
+food:coriander_seed food:pairsWellWith food:fenugreek_seed .
+food:coriander_seed food:pairsWellWith food:galangal_dried .
+food:coriander_seed food:pairsWellWith food:garam_masala_base .
+food:coriander_seed food:pairsWellWith food:garlic_powder .
+food:coriander_seed food:pairsWellWith food:ginger_dried .
+food:coriander_seed food:pairsWellWith food:gochugaru .
+food:coriander_seed food:pairsWellWith food:gochujang_powder_base .
+food:coriander_seed food:pairsWellWith food:grains_of_paradise .
+food:coriander_seed food:pairsWellWith food:green_pepper_fresh_dried .
+food:coriander_seed food:pairsWellWith food:green_peppercorns .
+food:coriander_seed food:pairsWellWith food:guajillo_chili .
+food:coriander_seed food:pairsWellWith food:habanero_powder .
+food:coriander_seed food:pairsWellWith food:herbes_de_provence_base .
+food:coriander_seed food:pairsWellWith food:hibiscus_dried .
+food:coriander_seed food:pairsWellWith food:horseradish_powder .
+food:coriander_seed food:pairsWellWith food:italian_seasoning_base .
+food:coriander_seed food:pairsWellWith food:jerk_seasoning_base .
+food:coriander_seed food:pairsWellWith food:juniper_berry .
+food:coriander_seed food:pairsWellWith food:kaffir_lime_leaf .
+food:coriander_seed food:pairsWellWith food:kashmiri_chili .
+food:coriander_seed food:pairsWellWith food:kombu_powder .
+food:coriander_seed food:pairsWellWith food:lavender_culinary .
+food:coriander_seed food:pairsWellWith food:lemongrass_dried .
+food:coriander_seed food:pairsWellWith food:licorice_root .
+food:coriander_seed food:pairsWellWith food:long_pepper .
+food:coriander_seed food:pairsWellWith food:mace .
+food:coriander_seed food:pairsWellWith food:mahleb .
+food:coriander_seed food:pairsWellWith food:marjoram .
+food:coriander_seed food:pairsWellWith food:mexican_oregano .
+food:coriander_seed food:pairsWellWith food:mint_dried .
+food:coriander_seed food:pairsWellWith food:mustard_seed_black .
+food:coriander_seed food:pairsWellWith food:mustard_seed_brown .
+food:coriander_seed food:pairsWellWith food:mustard_seed_yellow .
+food:coriander_seed food:pairsWellWith food:nigella_kalonji .
+food:coriander_seed food:pairsWellWith food:nori_flakes .
+food:coriander_seed food:pairsWellWith food:nutmeg .
+food:coriander_seed food:pairsWellWith food:omani_black_lemon .
+food:coriander_seed food:pairsWellWith food:onion_powder .
+food:coriander_seed food:pairsWellWith food:oregano .
+food:coriander_seed food:pairsWellWith food:panch_phoron_base .
+food:coriander_seed food:pairsWellWith food:pandan_leaf_dried .
+food:coriander_seed food:pairsWellWith food:paprika_hot .
+food:coriander_seed food:pairsWellWith food:paprika_sweet .
+food:coriander_seed food:pairsWellWith food:pasilla_chili .
+food:coriander_seed food:pairsWellWith food:pilpelchuma_spice .
+food:coriander_seed food:pairsWellWith food:piment_d_espelette .
+food:coriander_seed food:pairsWellWith food:pink_peppercorn .
+food:coriander_seed food:pairsWellWith food:poppy_seed .
+food:coriander_seed food:pairsWellWith food:ras_el_hanout_base .
+food:coriander_seed food:pairsWellWith food:rose_petals_dried .
+food:coriander_seed food:pairsWellWith food:rosemary .
+food:coriander_seed food:pairsWellWith food:saffron .
+food:coriander_seed food:pairsWellWith food:sage .
+food:coriander_seed food:pairsWellWith food:sansho_pepper .
+food:coriander_seed food:pairsWellWith food:savory .
+food:coriander_seed food:pairsWellWith food:sazon_base .
+food:coriander_seed food:pairsWellWith food:scotch_bonnet_powder .
+food:coriander_seed food:pairsWellWith food:sesame_seed_toasted .
+food:coriander_seed food:pairsWellWith food:shallot_powder .
+food:coriander_seed food:pairsWellWith food:shichimi_togarashi_base .
+food:coriander_seed food:pairsWellWith food:sichuan_pepper .
+food:coriander_seed food:pairsWellWith food:smoked_paprika .
+food:coriander_seed food:pairsWellWith food:star_anise .
+food:coriander_seed food:pairsWellWith food:sumac .
+food:coriander_seed food:pairsWellWith food:tandoori_masala_base .
+food:coriander_seed food:pairsWellWith food:tarragon .
+food:coriander_seed food:pairsWellWith food:thyme .
+food:coriander_seed food:pairsWellWith food:timut_pepper .
+food:coriander_seed food:pairsWellWith food:togarashi_base .
+food:coriander_seed food:pairsWellWith food:turmeric .
+food:coriander_seed food:pairsWellWith food:urfa_biber .
+food:coriander_seed food:pairsWellWith food:vadouvan_base .
+food:coriander_seed food:pairsWellWith food:vanilla_powder .
+food:coriander_seed food:pairsWellWith food:wasabi_powder .
+food:coriander_seed food:pairsWellWith food:white_pepper .
+food:coriander_seed food:pairsWellWith food:white_poppy_seed .
+food:coriander_seed food:pairsWellWith food:za_atar_base .
+food:coriander_seed food:pairsWellWith food:zhoug_dry_base .
+food:garlic_powder food:pairsWellWith food:advieh_base .
+food:garlic_powder food:pairsWellWith food:ajwain_carom .
+food:garlic_powder food:pairsWellWith food:aleppo_pepper .
+food:garlic_powder food:pairsWellWith food:allspice .
+food:garlic_powder food:pairsWellWith food:amchoor_mango_powder .
+food:garlic_powder food:pairsWellWith food:anardana_dried_pomegranate .
+food:garlic_powder food:pairsWellWith food:ancho_chili .
+food:garlic_powder food:pairsWellWith food:angelica_seed .
+food:garlic_powder food:pairsWellWith food:annatto .
+food:garlic_powder food:pairsWellWith food:asafoetida_hing .
+food:garlic_powder food:pairsWellWith food:baharat_base .
+food:garlic_powder food:pairsWellWith food:barberry_zereshk .
+food:garlic_powder food:pairsWellWith food:basil_dried .
+food:garlic_powder food:pairsWellWith food:bay_leaf .
+food:garlic_powder food:pairsWellWith food:berbere_base .
+food:garlic_powder food:pairsWellWith food:bird_s_eye_chili .
+food:garlic_powder food:pairsWellWith food:black_cardamom .
+food:garlic_powder food:pairsWellWith food:black_garlic_powder .
+food:garlic_powder food:pairsWellWith food:black_lime_loomi .
+food:garlic_powder food:pairsWellWith food:black_pepper .
+food:garlic_powder food:pairsWellWith food:cajun_seasoning_base .
+food:garlic_powder food:pairsWellWith food:caraway .
+food:garlic_powder food:pairsWellWith food:cardamom_black .
+food:garlic_powder food:pairsWellWith food:cardamom_green .
+food:garlic_powder food:pairsWellWith food:cassia .
+food:garlic_powder food:pairsWellWith food:celery_seed .
+food:garlic_powder food:pairsWellWith food:chaat_masala_base .
+food:garlic_powder food:pairsWellWith food:chili_flakes .
+food:garlic_powder food:pairsWellWith food:chiltepin .
+food:garlic_powder food:pairsWellWith food:chinese_five_spice_base .
+food:garlic_powder food:pairsWellWith food:chipotle_chili .
+food:garlic_powder food:pairsWellWith food:chive_dried .
+food:garlic_powder food:pairsWellWith food:cinnamon_ceylon .
+food:garlic_powder food:pairsWellWith food:clove .
+food:garlic_powder food:pairsWellWith food:coriander_seed .
+food:garlic_powder food:pairsWellWith food:creole_seasoning_base .
+food:garlic_powder food:pairsWellWith food:cubeb .
+food:garlic_powder food:pairsWellWith food:cumin .
+food:garlic_powder food:pairsWellWith food:curry_leaves .
+food:garlic_powder food:pairsWellWith food:dill_seed .
+food:garlic_powder food:pairsWellWith food:dried_porcini_powder .
+food:garlic_powder food:pairsWellWith food:dried_shiitake_powder .
+food:garlic_powder food:pairsWellWith food:dukkah_base .
+food:garlic_powder food:pairsWellWith food:epazote_dried .
+food:garlic_powder food:pairsWellWith food:fennel_seed .
+food:garlic_powder food:pairsWellWith food:fenugreek_seed .
+food:garlic_powder food:pairsWellWith food:galangal_dried .
+food:garlic_powder food:pairsWellWith food:garam_masala_base .
+food:garlic_powder food:pairsWellWith food:ginger_dried .
+food:garlic_powder food:pairsWellWith food:gochugaru .
+food:garlic_powder food:pairsWellWith food:gochujang_powder_base .
+food:garlic_powder food:pairsWellWith food:grains_of_paradise .
+food:garlic_powder food:pairsWellWith food:green_pepper_fresh_dried .
+food:garlic_powder food:pairsWellWith food:green_peppercorns .
+food:garlic_powder food:pairsWellWith food:guajillo_chili .
+food:garlic_powder food:pairsWellWith food:habanero_powder .
+food:garlic_powder food:pairsWellWith food:herbes_de_provence_base .
+food:garlic_powder food:pairsWellWith food:hibiscus_dried .
+food:garlic_powder food:pairsWellWith food:horseradish_powder .
+food:garlic_powder food:pairsWellWith food:italian_seasoning_base .
+food:garlic_powder food:pairsWellWith food:jerk_seasoning_base .
+food:garlic_powder food:pairsWellWith food:juniper_berry .
+food:garlic_powder food:pairsWellWith food:kaffir_lime_leaf .
+food:garlic_powder food:pairsWellWith food:kashmiri_chili .
+food:garlic_powder food:pairsWellWith food:kombu_powder .
+food:garlic_powder food:pairsWellWith food:lavender_culinary .
+food:garlic_powder food:pairsWellWith food:lemongrass_dried .
+food:garlic_powder food:pairsWellWith food:licorice_root .
+food:garlic_powder food:pairsWellWith food:long_pepper .
+food:garlic_powder food:pairsWellWith food:mace .
+food:garlic_powder food:pairsWellWith food:mahleb .
+food:garlic_powder food:pairsWellWith food:marjoram .
+food:garlic_powder food:pairsWellWith food:mexican_oregano .
+food:garlic_powder food:pairsWellWith food:mint_dried .
+food:garlic_powder food:pairsWellWith food:mustard_seed_black .
+food:garlic_powder food:pairsWellWith food:mustard_seed_brown .
+food:garlic_powder food:pairsWellWith food:mustard_seed_yellow .
+food:garlic_powder food:pairsWellWith food:nigella_kalonji .
+food:garlic_powder food:pairsWellWith food:nori_flakes .
+food:garlic_powder food:pairsWellWith food:nutmeg .
+food:garlic_powder food:pairsWellWith food:omani_black_lemon .
+food:garlic_powder food:pairsWellWith food:onion_powder .
+food:garlic_powder food:pairsWellWith food:oregano .
+food:garlic_powder food:pairsWellWith food:panch_phoron_base .
+food:garlic_powder food:pairsWellWith food:pandan_leaf_dried .
+food:garlic_powder food:pairsWellWith food:paprika_hot .
+food:garlic_powder food:pairsWellWith food:paprika_sweet .
+food:garlic_powder food:pairsWellWith food:pasilla_chili .
+food:garlic_powder food:pairsWellWith food:pilpelchuma_spice .
+food:garlic_powder food:pairsWellWith food:piment_d_espelette .
+food:garlic_powder food:pairsWellWith food:pink_peppercorn .
+food:garlic_powder food:pairsWellWith food:poppy_seed .
+food:garlic_powder food:pairsWellWith food:ras_el_hanout_base .
+food:garlic_powder food:pairsWellWith food:rose_petals_dried .
+food:garlic_powder food:pairsWellWith food:rosemary .
+food:garlic_powder food:pairsWellWith food:saffron .
+food:garlic_powder food:pairsWellWith food:sage .
+food:garlic_powder food:pairsWellWith food:sansho_pepper .
+food:garlic_powder food:pairsWellWith food:savory .
+food:garlic_powder food:pairsWellWith food:sazon_base .
+food:garlic_powder food:pairsWellWith food:scotch_bonnet_powder .
+food:garlic_powder food:pairsWellWith food:sesame_seed_toasted .
+food:garlic_powder food:pairsWellWith food:shallot_powder .
+food:garlic_powder food:pairsWellWith food:shichimi_togarashi_base .
+food:garlic_powder food:pairsWellWith food:sichuan_pepper .
+food:garlic_powder food:pairsWellWith food:smoked_paprika .
+food:garlic_powder food:pairsWellWith food:star_anise .
+food:garlic_powder food:pairsWellWith food:sumac .
+food:garlic_powder food:pairsWellWith food:tandoori_masala_base .
+food:garlic_powder food:pairsWellWith food:tarragon .
+food:garlic_powder food:pairsWellWith food:thyme .
+food:garlic_powder food:pairsWellWith food:timut_pepper .
+food:garlic_powder food:pairsWellWith food:togarashi_base .
+food:garlic_powder food:pairsWellWith food:turmeric .
+food:garlic_powder food:pairsWellWith food:urfa_biber .
+food:garlic_powder food:pairsWellWith food:vadouvan_base .
+food:garlic_powder food:pairsWellWith food:vanilla_powder .
+food:garlic_powder food:pairsWellWith food:wasabi_powder .
+food:garlic_powder food:pairsWellWith food:white_pepper .
+food:garlic_powder food:pairsWellWith food:white_poppy_seed .
+food:garlic_powder food:pairsWellWith food:za_atar_base .
+food:garlic_powder food:pairsWellWith food:zhoug_dry_base .
+food:sichuan_pepper food:pairsWellWith food:coriander_seed .
+food:sichuan_pepper food:pairsWellWith food:garlic_powder .
+food:sichuan_pepper food:pairsWellWith food:green_peppercorns .
+food:sichuan_pepper food:pairsWellWith food:pink_peppercorn .
+food:sichuan_pepper food:pairsWellWith food:sansho_pepper .
+food:sichuan_pepper food:pairsWellWith food:white_pepper .
+food:sansho_pepper food:pairsWellWith food:coriander_seed .
+food:sansho_pepper food:pairsWellWith food:cubeb .
+food:sansho_pepper food:pairsWellWith food:garlic_powder .
+food:sansho_pepper food:pairsWellWith food:green_peppercorns .
+food:sansho_pepper food:pairsWellWith food:pink_peppercorn .
+food:sansho_pepper food:pairsWellWith food:sichuan_pepper .
+food:pink_peppercorn food:pairsWellWith food:coriander_seed .
+food:pink_peppercorn food:pairsWellWith food:cubeb .
+food:pink_peppercorn food:pairsWellWith food:garlic_powder .
+food:pink_peppercorn food:pairsWellWith food:long_pepper .
+food:pink_peppercorn food:pairsWellWith food:sansho_pepper .
+food:pink_peppercorn food:pairsWellWith food:sichuan_pepper .
+food:cubeb food:pairsWellWith food:coriander_seed .
+food:cubeb food:pairsWellWith food:garlic_powder .
+food:cubeb food:pairsWellWith food:grains_of_paradise .
+food:cubeb food:pairsWellWith food:long_pepper .
+food:cubeb food:pairsWellWith food:pink_peppercorn .
+food:cubeb food:pairsWellWith food:sansho_pepper .
+food:long_pepper food:pairsWellWith food:coriander_seed .
+food:long_pepper food:pairsWellWith food:cubeb .
+food:long_pepper food:pairsWellWith food:garlic_powder .
+food:long_pepper food:pairsWellWith food:grains_of_paradise .
+food:long_pepper food:pairsWellWith food:pink_peppercorn .
+food:long_pepper food:pairsWellWith food:timut_pepper .
+food:grains_of_paradise food:pairsWellWith food:black_pepper .
+food:grains_of_paradise food:pairsWellWith food:coriander_seed .
+food:grains_of_paradise food:pairsWellWith food:cubeb .
+food:grains_of_paradise food:pairsWellWith food:garlic_powder .
+food:grains_of_paradise food:pairsWellWith food:long_pepper .
+food:grains_of_paradise food:pairsWellWith food:timut_pepper .
+food:timut_pepper food:pairsWellWith food:black_pepper .
+food:timut_pepper food:pairsWellWith food:coriander_seed .
+food:timut_pepper food:pairsWellWith food:garlic_powder .
+food:timut_pepper food:pairsWellWith food:grains_of_paradise .
+food:timut_pepper food:pairsWellWith food:long_pepper .
+food:timut_pepper food:pairsWellWith food:white_pepper .
+food:aleppo_pepper food:pairsWellWith food:chiltepin .
+food:aleppo_pepper food:pairsWellWith food:coriander_seed .
+food:aleppo_pepper food:pairsWellWith food:garlic_powder .
+food:aleppo_pepper food:pairsWellWith food:gochugaru .
+food:aleppo_pepper food:pairsWellWith food:piment_d_espelette .
+food:aleppo_pepper food:pairsWellWith food:urfa_biber .
+food:urfa_biber food:pairsWellWith food:aleppo_pepper .
+food:urfa_biber food:pairsWellWith food:ancho_chili .
+food:urfa_biber food:pairsWellWith food:coriander_seed .
+food:urfa_biber food:pairsWellWith food:garlic_powder .
+food:urfa_biber food:pairsWellWith food:gochugaru .
+food:urfa_biber food:pairsWellWith food:piment_d_espelette .
+food:gochugaru food:pairsWellWith food:aleppo_pepper .
+food:gochugaru food:pairsWellWith food:ancho_chili .
+food:gochugaru food:pairsWellWith food:coriander_seed .
+food:gochugaru food:pairsWellWith food:garlic_powder .
+food:gochugaru food:pairsWellWith food:guajillo_chili .
+food:gochugaru food:pairsWellWith food:urfa_biber .
+food:ancho_chili food:pairsWellWith food:coriander_seed .
+food:ancho_chili food:pairsWellWith food:garlic_powder .
+food:ancho_chili food:pairsWellWith food:gochugaru .
+food:ancho_chili food:pairsWellWith food:guajillo_chili .
+food:ancho_chili food:pairsWellWith food:pasilla_chili .
+food:ancho_chili food:pairsWellWith food:urfa_biber .
+food:guajillo_chili food:pairsWellWith food:ancho_chili .
+food:guajillo_chili food:pairsWellWith food:chipotle_chili .
+food:guajillo_chili food:pairsWellWith food:coriander_seed .
+food:guajillo_chili food:pairsWellWith food:garlic_powder .
+food:guajillo_chili food:pairsWellWith food:gochugaru .
+food:guajillo_chili food:pairsWellWith food:pasilla_chili .
+food:pasilla_chili food:pairsWellWith food:ancho_chili .
+food:pasilla_chili food:pairsWellWith food:chipotle_chili .
+food:pasilla_chili food:pairsWellWith food:coriander_seed .
+food:pasilla_chili food:pairsWellWith food:garlic_powder .
+food:pasilla_chili food:pairsWellWith food:guajillo_chili .
+food:pasilla_chili food:pairsWellWith food:kashmiri_chili .
+food:chipotle_chili food:pairsWellWith food:bird_s_eye_chili .
+food:chipotle_chili food:pairsWellWith food:coriander_seed .
+food:chipotle_chili food:pairsWellWith food:garlic_powder .
+food:chipotle_chili food:pairsWellWith food:guajillo_chili .
+food:chipotle_chili food:pairsWellWith food:kashmiri_chili .
+food:chipotle_chili food:pairsWellWith food:pasilla_chili .
+food:kashmiri_chili food:pairsWellWith food:bird_s_eye_chili .
+food:kashmiri_chili food:pairsWellWith food:chipotle_chili .
+food:kashmiri_chili food:pairsWellWith food:coriander_seed .
+food:kashmiri_chili food:pairsWellWith food:garlic_powder .
+food:kashmiri_chili food:pairsWellWith food:habanero_powder .
+food:kashmiri_chili food:pairsWellWith food:pasilla_chili .
+food:bird_s_eye_chili food:pairsWellWith food:chipotle_chili .
+food:bird_s_eye_chili food:pairsWellWith food:coriander_seed .
+food:bird_s_eye_chili food:pairsWellWith food:garlic_powder .
+food:bird_s_eye_chili food:pairsWellWith food:habanero_powder .
+food:bird_s_eye_chili food:pairsWellWith food:kashmiri_chili .
+food:bird_s_eye_chili food:pairsWellWith food:scotch_bonnet_powder .
+food:habanero_powder food:pairsWellWith food:bird_s_eye_chili .
+food:habanero_powder food:pairsWellWith food:chili_flakes .
+food:habanero_powder food:pairsWellWith food:coriander_seed .
+food:habanero_powder food:pairsWellWith food:garlic_powder .
+food:habanero_powder food:pairsWellWith food:kashmiri_chili .
+food:habanero_powder food:pairsWellWith food:scotch_bonnet_powder .
+food:scotch_bonnet_powder food:pairsWellWith food:bird_s_eye_chili .
+food:scotch_bonnet_powder food:pairsWellWith food:chili_flakes .
+food:scotch_bonnet_powder food:pairsWellWith food:chiltepin .
+food:scotch_bonnet_powder food:pairsWellWith food:coriander_seed .
+food:scotch_bonnet_powder food:pairsWellWith food:garlic_powder .
+food:scotch_bonnet_powder food:pairsWellWith food:habanero_powder .
+food:chili_flakes food:pairsWellWith food:chiltepin .
+food:chili_flakes food:pairsWellWith food:coriander_seed .
+food:chili_flakes food:pairsWellWith food:garlic_powder .
+food:chili_flakes food:pairsWellWith food:habanero_powder .
+food:chili_flakes food:pairsWellWith food:piment_d_espelette .
+food:chili_flakes food:pairsWellWith food:scotch_bonnet_powder .
+food:chiltepin food:pairsWellWith food:aleppo_pepper .
+food:chiltepin food:pairsWellWith food:chili_flakes .
+food:chiltepin food:pairsWellWith food:coriander_seed .
+food:chiltepin food:pairsWellWith food:garlic_powder .
+food:chiltepin food:pairsWellWith food:piment_d_espelette .
+food:chiltepin food:pairsWellWith food:scotch_bonnet_powder .
+food:piment_d_espelette food:pairsWellWith food:aleppo_pepper .
+food:piment_d_espelette food:pairsWellWith food:chili_flakes .
+food:piment_d_espelette food:pairsWellWith food:chiltepin .
+food:piment_d_espelette food:pairsWellWith food:coriander_seed .
+food:piment_d_espelette food:pairsWellWith food:garlic_powder .
+food:piment_d_espelette food:pairsWellWith food:urfa_biber .
+food:cumin food:pairsWellWith food:allspice .
+food:cumin food:pairsWellWith food:annatto .
+food:cumin food:pairsWellWith food:coriander_seed .
+food:cumin food:pairsWellWith food:fennel_seed .
+food:cumin food:pairsWellWith food:garlic_powder .
+food:fennel_seed food:pairsWellWith food:caraway .
+food:fennel_seed food:pairsWellWith food:coriander_seed .
+food:fennel_seed food:pairsWellWith food:cumin .
+food:fennel_seed food:pairsWellWith food:fenugreek_seed .
+food:fennel_seed food:pairsWellWith food:garlic_powder .
+food:fenugreek_seed food:pairsWellWith food:caraway .
+food:fenugreek_seed food:pairsWellWith food:coriander_seed .
+food:fenugreek_seed food:pairsWellWith food:dill_seed .
+food:fenugreek_seed food:pairsWellWith food:fennel_seed .
+food:fenugreek_seed food:pairsWellWith food:garlic_powder .
+food:caraway food:pairsWellWith food:celery_seed .
+food:caraway food:pairsWellWith food:coriander_seed .
+food:caraway food:pairsWellWith food:dill_seed .
+food:caraway food:pairsWellWith food:fennel_seed .
+food:caraway food:pairsWellWith food:fenugreek_seed .
+food:caraway food:pairsWellWith food:garlic_powder .
+food:dill_seed food:pairsWellWith food:caraway .
+food:dill_seed food:pairsWellWith food:celery_seed .
+food:dill_seed food:pairsWellWith food:coriander_seed .
+food:dill_seed food:pairsWellWith food:fenugreek_seed .
+food:dill_seed food:pairsWellWith food:garlic_powder .
+food:dill_seed food:pairsWellWith food:mustard_seed_yellow .
+food:celery_seed food:pairsWellWith food:caraway .
+food:celery_seed food:pairsWellWith food:coriander_seed .
+food:celery_seed food:pairsWellWith food:dill_seed .
+food:celery_seed food:pairsWellWith food:garlic_powder .
+food:celery_seed food:pairsWellWith food:mustard_seed_brown .
+food:celery_seed food:pairsWellWith food:mustard_seed_yellow .
+food:mustard_seed_yellow food:pairsWellWith food:celery_seed .
+food:mustard_seed_yellow food:pairsWellWith food:coriander_seed .
+food:mustard_seed_yellow food:pairsWellWith food:dill_seed .
+food:mustard_seed_yellow food:pairsWellWith food:garlic_powder .
+food:mustard_seed_yellow food:pairsWellWith food:mustard_seed_black .
+food:mustard_seed_yellow food:pairsWellWith food:mustard_seed_brown .
+food:mustard_seed_brown food:pairsWellWith food:celery_seed .
+food:mustard_seed_brown food:pairsWellWith food:coriander_seed .
+food:mustard_seed_brown food:pairsWellWith food:garlic_powder .
+food:mustard_seed_brown food:pairsWellWith food:mustard_seed_black .
+food:mustard_seed_brown food:pairsWellWith food:mustard_seed_yellow .
+food:mustard_seed_brown food:pairsWellWith food:nigella_kalonji .
+food:mustard_seed_black food:pairsWellWith food:ajwain_carom .
+food:mustard_seed_black food:pairsWellWith food:coriander_seed .
+food:mustard_seed_black food:pairsWellWith food:garlic_powder .
+food:mustard_seed_black food:pairsWellWith food:mustard_seed_brown .
+food:mustard_seed_black food:pairsWellWith food:mustard_seed_yellow .
+food:mustard_seed_black food:pairsWellWith food:nigella_kalonji .
+food:nigella_kalonji food:pairsWellWith food:ajwain_carom .
+food:nigella_kalonji food:pairsWellWith food:cardamom_green .
+food:nigella_kalonji food:pairsWellWith food:coriander_seed .
+food:nigella_kalonji food:pairsWellWith food:garlic_powder .
+food:nigella_kalonji food:pairsWellWith food:mustard_seed_black .
+food:nigella_kalonji food:pairsWellWith food:mustard_seed_brown .
+food:ajwain_carom food:pairsWellWith food:cardamom_black .
+food:ajwain_carom food:pairsWellWith food:cardamom_green .
+food:ajwain_carom food:pairsWellWith food:coriander_seed .
+food:ajwain_carom food:pairsWellWith food:garlic_powder .
+food:ajwain_carom food:pairsWellWith food:mustard_seed_black .
+food:ajwain_carom food:pairsWellWith food:nigella_kalonji .
+food:cardamom_green food:pairsWellWith food:ajwain_carom .
+food:cardamom_green food:pairsWellWith food:cardamom_black .
+food:cardamom_green food:pairsWellWith food:coriander_seed .
+food:cardamom_green food:pairsWellWith food:garlic_powder .
+food:cardamom_green food:pairsWellWith food:mahleb .
+food:cardamom_green food:pairsWellWith food:nigella_kalonji .
+food:cardamom_black food:pairsWellWith food:ajwain_carom .
+food:cardamom_black food:pairsWellWith food:cardamom_green .
+food:cardamom_black food:pairsWellWith food:coriander_seed .
+food:cardamom_black food:pairsWellWith food:garlic_powder .
+food:cardamom_black food:pairsWellWith food:mahleb .
+food:cardamom_black food:pairsWellWith food:poppy_seed .
+food:mahleb food:pairsWellWith food:cardamom_black .
+food:mahleb food:pairsWellWith food:cardamom_green .
+food:mahleb food:pairsWellWith food:coriander_seed .
+food:mahleb food:pairsWellWith food:garlic_powder .
+food:mahleb food:pairsWellWith food:poppy_seed .
+food:mahleb food:pairsWellWith food:sesame_seed_toasted .
+food:poppy_seed food:pairsWellWith food:angelica_seed .
+food:poppy_seed food:pairsWellWith food:cardamom_black .
+food:poppy_seed food:pairsWellWith food:coriander_seed .
+food:poppy_seed food:pairsWellWith food:garlic_powder .
+food:poppy_seed food:pairsWellWith food:mahleb .
+food:poppy_seed food:pairsWellWith food:sesame_seed_toasted .
+food:sesame_seed_toasted food:pairsWellWith food:angelica_seed .
+food:sesame_seed_toasted food:pairsWellWith food:annatto .
+food:sesame_seed_toasted food:pairsWellWith food:coriander_seed .
+food:sesame_seed_toasted food:pairsWellWith food:garlic_powder .
+food:sesame_seed_toasted food:pairsWellWith food:mahleb .
+food:sesame_seed_toasted food:pairsWellWith food:poppy_seed .
+food:angelica_seed food:pairsWellWith food:allspice .
+food:angelica_seed food:pairsWellWith food:annatto .
+food:angelica_seed food:pairsWellWith food:coriander_seed .
+food:angelica_seed food:pairsWellWith food:garlic_powder .
+food:angelica_seed food:pairsWellWith food:poppy_seed .
+food:angelica_seed food:pairsWellWith food:sesame_seed_toasted .
+food:annatto food:pairsWellWith food:allspice .
+food:annatto food:pairsWellWith food:angelica_seed .
+food:annatto food:pairsWellWith food:coriander_seed .
+food:annatto food:pairsWellWith food:cumin .
+food:annatto food:pairsWellWith food:garlic_powder .
+food:annatto food:pairsWellWith food:sesame_seed_toasted .
+food:allspice food:pairsWellWith food:angelica_seed .
+food:allspice food:pairsWellWith food:annatto .
+food:allspice food:pairsWellWith food:coriander_seed .
+food:allspice food:pairsWellWith food:cumin .
+food:allspice food:pairsWellWith food:garlic_powder .
+food:cinnamon_ceylon food:pairsWellWith food:cassia .
+food:cinnamon_ceylon food:pairsWellWith food:clove .
+food:cinnamon_ceylon food:pairsWellWith food:coriander_seed .
+food:cinnamon_ceylon food:pairsWellWith food:curry_leaves .
+food:cinnamon_ceylon food:pairsWellWith food:garlic_powder .
+food:cinnamon_ceylon food:pairsWellWith food:juniper_berry .
+food:cassia food:pairsWellWith food:cinnamon_ceylon .
+food:cassia food:pairsWellWith food:clove .
+food:cassia food:pairsWellWith food:coriander_seed .
+food:cassia food:pairsWellWith food:garlic_powder .
+food:cassia food:pairsWellWith food:juniper_berry .
+food:cassia food:pairsWellWith food:mace .
+food:clove food:pairsWellWith food:cassia .
+food:clove food:pairsWellWith food:cinnamon_ceylon .
+food:clove food:pairsWellWith food:coriander_seed .
+food:clove food:pairsWellWith food:garlic_powder .
+food:clove food:pairsWellWith food:mace .
+food:clove food:pairsWellWith food:nutmeg .
+food:mace food:pairsWellWith food:cassia .
+food:mace food:pairsWellWith food:clove .
+food:mace food:pairsWellWith food:coriander_seed .
+food:mace food:pairsWellWith food:garlic_powder .
+food:mace food:pairsWellWith food:nutmeg .
+food:mace food:pairsWellWith food:star_anise .
+food:nutmeg food:pairsWellWith food:bay_leaf .
+food:nutmeg food:pairsWellWith food:clove .
+food:nutmeg food:pairsWellWith food:coriander_seed .
+food:nutmeg food:pairsWellWith food:garlic_powder .
+food:nutmeg food:pairsWellWith food:mace .
+food:nutmeg food:pairsWellWith food:star_anise .
+food:star_anise food:pairsWellWith food:bay_leaf .
+food:star_anise food:pairsWellWith food:coriander_seed .
+food:star_anise food:pairsWellWith food:garlic_powder .
+food:star_anise food:pairsWellWith food:kaffir_lime_leaf .
+food:star_anise food:pairsWellWith food:mace .
+food:star_anise food:pairsWellWith food:nutmeg .
+food:bay_leaf food:pairsWellWith food:coriander_seed .
+food:bay_leaf food:pairsWellWith food:curry_leaves .
+food:bay_leaf food:pairsWellWith food:garlic_powder .
+food:bay_leaf food:pairsWellWith food:kaffir_lime_leaf .
+food:bay_leaf food:pairsWellWith food:nutmeg .
+food:bay_leaf food:pairsWellWith food:star_anise .
+food:kaffir_lime_leaf food:pairsWellWith food:bay_leaf .
+food:kaffir_lime_leaf food:pairsWellWith food:coriander_seed .
+food:kaffir_lime_leaf food:pairsWellWith food:curry_leaves .
+food:kaffir_lime_leaf food:pairsWellWith food:garlic_powder .
+food:kaffir_lime_leaf food:pairsWellWith food:juniper_berry .
+food:kaffir_lime_leaf food:pairsWellWith food:star_anise .
+food:curry_leaves food:pairsWellWith food:bay_leaf .
+food:curry_leaves food:pairsWellWith food:cinnamon_ceylon .
+food:curry_leaves food:pairsWellWith food:coriander_seed .
+food:curry_leaves food:pairsWellWith food:garlic_powder .
+food:curry_leaves food:pairsWellWith food:juniper_berry .
+food:curry_leaves food:pairsWellWith food:kaffir_lime_leaf .
+food:juniper_berry food:pairsWellWith food:cassia .
+food:juniper_berry food:pairsWellWith food:cinnamon_ceylon .
+food:juniper_berry food:pairsWellWith food:coriander_seed .
+food:juniper_berry food:pairsWellWith food:curry_leaves .
+food:juniper_berry food:pairsWellWith food:garlic_powder .
+food:juniper_berry food:pairsWellWith food:kaffir_lime_leaf .
+food:turmeric food:pairsWellWith food:coriander_seed .
+food:turmeric food:pairsWellWith food:galangal_dried .
+food:turmeric food:pairsWellWith food:garlic_powder .
+food:turmeric food:pairsWellWith food:ginger_dried .
+food:turmeric food:pairsWellWith food:licorice_root .
+food:turmeric food:pairsWellWith food:wasabi_powder .
+food:ginger_dried food:pairsWellWith food:coriander_seed .
+food:ginger_dried food:pairsWellWith food:galangal_dried .
+food:ginger_dried food:pairsWellWith food:garlic_powder .
+food:ginger_dried food:pairsWellWith food:horseradish_powder .
+food:ginger_dried food:pairsWellWith food:licorice_root .
+food:ginger_dried food:pairsWellWith food:turmeric .
+food:galangal_dried food:pairsWellWith food:coriander_seed .
+food:galangal_dried food:pairsWellWith food:garlic_powder .
+food:galangal_dried food:pairsWellWith food:ginger_dried .
+food:galangal_dried food:pairsWellWith food:horseradish_powder .
+food:galangal_dried food:pairsWellWith food:turmeric .
+food:galangal_dried food:pairsWellWith food:wasabi_powder .
+food:horseradish_powder food:pairsWellWith food:coriander_seed .
+food:horseradish_powder food:pairsWellWith food:galangal_dried .
+food:horseradish_powder food:pairsWellWith food:garlic_powder .
+food:horseradish_powder food:pairsWellWith food:ginger_dried .
+food:horseradish_powder food:pairsWellWith food:licorice_root .
+food:horseradish_powder food:pairsWellWith food:wasabi_powder .
+food:wasabi_powder food:pairsWellWith food:coriander_seed .
+food:wasabi_powder food:pairsWellWith food:galangal_dried .
+food:wasabi_powder food:pairsWellWith food:garlic_powder .
+food:wasabi_powder food:pairsWellWith food:horseradish_powder .
+food:wasabi_powder food:pairsWellWith food:licorice_root .
+food:wasabi_powder food:pairsWellWith food:turmeric .
+food:licorice_root food:pairsWellWith food:coriander_seed .
+food:licorice_root food:pairsWellWith food:garlic_powder .
+food:licorice_root food:pairsWellWith food:ginger_dried .
+food:licorice_root food:pairsWellWith food:horseradish_powder .
+food:licorice_root food:pairsWellWith food:turmeric .
+food:licorice_root food:pairsWellWith food:wasabi_powder .
+food:sumac food:pairsWellWith food:amchoor_mango_powder .
+food:sumac food:pairsWellWith food:black_lime_loomi .
+food:sumac food:pairsWellWith food:coriander_seed .
+food:sumac food:pairsWellWith food:garlic_powder .
+food:sumac food:pairsWellWith food:saffron .
+food:sumac food:pairsWellWith food:vanilla_powder .
+food:black_lime_loomi food:pairsWellWith food:amchoor_mango_powder .
+food:black_lime_loomi food:pairsWellWith food:anardana_dried_pomegranate .
+food:black_lime_loomi food:pairsWellWith food:coriander_seed .
+food:black_lime_loomi food:pairsWellWith food:garlic_powder .
+food:black_lime_loomi food:pairsWellWith food:sumac .
+food:black_lime_loomi food:pairsWellWith food:vanilla_powder .
+food:amchoor_mango_powder food:pairsWellWith food:anardana_dried_pomegranate .
+food:amchoor_mango_powder food:pairsWellWith food:barberry_zereshk .
+food:amchoor_mango_powder food:pairsWellWith food:black_lime_loomi .
+food:amchoor_mango_powder food:pairsWellWith food:coriander_seed .
+food:amchoor_mango_powder food:pairsWellWith food:garlic_powder .
+food:amchoor_mango_powder food:pairsWellWith food:sumac .
+food:anardana_dried_pomegranate food:pairsWellWith food:amchoor_mango_powder .
+food:anardana_dried_pomegranate food:pairsWellWith food:barberry_zereshk .
+food:anardana_dried_pomegranate food:pairsWellWith food:black_lime_loomi .
+food:anardana_dried_pomegranate food:pairsWellWith food:coriander_seed .
+food:anardana_dried_pomegranate food:pairsWellWith food:garlic_powder .
+food:anardana_dried_pomegranate food:pairsWellWith food:hibiscus_dried .
+food:barberry_zereshk food:pairsWellWith food:amchoor_mango_powder .
+food:barberry_zereshk food:pairsWellWith food:anardana_dried_pomegranate .
+food:barberry_zereshk food:pairsWellWith food:coriander_seed .
+food:barberry_zereshk food:pairsWellWith food:garlic_powder .
+food:barberry_zereshk food:pairsWellWith food:hibiscus_dried .
+food:barberry_zereshk food:pairsWellWith food:rose_petals_dried .
+food:hibiscus_dried food:pairsWellWith food:anardana_dried_pomegranate .
+food:hibiscus_dried food:pairsWellWith food:barberry_zereshk .
+food:hibiscus_dried food:pairsWellWith food:coriander_seed .
+food:hibiscus_dried food:pairsWellWith food:garlic_powder .
+food:hibiscus_dried food:pairsWellWith food:rose_petals_dried .
+food:hibiscus_dried food:pairsWellWith food:saffron .
+food:rose_petals_dried food:pairsWellWith food:barberry_zereshk .
+food:rose_petals_dried food:pairsWellWith food:coriander_seed .
+food:rose_petals_dried food:pairsWellWith food:garlic_powder .
+food:rose_petals_dried food:pairsWellWith food:hibiscus_dried .
+food:rose_petals_dried food:pairsWellWith food:saffron .
+food:rose_petals_dried food:pairsWellWith food:vanilla_powder .
+food:saffron food:pairsWellWith food:coriander_seed .
+food:saffron food:pairsWellWith food:garlic_powder .
+food:saffron food:pairsWellWith food:hibiscus_dried .
+food:saffron food:pairsWellWith food:rose_petals_dried .
+food:saffron food:pairsWellWith food:sumac .
+food:saffron food:pairsWellWith food:vanilla_powder .
+food:vanilla_powder food:pairsWellWith food:black_lime_loomi .
+food:vanilla_powder food:pairsWellWith food:coriander_seed .
+food:vanilla_powder food:pairsWellWith food:garlic_powder .
+food:vanilla_powder food:pairsWellWith food:rose_petals_dried .
+food:vanilla_powder food:pairsWellWith food:saffron .
+food:vanilla_powder food:pairsWellWith food:sumac .
+food:oregano food:pairsWellWith food:coriander_seed .
+food:oregano food:pairsWellWith food:garlic_powder .
+food:oregano food:pairsWellWith food:lemongrass_dried .
+food:oregano food:pairsWellWith food:pandan_leaf_dried .
+food:oregano food:pairsWellWith food:sage .
+food:oregano food:pairsWellWith food:thyme .
+food:thyme food:pairsWellWith food:coriander_seed .
+food:thyme food:pairsWellWith food:garlic_powder .
+food:thyme food:pairsWellWith food:oregano .
+food:thyme food:pairsWellWith food:pandan_leaf_dried .
+food:thyme food:pairsWellWith food:rosemary .
+food:thyme food:pairsWellWith food:sage .
+food:sage food:pairsWellWith food:coriander_seed .
+food:sage food:pairsWellWith food:garlic_powder .
+food:sage food:pairsWellWith food:oregano .
+food:sage food:pairsWellWith food:rosemary .
+food:sage food:pairsWellWith food:tarragon .
+food:sage food:pairsWellWith food:thyme .
+food:rosemary food:pairsWellWith food:coriander_seed .
+food:rosemary food:pairsWellWith food:garlic_powder .
+food:rosemary food:pairsWellWith food:marjoram .
+food:rosemary food:pairsWellWith food:sage .
+food:rosemary food:pairsWellWith food:tarragon .
+food:rosemary food:pairsWellWith food:thyme .
+food:tarragon food:pairsWellWith food:coriander_seed .
+food:tarragon food:pairsWellWith food:garlic_powder .
+food:tarragon food:pairsWellWith food:marjoram .
+food:tarragon food:pairsWellWith food:rosemary .
+food:tarragon food:pairsWellWith food:sage .
+food:tarragon food:pairsWellWith food:savory .
+food:marjoram food:pairsWellWith food:basil_dried .
+food:marjoram food:pairsWellWith food:coriander_seed .
+food:marjoram food:pairsWellWith food:garlic_powder .
+food:marjoram food:pairsWellWith food:rosemary .
+food:marjoram food:pairsWellWith food:savory .
+food:marjoram food:pairsWellWith food:tarragon .
+food:savory food:pairsWellWith food:basil_dried .
+food:savory food:pairsWellWith food:coriander_seed .
+food:savory food:pairsWellWith food:garlic_powder .
+food:savory food:pairsWellWith food:marjoram .
+food:savory food:pairsWellWith food:mint_dried .
+food:savory food:pairsWellWith food:tarragon .
+food:basil_dried food:pairsWellWith food:chive_dried .
+food:basil_dried food:pairsWellWith food:coriander_seed .
+food:basil_dried food:pairsWellWith food:garlic_powder .
+food:basil_dried food:pairsWellWith food:marjoram .
+food:basil_dried food:pairsWellWith food:mint_dried .
+food:basil_dried food:pairsWellWith food:savory .
+food:mint_dried food:pairsWellWith food:basil_dried .
+food:mint_dried food:pairsWellWith food:chive_dried .
+food:mint_dried food:pairsWellWith food:coriander_seed .
+food:mint_dried food:pairsWellWith food:garlic_powder .
+food:mint_dried food:pairsWellWith food:lemongrass_dried .
+food:mint_dried food:pairsWellWith food:savory .
+food:chive_dried food:pairsWellWith food:basil_dried .
+food:chive_dried food:pairsWellWith food:coriander_seed .
+food:chive_dried food:pairsWellWith food:garlic_powder .
+food:chive_dried food:pairsWellWith food:lemongrass_dried .
+food:chive_dried food:pairsWellWith food:mint_dried .
+food:chive_dried food:pairsWellWith food:pandan_leaf_dried .
+food:lemongrass_dried food:pairsWellWith food:chive_dried .
+food:lemongrass_dried food:pairsWellWith food:coriander_seed .
+food:lemongrass_dried food:pairsWellWith food:garlic_powder .
+food:lemongrass_dried food:pairsWellWith food:mint_dried .
+food:lemongrass_dried food:pairsWellWith food:oregano .
+food:lemongrass_dried food:pairsWellWith food:pandan_leaf_dried .
+food:pandan_leaf_dried food:pairsWellWith food:chive_dried .
+food:pandan_leaf_dried food:pairsWellWith food:coriander_seed .
+food:pandan_leaf_dried food:pairsWellWith food:garlic_powder .
+food:pandan_leaf_dried food:pairsWellWith food:lemongrass_dried .
+food:pandan_leaf_dried food:pairsWellWith food:oregano .
+food:pandan_leaf_dried food:pairsWellWith food:thyme .
+food:onion_powder food:pairsWellWith food:black_garlic_powder .
+food:onion_powder food:pairsWellWith food:coriander_seed .
+food:onion_powder food:pairsWellWith food:garlic_powder .
+food:onion_powder food:pairsWellWith food:shallot_powder .
+food:black_garlic_powder food:pairsWellWith food:coriander_seed .
+food:black_garlic_powder food:pairsWellWith food:garlic_powder .
+food:black_garlic_powder food:pairsWellWith food:onion_powder .
+food:black_garlic_powder food:pairsWellWith food:shallot_powder .
+food:shallot_powder food:pairsWellWith food:black_garlic_powder .
+food:shallot_powder food:pairsWellWith food:coriander_seed .
+food:shallot_powder food:pairsWellWith food:garlic_powder .
+food:shallot_powder food:pairsWellWith food:onion_powder .
+food:asafoetida_hing food:pairsWellWith food:coriander_seed .
+food:asafoetida_hing food:pairsWellWith food:dried_porcini_powder .
+food:asafoetida_hing food:pairsWellWith food:dried_shiitake_powder .
+food:asafoetida_hing food:pairsWellWith food:garlic_powder .
+food:asafoetida_hing food:pairsWellWith food:kombu_powder .
+food:asafoetida_hing food:pairsWellWith food:nori_flakes .
+food:kombu_powder food:pairsWellWith food:asafoetida_hing .
+food:kombu_powder food:pairsWellWith food:coriander_seed .
+food:kombu_powder food:pairsWellWith food:dried_porcini_powder .
+food:kombu_powder food:pairsWellWith food:dried_shiitake_powder .
+food:kombu_powder food:pairsWellWith food:garlic_powder .
+food:kombu_powder food:pairsWellWith food:nori_flakes .
+food:nori_flakes food:pairsWellWith food:asafoetida_hing .
+food:nori_flakes food:pairsWellWith food:coriander_seed .
+food:nori_flakes food:pairsWellWith food:dried_porcini_powder .
+food:nori_flakes food:pairsWellWith food:dried_shiitake_powder .
+food:nori_flakes food:pairsWellWith food:garlic_powder .
+food:nori_flakes food:pairsWellWith food:kombu_powder .
+food:dried_shiitake_powder food:pairsWellWith food:asafoetida_hing .
+food:dried_shiitake_powder food:pairsWellWith food:coriander_seed .
+food:dried_shiitake_powder food:pairsWellWith food:dried_porcini_powder .
+food:dried_shiitake_powder food:pairsWellWith food:garlic_powder .
+food:dried_shiitake_powder food:pairsWellWith food:kombu_powder .
+food:dried_shiitake_powder food:pairsWellWith food:nori_flakes .
+food:dried_porcini_powder food:pairsWellWith food:asafoetida_hing .
+food:dried_porcini_powder food:pairsWellWith food:coriander_seed .
+food:dried_porcini_powder food:pairsWellWith food:dried_shiitake_powder .
+food:dried_porcini_powder food:pairsWellWith food:garlic_powder .
+food:dried_porcini_powder food:pairsWellWith food:kombu_powder .
+food:dried_porcini_powder food:pairsWellWith food:nori_flakes .
+food:paprika_sweet food:pairsWellWith food:coriander_seed .
+food:paprika_sweet food:pairsWellWith food:garlic_powder .
+food:paprika_sweet food:pairsWellWith food:paprika_hot .
+food:paprika_sweet food:pairsWellWith food:smoked_paprika .
+food:paprika_hot food:pairsWellWith food:coriander_seed .
+food:paprika_hot food:pairsWellWith food:garlic_powder .
+food:paprika_hot food:pairsWellWith food:paprika_sweet .
+food:paprika_hot food:pairsWellWith food:smoked_paprika .
+food:smoked_paprika food:pairsWellWith food:coriander_seed .
+food:smoked_paprika food:pairsWellWith food:garlic_powder .
+food:smoked_paprika food:pairsWellWith food:paprika_hot .
+food:smoked_paprika food:pairsWellWith food:paprika_sweet .
+food:omani_black_lemon food:pairsWellWith food:berbere_base .
+food:omani_black_lemon food:pairsWellWith food:black_cardamom .
+food:omani_black_lemon food:pairsWellWith food:coriander_seed .
+food:omani_black_lemon food:pairsWellWith food:garlic_powder .
+food:omani_black_lemon food:pairsWellWith food:shichimi_togarashi_base .
+food:omani_black_lemon food:pairsWellWith food:white_poppy_seed .
+food:black_cardamom food:pairsWellWith food:berbere_base .
+food:black_cardamom food:pairsWellWith food:coriander_seed .
+food:black_cardamom food:pairsWellWith food:garlic_powder .
+food:black_cardamom food:pairsWellWith food:green_pepper_fresh_dried .
+food:black_cardamom food:pairsWellWith food:omani_black_lemon .
+food:black_cardamom food:pairsWellWith food:white_poppy_seed .
+food:white_poppy_seed food:pairsWellWith food:black_cardamom .
+food:white_poppy_seed food:pairsWellWith food:coriander_seed .
+food:white_poppy_seed food:pairsWellWith food:garlic_powder .
+food:white_poppy_seed food:pairsWellWith food:green_pepper_fresh_dried .
+food:white_poppy_seed food:pairsWellWith food:lavender_culinary .
+food:white_poppy_seed food:pairsWellWith food:omani_black_lemon .
+food:green_pepper_fresh_dried food:pairsWellWith food:black_cardamom .
+food:green_pepper_fresh_dried food:pairsWellWith food:coriander_seed .
+food:green_pepper_fresh_dried food:pairsWellWith food:epazote_dried .
+food:green_pepper_fresh_dried food:pairsWellWith food:garlic_powder .
+food:green_pepper_fresh_dried food:pairsWellWith food:lavender_culinary .
+food:green_pepper_fresh_dried food:pairsWellWith food:white_poppy_seed .
+food:lavender_culinary food:pairsWellWith food:coriander_seed .
+food:lavender_culinary food:pairsWellWith food:epazote_dried .
+food:lavender_culinary food:pairsWellWith food:garlic_powder .
+food:lavender_culinary food:pairsWellWith food:green_pepper_fresh_dried .
+food:lavender_culinary food:pairsWellWith food:mexican_oregano .
+food:lavender_culinary food:pairsWellWith food:white_poppy_seed .
+food:epazote_dried food:pairsWellWith food:coriander_seed .
+food:epazote_dried food:pairsWellWith food:garlic_powder .
+food:epazote_dried food:pairsWellWith food:green_pepper_fresh_dried .
+food:epazote_dried food:pairsWellWith food:lavender_culinary .
+food:epazote_dried food:pairsWellWith food:mexican_oregano .
+food:epazote_dried food:pairsWellWith food:pilpelchuma_spice .
+food:mexican_oregano food:pairsWellWith food:coriander_seed .
+food:mexican_oregano food:pairsWellWith food:epazote_dried .
+food:mexican_oregano food:pairsWellWith food:garlic_powder .
+food:mexican_oregano food:pairsWellWith food:lavender_culinary .
+food:mexican_oregano food:pairsWellWith food:pilpelchuma_spice .
+food:mexican_oregano food:pairsWellWith food:shichimi_togarashi_base .
+food:pilpelchuma_spice food:pairsWellWith food:berbere_base .
+food:pilpelchuma_spice food:pairsWellWith food:coriander_seed .
+food:pilpelchuma_spice food:pairsWellWith food:epazote_dried .
+food:pilpelchuma_spice food:pairsWellWith food:garlic_powder .
+food:pilpelchuma_spice food:pairsWellWith food:mexican_oregano .
+food:pilpelchuma_spice food:pairsWellWith food:shichimi_togarashi_base .
+food:shichimi_togarashi_base food:pairsWellWith food:berbere_base .
+food:shichimi_togarashi_base food:pairsWellWith food:coriander_seed .
+food:shichimi_togarashi_base food:pairsWellWith food:garlic_powder .
+food:shichimi_togarashi_base food:pairsWellWith food:mexican_oregano .
+food:shichimi_togarashi_base food:pairsWellWith food:omani_black_lemon .
+food:shichimi_togarashi_base food:pairsWellWith food:pilpelchuma_spice .
+food:berbere_base food:pairsWellWith food:black_cardamom .
+food:berbere_base food:pairsWellWith food:coriander_seed .
+food:berbere_base food:pairsWellWith food:garlic_powder .
+food:berbere_base food:pairsWellWith food:omani_black_lemon .
+food:berbere_base food:pairsWellWith food:pilpelchuma_spice .
+food:berbere_base food:pairsWellWith food:shichimi_togarashi_base .
+food:za_atar_base food:pairsWellWith food:advieh_base .
+food:za_atar_base food:pairsWellWith food:baharat_base .
+food:za_atar_base food:pairsWellWith food:coriander_seed .
+food:za_atar_base food:pairsWellWith food:garlic_powder .
+food:za_atar_base food:pairsWellWith food:togarashi_base .
+food:za_atar_base food:pairsWellWith food:zhoug_dry_base .
+food:advieh_base food:pairsWellWith food:baharat_base .
+food:advieh_base food:pairsWellWith food:coriander_seed .
+food:advieh_base food:pairsWellWith food:dukkah_base .
+food:advieh_base food:pairsWellWith food:garlic_powder .
+food:advieh_base food:pairsWellWith food:za_atar_base .
+food:advieh_base food:pairsWellWith food:zhoug_dry_base .
+food:baharat_base food:pairsWellWith food:advieh_base .
+food:baharat_base food:pairsWellWith food:coriander_seed .
+food:baharat_base food:pairsWellWith food:dukkah_base .
+food:baharat_base food:pairsWellWith food:garlic_powder .
+food:baharat_base food:pairsWellWith food:ras_el_hanout_base .
+food:baharat_base food:pairsWellWith food:za_atar_base .
+food:dukkah_base food:pairsWellWith food:advieh_base .
+food:dukkah_base food:pairsWellWith food:baharat_base .
+food:dukkah_base food:pairsWellWith food:chaat_masala_base .
+food:dukkah_base food:pairsWellWith food:coriander_seed .
+food:dukkah_base food:pairsWellWith food:garlic_powder .
+food:dukkah_base food:pairsWellWith food:ras_el_hanout_base .
+food:ras_el_hanout_base food:pairsWellWith food:baharat_base .
+food:ras_el_hanout_base food:pairsWellWith food:chaat_masala_base .
+food:ras_el_hanout_base food:pairsWellWith food:coriander_seed .
+food:ras_el_hanout_base food:pairsWellWith food:dukkah_base .
+food:ras_el_hanout_base food:pairsWellWith food:garlic_powder .
+food:ras_el_hanout_base food:pairsWellWith food:panch_phoron_base .
+food:chaat_masala_base food:pairsWellWith food:coriander_seed .
+food:chaat_masala_base food:pairsWellWith food:dukkah_base .
+food:chaat_masala_base food:pairsWellWith food:garlic_powder .
+food:chaat_masala_base food:pairsWellWith food:panch_phoron_base .
+food:chaat_masala_base food:pairsWellWith food:ras_el_hanout_base .
+food:chaat_masala_base food:pairsWellWith food:sazon_base .
+food:panch_phoron_base food:pairsWellWith food:chaat_masala_base .
+food:panch_phoron_base food:pairsWellWith food:coriander_seed .
+food:panch_phoron_base food:pairsWellWith food:garlic_powder .
+food:panch_phoron_base food:pairsWellWith food:italian_seasoning_base .
+food:panch_phoron_base food:pairsWellWith food:ras_el_hanout_base .
+food:panch_phoron_base food:pairsWellWith food:sazon_base .
+food:sazon_base food:pairsWellWith food:chaat_masala_base .
+food:sazon_base food:pairsWellWith food:coriander_seed .
+food:sazon_base food:pairsWellWith food:garlic_powder .
+food:sazon_base food:pairsWellWith food:herbes_de_provence_base .
+food:sazon_base food:pairsWellWith food:italian_seasoning_base .
+food:sazon_base food:pairsWellWith food:panch_phoron_base .
+food:italian_seasoning_base food:pairsWellWith food:coriander_seed .
+food:italian_seasoning_base food:pairsWellWith food:garlic_powder .
+food:italian_seasoning_base food:pairsWellWith food:herbes_de_provence_base .
+food:italian_seasoning_base food:pairsWellWith food:panch_phoron_base .
+food:italian_seasoning_base food:pairsWellWith food:sazon_base .
+food:italian_seasoning_base food:pairsWellWith food:tandoori_masala_base .
+food:herbes_de_provence_base food:pairsWellWith food:coriander_seed .
+food:herbes_de_provence_base food:pairsWellWith food:garam_masala_base .
+food:herbes_de_provence_base food:pairsWellWith food:garlic_powder .
+food:herbes_de_provence_base food:pairsWellWith food:italian_seasoning_base .
+food:herbes_de_provence_base food:pairsWellWith food:sazon_base .
+food:herbes_de_provence_base food:pairsWellWith food:tandoori_masala_base .
+food:tandoori_masala_base food:pairsWellWith food:cajun_seasoning_base .
+food:tandoori_masala_base food:pairsWellWith food:coriander_seed .
+food:tandoori_masala_base food:pairsWellWith food:garam_masala_base .
+food:tandoori_masala_base food:pairsWellWith food:garlic_powder .
+food:tandoori_masala_base food:pairsWellWith food:herbes_de_provence_base .
+food:tandoori_masala_base food:pairsWellWith food:italian_seasoning_base .
+food:garam_masala_base food:pairsWellWith food:cajun_seasoning_base .
+food:garam_masala_base food:pairsWellWith food:coriander_seed .
+food:garam_masala_base food:pairsWellWith food:creole_seasoning_base .
+food:garam_masala_base food:pairsWellWith food:garlic_powder .
+food:garam_masala_base food:pairsWellWith food:herbes_de_provence_base .
+food:garam_masala_base food:pairsWellWith food:tandoori_masala_base .
+food:cajun_seasoning_base food:pairsWellWith food:coriander_seed .
+food:cajun_seasoning_base food:pairsWellWith food:creole_seasoning_base .
+food:cajun_seasoning_base food:pairsWellWith food:garam_masala_base .
+food:cajun_seasoning_base food:pairsWellWith food:garlic_powder .
+food:cajun_seasoning_base food:pairsWellWith food:jerk_seasoning_base .
+food:cajun_seasoning_base food:pairsWellWith food:tandoori_masala_base .
+food:creole_seasoning_base food:pairsWellWith food:cajun_seasoning_base .
+food:creole_seasoning_base food:pairsWellWith food:chinese_five_spice_base .
+food:creole_seasoning_base food:pairsWellWith food:coriander_seed .
+food:creole_seasoning_base food:pairsWellWith food:garam_masala_base .
+food:creole_seasoning_base food:pairsWellWith food:garlic_powder .
+food:creole_seasoning_base food:pairsWellWith food:jerk_seasoning_base .
+food:jerk_seasoning_base food:pairsWellWith food:cajun_seasoning_base .
+food:jerk_seasoning_base food:pairsWellWith food:chinese_five_spice_base .
+food:jerk_seasoning_base food:pairsWellWith food:coriander_seed .
+food:jerk_seasoning_base food:pairsWellWith food:creole_seasoning_base .
+food:jerk_seasoning_base food:pairsWellWith food:garlic_powder .
+food:jerk_seasoning_base food:pairsWellWith food:vadouvan_base .
+food:chinese_five_spice_base food:pairsWellWith food:coriander_seed .
+food:chinese_five_spice_base food:pairsWellWith food:creole_seasoning_base .
+food:chinese_five_spice_base food:pairsWellWith food:garlic_powder .
+food:chinese_five_spice_base food:pairsWellWith food:gochujang_powder_base .
+food:chinese_five_spice_base food:pairsWellWith food:jerk_seasoning_base .
+food:chinese_five_spice_base food:pairsWellWith food:vadouvan_base .
+food:vadouvan_base food:pairsWellWith food:chinese_five_spice_base .
+food:vadouvan_base food:pairsWellWith food:coriander_seed .
+food:vadouvan_base food:pairsWellWith food:garlic_powder .
+food:vadouvan_base food:pairsWellWith food:gochujang_powder_base .
+food:vadouvan_base food:pairsWellWith food:jerk_seasoning_base .
+food:vadouvan_base food:pairsWellWith food:togarashi_base .
+food:gochujang_powder_base food:pairsWellWith food:chinese_five_spice_base .
+food:gochujang_powder_base food:pairsWellWith food:coriander_seed .
+food:gochujang_powder_base food:pairsWellWith food:garlic_powder .
+food:gochujang_powder_base food:pairsWellWith food:togarashi_base .
+food:gochujang_powder_base food:pairsWellWith food:vadouvan_base .
+food:gochujang_powder_base food:pairsWellWith food:zhoug_dry_base .
+food:togarashi_base food:pairsWellWith food:coriander_seed .
+food:togarashi_base food:pairsWellWith food:garlic_powder .
+food:togarashi_base food:pairsWellWith food:gochujang_powder_base .
+food:togarashi_base food:pairsWellWith food:vadouvan_base .
+food:togarashi_base food:pairsWellWith food:za_atar_base .
+food:togarashi_base food:pairsWellWith food:zhoug_dry_base .
+food:zhoug_dry_base food:pairsWellWith food:advieh_base .
+food:zhoug_dry_base food:pairsWellWith food:coriander_seed .
+food:zhoug_dry_base food:pairsWellWith food:garlic_powder .
+food:zhoug_dry_base food:pairsWellWith food:gochujang_powder_base .
+food:zhoug_dry_base food:pairsWellWith food:togarashi_base .
+food:zhoug_dry_base food:pairsWellWith food:za_atar_base .
+food:allspice food:substitutes food:clove .
+food:allspice food:substitutes food:cinnamon_ceylon .
+food:allspice food:substitutes food:nutmeg .
+food:smoked_paprika food:substitutes food:paprika_sweet .
+food:coriander_seed food:substitutes food:cumin .
+food:cumin food:substitutes food:coriander_seed .
+food:ajwain_carom food:substitutes food:thyme .
+food:nigella_kalonji food:substitutes food:sesame_seed_toasted .
+food:black_pepper owl:sameAs <https://www.wikidata.org/wiki/Q43084> .
 
-spice:cardamom a food:Spice ;
-    schema:name "Cardamom" ;
-    food:flavorProfile "Floral, Sweet, Eucalyptus" ;
-    food:cuisine "Indian", "Middle-Eastern", "Scandinavian" ;
-    food:pairsWellWith spice:cinnamon, spice:clove, spice:saffron .
+food:white_pepper owl:sameAs <https://www.wikidata.org/wiki/Q744814> .
 
-spice:paprika a food:Spice ;
-    schema:name "Paprika" ;
-    food:flavorProfile "Sweet, Mild, Smoky" ;
-    food:cuisine "Spanish", "Hungarian", "Middle-Eastern" ;
-    food:pairsWellWith spice:cumin, spice:garlic, spice:chili .
+food:green_peppercorns owl:sameAs <https://www.wikidata.org/wiki/Q43084> .
 
-spice:turmeric a food:Spice ;
-    schema:name "Turmeric" ;
-    food:flavorProfile "Earthy, Bitter, Peppery" ;
-    food:cuisine "Indian", "Southeast-Asian" ;
-    food:pairsWellWith spice:cumin, spice:coriander, spice:ginger, spice:blackPepper .
+food:sichuan_pepper owl:sameAs <https://www.wikidata.org/wiki/Q756800> .
 
-spice:ginger a food:Spice ;
-    schema:name "Ginger" ;
-    food:flavorProfile "Spicy, Sharp, Sweet" ;
-    food:cuisine "Asian", "Indian", "Middle-Eastern" ;
-    food:pairsWellWith spice:garlic, spice:turmeric, spice:coriander, spice:cinnamon .
+food:sansho_pepper owl:sameAs <https://www.wikidata.org/wiki/Q167881> .
 
-spice:garlic a food:Spice ;
-    schema:name "Garlic" ;
-    food:flavorProfile "Pungent, Savory, Sharp" ;
-    food:cuisine "Universal" ;
-    food:pairsWellWith spice:ginger, spice:paprika, spice:chili, spice:blackPepper .
+food:pink_peppercorn owl:sameAs <https://www.wikidata.org/wiki/Q133761> .
 
-spice:chili a food:Spice ;
-    schema:name "Chili" ;
-    food:flavorProfile "Hot, Fruity, Intense" ;
-    food:cuisine "Mexican", "Indian", "Thai" ;
-    food:pairsWellWith spice:cumin, spice:paprika, spice:garlic, spice:lime .
+food:cubeb owl:sameAs <https://www.wikidata.org/wiki/Q158003> .
 
-spice:clove a food:Spice ;
-    schema:name "Clove" ;
-    food:flavorProfile "Sweet, Bitter, Astringent" ;
-    food:cuisine "Indian", "Middle-Eastern", "Indonesian" ;
-    food:pairsWellWith spice:cinnamon, spice:cardamom, spice:nutmeg .
+food:long_pepper owl:sameAs <https://www.wikidata.org/wiki/Q1341893> .
 
-spice:nutmeg a food:Spice ;
-    schema:name "Nutmeg" ;
-    food:flavorProfile "Warm, Sweet, Nutty" ;
-    food:cuisine "European", "Indian", "Middle-Eastern" ;
-    food:pairsWellWith spice:cinnamon, spice:clove, spice:mace .
+food:grains_of_paradise owl:sameAs <https://www.wikidata.org/wiki/Q262493> .
 
-spice:blackPepper a food:Spice ;
-    schema:name "Black Pepper" ;
-    food:flavorProfile "Sharp, Spicy, Earthy" ;
-    food:cuisine "Universal" ;
-    food:pairsWellWith spice:turmeric, spice:garlic, spice:cumin .
+food:timut_pepper owl:sameAs <https://www.wikidata.org/wiki/Q15249901> .
 
-spice:saffron a food:Spice ;
-    schema:name "Saffron" ;
-    food:flavorProfile "Floral, Honey, Earthy" ;
-    food:cuisine "Persian", "Spanish", "Indian" ;
-    food:pairsWellWith spice:cardamom, spice:rosewater .
+food:aleppo_pepper owl:sameAs <https://www.wikidata.org/wiki/Q937386> .
 
-spice:lime a food:Spice ;
-    schema:name "Lime" ;
-    food:flavorProfile "Citrus, Tart, Bright" ;
-    food:cuisine "Mexican", "Thai", "Vietnamese" ;
-    food:pairsWellWith spice:chili, spice:ginger, spice:coriander .
+food:urfa_biber owl:sameAs <https://www.wikidata.org/wiki/Q6075461> .
 
-spice:rosewater a food:Spice ;
-    schema:name "Rosewater" ;
-    food:flavorProfile "Floral, Perfumed, Delicate" ;
-    food:cuisine "Persian", "Indian", "Middle-Eastern" ;
-    food:pairsWellWith spice:saffron, spice:cardamom .
+food:gochugaru owl:sameAs <https://www.wikidata.org/wiki/Q17023163> .
 
-spice:mace a food:Spice ;
-    schema:name "Mace" ;
-    food:flavorProfile "Warm, Sweet, Delicate" ;
-    food:cuisine "European", "Indian" ;
-    food:pairsWellWith spice:nutmeg, spice:cinnamon .
+food:ancho_chili owl:sameAs <https://www.wikidata.org/wiki/Q2850894> .
+
+food:guajillo_chili owl:sameAs <https://www.wikidata.org/wiki/Q1563639> .
+
+food:pasilla_chili owl:sameAs <https://www.wikidata.org/wiki/Q3383476> .
+
+food:chipotle_chili owl:sameAs <https://www.wikidata.org/wiki/Q2627978> .
+
+food:kashmiri_chili owl:sameAs <https://www.wikidata.org/wiki/Q6373153> .
+
+food:bird_s_eye_chili owl:sameAs <https://www.wikidata.org/wiki/Q816057> .
+
+food:habanero_powder owl:sameAs <https://www.wikidata.org/wiki/Q160308> .
+
+food:scotch_bonnet_powder owl:sameAs <https://www.wikidata.org/wiki/Q188305> .
+
+food:chili_flakes owl:sameAs <https://www.wikidata.org/wiki/Q339022> .
+
+food:chiltepin owl:sameAs <https://www.wikidata.org/wiki/Q1088731> .
+
+food:piment_d_espelette owl:sameAs <https://www.wikidata.org/wiki/Q1489479> .
+
+food:paprika_sweet owl:sameAs <https://www.wikidata.org/wiki/Q3127593> .
+
+food:paprika_hot owl:sameAs <https://www.wikidata.org/wiki/Q3127593> .
+
+food:smoked_paprika owl:sameAs <https://www.wikidata.org/wiki/Q3127593> .
+
+food:cumin owl:sameAs <https://www.wikidata.org/wiki/Q132624> .
+
+food:coriander_seed owl:sameAs <https://www.wikidata.org/wiki/Q20856764> .
+
+food:fennel_seed owl:sameAs <https://www.wikidata.org/wiki/Q131736> .
+
+food:fenugreek_seed owl:sameAs <https://www.wikidata.org/wiki/Q1341840> .
+
+food:caraway owl:sameAs <https://www.wikidata.org/wiki/Q156476> .
+
+food:dill_seed owl:sameAs <https://www.wikidata.org/wiki/Q130011> .
+
+food:celery_seed owl:sameAs <https://www.wikidata.org/wiki/Q163812> .
+
+food:mustard_seed_yellow owl:sameAs <https://www.wikidata.org/wiki/Q193770> .
+
+food:mustard_seed_brown owl:sameAs <https://www.wikidata.org/wiki/Q161179> .
+
+food:mustard_seed_black owl:sameAs <https://www.wikidata.org/wiki/Q156533> .
+
+food:nigella_kalonji owl:sameAs <https://www.wikidata.org/wiki/Q160575> .
+
+food:ajwain_carom owl:sameAs <https://www.wikidata.org/wiki/Q2709279> .
+
+food:cardamom_green owl:sameAs <https://www.wikidata.org/wiki/Q419987> .
+
+food:cardamom_black owl:sameAs <https://www.wikidata.org/wiki/Q151445> .
+
+food:mahleb owl:sameAs <https://www.wikidata.org/wiki/Q1409173> .
+
+food:poppy_seed owl:sameAs <https://www.wikidata.org/wiki/Q219566> .
+
+food:sesame_seed_toasted owl:sameAs <https://www.wikidata.org/wiki/Q11059> .
+
+food:cinnamon_ceylon owl:sameAs <https://www.wikidata.org/wiki/Q370239> .
+
+food:cassia owl:sameAs <https://www.wikidata.org/wiki/Q204148> .
+
+food:clove owl:sameAs <https://www.wikidata.org/wiki/Q265606> .
+
+food:mace owl:sameAs <https://www.wikidata.org/wiki/Q1882876> .
+
+food:nutmeg owl:sameAs <https://www.wikidata.org/wiki/Q147569> .
+
+food:star_anise owl:sameAs <https://www.wikidata.org/wiki/Q1760637> .
+
+food:bay_leaf owl:sameAs <https://www.wikidata.org/wiki/Q582972> .
+
+food:kaffir_lime_leaf owl:sameAs <https://www.wikidata.org/wiki/Q47685> .
+
+food:curry_leaves owl:sameAs <https://www.wikidata.org/wiki/Q243695> .
+
+food:juniper_berry owl:sameAs <https://www.wikidata.org/wiki/Q13415105> .
+
+food:turmeric owl:sameAs <https://www.wikidata.org/wiki/Q20730193> .
+
+food:ginger_dried owl:sameAs <https://www.wikidata.org/wiki/Q181780> .
+
+food:galangal_dried owl:sameAs <https://www.wikidata.org/wiki/Q375756> .
+
+food:horseradish_powder owl:sameAs <https://www.wikidata.org/wiki/Q158013> .
+
+food:wasabi_powder owl:sameAs <https://www.wikidata.org/wiki/Q149024> .
+
+food:licorice_root owl:sameAs <https://www.wikidata.org/wiki/Q162297> .
+
+food:sumac owl:sameAs <https://www.wikidata.org/wiki/Q214426> .
+
+food:black_lime_loomi owl:sameAs <https://www.wikidata.org/wiki/Q2917579> .
+
+food:amchoor_mango_powder owl:sameAs <https://www.wikidata.org/wiki/Q475206> .
+
+food:anardana_dried_pomegranate owl:sameAs <https://www.wikidata.org/wiki/Q2142947> .
+
+food:barberry_zereshk owl:sameAs <https://www.wikidata.org/wiki/Q37555> .
+
+food:hibiscus_dried owl:sameAs <https://www.wikidata.org/wiki/Q15711009> .
+
+food:rose_petals_dried owl:sameAs <https://www.wikidata.org/wiki/Q506> .
+
+food:saffron owl:sameAs <https://www.wikidata.org/wiki/Q167> .
+
+food:vanilla_powder owl:sameAs <https://www.wikidata.org/wiki/Q42362> .
+
+food:oregano owl:sameAs <https://www.wikidata.org/wiki/Q188879> .
+
+food:thyme owl:sameAs <https://www.wikidata.org/wiki/Q185217> .
+
+food:sage owl:sameAs <https://www.wikidata.org/wiki/Q274546> .
+
+food:rosemary owl:sameAs <https://www.wikidata.org/wiki/Q166957> .
+
+food:tarragon owl:sameAs <https://www.wikidata.org/wiki/Q157956> .
+
+food:marjoram owl:sameAs <https://www.wikidata.org/wiki/Q56982> .
+
+food:savory owl:sameAs <https://www.wikidata.org/wiki/Q188956> .
+
+food:basil_dried owl:sameAs <https://www.wikidata.org/wiki/Q408384> .
+
+food:mint_dried owl:sameAs <https://www.wikidata.org/wiki/Q42762> .
+
+food:lemongrass_dried owl:sameAs <https://www.wikidata.org/wiki/Q37043> .
+
+food:asafoetida_hing owl:sameAs <https://www.wikidata.org/wiki/Q424227> .
+
+food:kombu_powder owl:sameAs <https://www.wikidata.org/wiki/Q172275> .
+
+food:nori_flakes owl:sameAs <https://www.wikidata.org/wiki/Q19377039> .
+
+food:dried_shiitake_powder owl:sameAs <https://www.wikidata.org/wiki/Q170883> .
+
+food:dried_porcini_powder owl:sameAs <https://www.wikidata.org/wiki/Q19652> .
+
+food:garam_masala_base owl:sameAs <https://www.wikidata.org/wiki/Q14624> .
+
+food:chinese_five_spice_base owl:sameAs <https://www.wikidata.org/wiki/Q149819> .
+
+
+food:voatsiperifery_pepper a food:Spice ;
+        schema:name "Voatsiperifery pepper" ;
+        rdfs:label "Voatsiperifery pepper" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, citrusy, floral" ;
+        food:cuisine "Madagascar" ;
+        food:cuisine "Global" ;
+        .
+
+food:andaliman_pepper a food:Spice ;
+        schema:name "Andaliman pepper" ;
+        rdfs:label "Andaliman pepper" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "lemony, numbing" ;
+        food:cuisine "Indonesian" ;
+        .
+
+food:grains_of_selim a food:Spice ;
+        schema:name "Grains of Selim" ;
+        rdfs:label "Grains of Selim" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "smoky, musky, peppery" ;
+        food:cuisine "West African" ;
+        .
+
+food:alligator_pepper a food:Spice ;
+        schema:name "Alligator pepper" ;
+        rdfs:label "Alligator pepper" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "hot, peppery, ginger-like" ;
+        food:cuisine "West African" ;
+        .
+
+food:korarima_ethiopian_cardamom a food:Spice ;
+        schema:name "Korarima (Ethiopian cardamom)" ;
+        rdfs:label "Korarima (Ethiopian cardamom)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "aromatic, camphor, citrus" ;
+        food:cuisine "Ethiopian" ;
+        .
+
+food:kaffir_peppercorn_makrut_seed a food:Spice ;
+        schema:name "Kaffir peppercorn (Makrut seed)" ;
+        rdfs:label "Kaffir peppercorn (Makrut seed)" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "citrusy, bitter" ;
+        food:cuisine "Southeast Asian" ;
+        .
+
+food:black_cumin_bunium_persicum a food:Spice ;
+        schema:name "Black cumin (Bunium persicum)" ;
+        rdfs:label "Black cumin (Bunium persicum)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "earthy, smoky, bitter-sweet" ;
+        food:cuisine "Middle Eastern" ;
+        food:cuisine "Central Asian" ;
+        .
+
+food:blue_fenugreek a food:Spice ;
+        schema:name "Blue fenugreek" ;
+        rdfs:label "Blue fenugreek" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "maple, hay, nutty" ;
+        food:cuisine "Georgian" ;
+        .
+
+food:paradise_seed_aframomum_corrorima a food:Spice ;
+        schema:name "Paradise seed (Aframomum corrorima)" ;
+        rdfs:label "Paradise seed (Aframomum corrorima)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "aromatic, warm" ;
+        food:cuisine "Ethiopian" ;
+        .
+
+food:nigella_sativa_black_cumin a food:Spice ;
+        schema:name "Nigella sativa (black cumin)" ;
+        rdfs:label "Nigella sativa (black cumin)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "onion, oregano, nutty" ;
+        food:cuisine "South Asian" ;
+        food:cuisine "Middle Eastern" ;
+        .
+
+food:wattleseed a food:Spice ;
+        schema:name "Wattleseed" ;
+        rdfs:label "Wattleseed" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "nutty, coffee, cocoa" ;
+        food:cuisine "Australian" ;
+        .
+
+food:quassia a food:Spice ;
+        schema:name "Quassia" ;
+        rdfs:label "Quassia" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "very bitter" ;
+        food:cuisine "European aperitifs" ;
+        .
+
+food:zedoary a food:Spice ;
+        schema:name "Zedoary" ;
+        rdfs:label "Zedoary" ;
+        food:category "Rhizomes, Roots, and Underground" ;
+        food:flavorProfile "turmeric-like, citrus" ;
+        food:cuisine "Indonesian" ;
+        food:cuisine "Indian" ;
+        .
+
+food:fingerroot a food:Spice ;
+        schema:name "Fingerroot" ;
+        rdfs:label "Fingerroot" ;
+        food:category "Rhizomes, Roots, and Underground" ;
+        food:flavorProfile "peppery, ginger, herbal" ;
+        food:cuisine "Thai" ;
+        food:cuisine "Cambodian" ;
+        .
+
+food:orris_root a food:Spice ;
+        schema:name "Orris root" ;
+        rdfs:label "Orris root" ;
+        food:category "Rhizomes, Roots, and Underground" ;
+        food:flavorProfile "violet, floral" ;
+        food:cuisine "European" ;
+        .
+
+food:kalpasi_black_stone_flower a food:Spice ;
+        schema:name "Kalpasi (black stone flower)" ;
+        rdfs:label "Kalpasi (black stone flower)" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "earthy, smoky, umami" ;
+        food:cuisine "Indian" ;
+        .
+
+food:hoja_santa_mexican_pepperleaf a food:Spice ;
+        schema:name "Hoja santa (Mexican pepperleaf)" ;
+        rdfs:label "Hoja santa (Mexican pepperleaf)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "anise, sassafras" ;
+        food:cuisine "Mexican" ;
+        .
+
+food:huacatay_black_mint a food:Spice ;
+        schema:name "Huacatay (black mint)" ;
+        rdfs:label "Huacatay (black mint)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "mint, tarragon, citrus" ;
+        food:cuisine "Peruvian" ;
+        .
+
+food:golpar_persian_hogweed a food:Spice ;
+        schema:name "Golpar (Persian hogweed)" ;
+        rdfs:label "Golpar (Persian hogweed)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "citrus, bitter, celery-like" ;
+        food:cuisine "Iranian" ;
+        .
+
+food:jimbu a food:Spice ;
+        schema:name "Jimbu" ;
+        rdfs:label "Jimbu" ;
+        food:category "Onion/Garlic Family" ;
+        food:flavorProfile "onion, chive-like" ;
+        food:cuisine "Nepalese" ;
+        .
+
+food:shiso_perilla a food:Spice ;
+        schema:name "Shiso (perilla)" ;
+        rdfs:label "Shiso (perilla)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "minty, basil, anise" ;
+        food:cuisine "Japanese" ;
+        .
+
+food:epazote_dried_leaf a food:Spice ;
+        schema:name "Epazote (dried leaf)" ;
+        rdfs:label "Epazote (dried leaf)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "resinous, medicinal" ;
+        food:cuisine "Mexican" ;
+        .
+
+food:fish_mint_dried a food:Spice ;
+        schema:name "Fish mint (dried)" ;
+        rdfs:label "Fish mint (dried)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "citrus, fishy-herbal" ;
+        food:cuisine "Vietnamese" ;
+        .
+
+food:rice_paddy_herb a food:Spice ;
+        schema:name "Rice paddy herb" ;
+        rdfs:label "Rice paddy herb" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "citrusy, cumin-like" ;
+        food:cuisine "Vietnamese" ;
+        .
+
+food:water_pepper a food:Spice ;
+        schema:name "Water pepper" ;
+        rdfs:label "Water pepper" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "peppery, pungent" ;
+        food:cuisine "Japanese" ;
+        .
+
+food:voavanga_spanish_tamarind a food:Spice ;
+        schema:name "Voavanga (Spanish tamarind)" ;
+        rdfs:label "Voavanga (Spanish tamarind)" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "tart, fruity" ;
+        food:cuisine "Madagascar" ;
+        .
+
+food:kokum a food:Spice ;
+        schema:name "Kokum" ;
+        rdfs:label "Kokum" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "sour, fruity" ;
+        food:cuisine "Indian (Konkan)" ;
+        .
+
+food:dried_tamarind a food:Spice ;
+        schema:name "Dried tamarind" ;
+        rdfs:label "Dried tamarind" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "sour, fruity" ;
+        food:cuisine "Indian" ;
+        food:cuisine "Thai" ;
+        .
+
+food:aidan_fruit_prekese a food:Spice ;
+        schema:name "Aidan fruit (prekese)" ;
+        rdfs:label "Aidan fruit (prekese)" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "sweet, caramelly, musky" ;
+        food:cuisine "West African" ;
+        .
+
+food:sumac_rhus_coriaria a food:Spice ;
+        schema:name "Sumac (Rhus coriaria)" ;
+        rdfs:label "Sumac (Rhus coriaria)" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "tart, lemony" ;
+        food:cuisine "Levantine" ;
+        .
+
+food:anise_seed a food:Spice ;
+        schema:name "Anise seed" ;
+        rdfs:label "Anise seed" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "sweet, licorice" ;
+        food:cuisine "Mediterranean" ;
+        .
+
+food:star_anise_whole a food:Spice ;
+        schema:name "Star anise (whole)" ;
+        rdfs:label "Star anise (whole)" ;
+        food:category "Barks, Buds, and Aromatic Parts" ;
+        food:flavorProfile "sweet, aniseed" ;
+        food:cuisine "Chinese" ;
+        food:cuisine "Vietnamese" ;
+        .
+
+food:carom_seed_ajowan a food:Spice ;
+        schema:name "Carom seed (ajowan)" ;
+        rdfs:label "Carom seed (ajowan)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "thyme-like, pungent" ;
+        food:cuisine "Indian" ;
+        .
+
+food:black_sesame_seed a food:Spice ;
+        schema:name "Black sesame seed" ;
+        rdfs:label "Black sesame seed" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "nutty, toasty" ;
+        food:cuisine "East Asian" ;
+        .
+
+food:white_sesame_seed a food:Spice ;
+        schema:name "White sesame seed" ;
+        rdfs:label "White sesame seed" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "nutty, toasty" ;
+        food:cuisine "Global" ;
+        .
+
+food:cuban_oregano_dried a food:Spice ;
+        schema:name "Cuban oregano (dried)" ;
+        rdfs:label "Cuban oregano (dried)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "pungent, minty" ;
+        food:cuisine "Caribbean" ;
+        .
+
+food:lovage_seed a food:Spice ;
+        schema:name "Lovage seed" ;
+        rdfs:label "Lovage seed" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "celery-like, intense" ;
+        food:cuisine "European" ;
+        .
+
+food:nigella_damascena_love_in_a_mist_seed a food:Spice ;
+        schema:name "Nigella damascena (love-in-a-mist seed)" ;
+        rdfs:label "Nigella damascena (love-in-a-mist seed)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "nutty, peppery" ;
+        food:cuisine "European" ;
+        .
+
+food:szechuan_pepper_leaf a food:Spice ;
+        schema:name "Szechuan pepper leaf" ;
+        rdfs:label "Szechuan pepper leaf" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "citrusy, numbing" ;
+        food:cuisine "Chinese" ;
+        .
+
+food:voatsiperifery_ground a food:Spice ;
+        schema:name "Voatsiperifery (ground)" ;
+        rdfs:label "Voatsiperifery (ground)" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, citrusy" ;
+        food:cuisine "Madagascar" ;
+        .
+
+food:andaliman_ground a food:Spice ;
+        schema:name "Andaliman (ground)" ;
+        rdfs:label "Andaliman (ground)" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "lemony, numbing" ;
+        food:cuisine "Indonesian" ;
+        .
+
+food:dried_pandan_leaf_powder a food:Spice ;
+        schema:name "Dried pandan leaf powder" ;
+        rdfs:label "Dried pandan leaf powder" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "grassy, vanilla-like" ;
+        food:cuisine "Southeast Asian" ;
+        .
+
+food:smoked_salt_seasoning a food:Spice ;
+        schema:name "Smoked salt (seasoning)" ;
+        rdfs:label "Smoked salt (seasoning)" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "smoky, salty" ;
+        food:cuisine "Global" ;
+        .
+
+food:black_salt_kala_namak a food:Spice ;
+        schema:name "Black salt (kala namak)" ;
+        rdfs:label "Black salt (kala namak)" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "sulfurous, salty" ;
+        food:cuisine "Indian" ;
+        .
+
+food:dried_shrimp_powder a food:Spice ;
+        schema:name "Dried shrimp powder" ;
+        rdfs:label "Dried shrimp powder" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "umami, briny" ;
+        food:cuisine "Southeast Asian" ;
+        .
+
+food:katsuobushi_powder a food:Spice ;
+        schema:name "Katsuobushi powder" ;
+        rdfs:label "Katsuobushi powder" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "smoky, umami" ;
+        food:cuisine "Japanese" ;
+        .
+
+food:fermented_black_bean_douchi_powder a food:Spice ;
+        schema:name "Fermented black bean (douchi) powder" ;
+        rdfs:label "Fermented black bean (douchi) powder" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "salty, umami" ;
+        food:cuisine "Chinese" ;
+        .
+
+food:amchur_granules a food:Spice ;
+        schema:name "Amchur granules" ;
+        rdfs:label "Amchur granules" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "tart, fruity" ;
+        food:cuisine "Indian" ;
+        .
+
+food:black_garlic_granules a food:Spice ;
+        schema:name "Black garlic granules" ;
+        rdfs:label "Black garlic granules" ;
+        food:category "Onion/Garlic Family" ;
+        food:flavorProfile "sweet, umami" ;
+        food:cuisine "Global" ;
+        .
+
+food:garlic_flakes a food:Spice ;
+        schema:name "Garlic flakes" ;
+        rdfs:label "Garlic flakes" ;
+        food:category "Onion/Garlic Family" ;
+        food:flavorProfile "savory, sweet" ;
+        food:cuisine "Global" ;
+        .
+
+food:onion_flakes a food:Spice ;
+        schema:name "Onion flakes" ;
+        rdfs:label "Onion flakes" ;
+        food:category "Onion/Garlic Family" ;
+        food:flavorProfile "savory, sweet" ;
+        food:cuisine "Global" ;
+        .
+
+food:kasoori_methi_fenugreek_leaf a food:Spice ;
+        schema:name "Kasoori methi (fenugreek leaf)" ;
+        rdfs:label "Kasoori methi (fenugreek leaf)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "maple, bitter-sweet" ;
+        food:cuisine "Indian" ;
+        .
+
+food:basil_seeds_sabja a food:Spice ;
+        schema:name "Basil seeds (sabja)" ;
+        rdfs:label "Basil seeds (sabja)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "herbal, mild" ;
+        food:cuisine "Indian" ;
+        food:cuisine "SE Asia" ;
+        .
+
+food:dill_weed a food:Spice ;
+        schema:name "Dill weed" ;
+        rdfs:label "Dill weed" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbaceous, sweet" ;
+        food:cuisine "European" ;
+        .
+
+
+food:calabash_nutmeg_monodora_myristica a food:Spice ;
+        schema:name "Calabash nutmeg (Monodora myristica)" ;
+        rdfs:label "Calabash nutmeg (Monodora myristica)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "warm, nutmeg-like, camphor" ;
+        food:cuisine "West African" ;
+        .
+
+food:negro_pepper_xylopia_aethiopica a food:Spice ;
+        schema:name "Negro pepper (Xylopia aethiopica)" ;
+        rdfs:label "Negro pepper (Xylopia aethiopica)" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, smoky" ;
+        food:cuisine "West African" ;
+        .
+
+food:ashanti_pepper_piper_guineense a food:Spice ;
+        schema:name "Ashanti pepper (Piper guineense)" ;
+        rdfs:label "Ashanti pepper (Piper guineense)" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, aromatic" ;
+        food:cuisine "West African" ;
+        .
+
+food:koseret_lippia_adoensis a food:Spice ;
+        schema:name "Koseret (Lippia adoensis)" ;
+        rdfs:label "Koseret (Lippia adoensis)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbal, floral" ;
+        food:cuisine "Ethiopian" ;
+        .
+
+food:besobela_holy_basil_seed a food:Spice ;
+        schema:name "Besobela (holy basil seed)" ;
+        rdfs:label "Besobela (holy basil seed)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "basilic, aromatic" ;
+        food:cuisine "Ethiopian" ;
+        .
+
+food:tena_adam_ruta_chalepensis a food:Spice ;
+        schema:name "Tena Adam (Ruta chalepensis)" ;
+        rdfs:label "Tena Adam (Ruta chalepensis)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "herbal, citrus-bitter" ;
+        food:cuisine "Ethiopian" ;
+        .
+
+food:chenpi_aged_tangerine_peel a food:Spice ;
+        schema:name "Chenpi (aged tangerine peel)" ;
+        rdfs:label "Chenpi (aged tangerine peel)" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "citrus, bitter, woody" ;
+        food:cuisine "Chinese" ;
+        .
+
+food:dried_orange_peel a food:Spice ;
+        schema:name "Dried orange peel" ;
+        rdfs:label "Dried orange peel" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "citrus, sweet-bitter" ;
+        food:cuisine "Global" ;
+        .
+
+food:dried_lemon_peel a food:Spice ;
+        schema:name "Dried lemon peel" ;
+        rdfs:label "Dried lemon peel" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "citrus, bright" ;
+        food:cuisine "Global" ;
+        .
+
+food:yuzu_peel_dried a food:Spice ;
+        schema:name "Yuzu peel (dried)" ;
+        rdfs:label "Yuzu peel (dried)" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "citrus, floral" ;
+        food:cuisine "Japanese" ;
+        .
+
+food:kencur_kaempferia_galanga a food:Spice ;
+        schema:name "Kencur (Kaempferia galanga)" ;
+        rdfs:label "Kencur (Kaempferia galanga)" ;
+        food:category "Rhizomes, Roots, and Underground" ;
+        food:flavorProfile "peppery, camphor, ginger" ;
+        food:cuisine "Indonesian" ;
+        .
+
+food:sand_ginger_kaempferia_rotunda a food:Spice ;
+        schema:name "Sand ginger (Kaempferia rotunda)" ;
+        rdfs:label "Sand ginger (Kaempferia rotunda)" ;
+        food:category "Rhizomes, Roots, and Underground" ;
+        food:flavorProfile "spicy, aromatic" ;
+        food:cuisine "Southeast Asian" ;
+        .
+
+food:torch_ginger_flower_dried a food:Spice ;
+        schema:name "Torch ginger flower (dried)" ;
+        rdfs:label "Torch ginger flower (dried)" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "floral, ginger, citrus" ;
+        food:cuisine "Malay/Indonesian" ;
+        .
+
+food:andaliman_leaf_dried a food:Spice ;
+        schema:name "Andaliman leaf (dried)" ;
+        rdfs:label "Andaliman leaf (dried)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "lemony, numbing" ;
+        food:cuisine "Indonesian" ;
+        .
+
+food:avocado_leaf_dried a food:Spice ;
+        schema:name "Avocado leaf (dried)" ;
+        rdfs:label "Avocado leaf (dried)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "anise, fennel" ;
+        food:cuisine "Mexican" ;
+        .
+
+food:epazote_seed a food:Spice ;
+        schema:name "Epazote seed" ;
+        rdfs:label "Epazote seed" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "resinous, herbal" ;
+        food:cuisine "Mexican" ;
+        .
+
+food:allspice_leaves_dried a food:Spice ;
+        schema:name "Allspice leaves (dried)" ;
+        rdfs:label "Allspice leaves (dried)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "spicy, clove-like" ;
+        food:cuisine "Caribbean" ;
+        .
+
+food:cascabel_chili a food:Spice ;
+        schema:name "Cascabel chili" ;
+        rdfs:label "Cascabel chili" ;
+        food:category "Chilies" ;
+        food:flavorProfile "nutty, tobacco" ;
+        food:cuisine "Mexican" ;
+        .
+
+food:mulato_chili a food:Spice ;
+        schema:name "Mulato chili" ;
+        rdfs:label "Mulato chili" ;
+        food:category "Chilies" ;
+        food:flavorProfile "chocolatey, smoky" ;
+        food:cuisine "Mexican" ;
+        .
+
+food:new_mexico_chili a food:Spice ;
+        schema:name "New Mexico chili" ;
+        rdfs:label "New Mexico chili" ;
+        food:category "Chilies" ;
+        food:flavorProfile "earthy, sweet heat" ;
+        food:cuisine "Mexican" ;
+        food:cuisine "American" ;
+        .
+
+food:pequin_chili a food:Spice ;
+        schema:name "Pequin chili" ;
+        rdfs:label "Pequin chili" ;
+        food:category "Chilies" ;
+        food:flavorProfile "hot, citrusy" ;
+        food:cuisine "Mexican" ;
+        .
+
+food:aji_amarillo_powder a food:Spice ;
+        schema:name "Aji amarillo powder" ;
+        rdfs:label "Aji amarillo powder" ;
+        food:category "Chilies" ;
+        food:flavorProfile "fruity, medium heat" ;
+        food:cuisine "Peruvian" ;
+        .
+
+food:mastic_resin a food:Spice ;
+        schema:name "Mastic (resin)" ;
+        rdfs:label "Mastic (resin)" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "piney, citrus" ;
+        food:cuisine "Greek" ;
+        food:cuisine "Middle Eastern" ;
+        .
+
+food:mahleb_seed_ground a food:Spice ;
+        schema:name "Mahleb seed (ground)" ;
+        rdfs:label "Mahleb seed (ground)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "cherry, almond, floral" ;
+        food:cuisine "Levantine" ;
+        .
+
+food:fennel_pollen a food:Spice ;
+        schema:name "Fennel pollen" ;
+        rdfs:label "Fennel pollen" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "intensely aniseed, floral" ;
+        food:cuisine "Italian" ;
+        .
+
+food:dill_pollen a food:Spice ;
+        schema:name "Dill pollen" ;
+        rdfs:label "Dill pollen" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "sweet, herbaceous" ;
+        food:cuisine "European" ;
+        .
+
+food:sumac_berries_whole a food:Spice ;
+        schema:name "Sumac berries (whole)" ;
+        rdfs:label "Sumac berries (whole)" ;
+        food:category "Fruity/Tangy/Floral" ;
+        food:flavorProfile "tart, lemony" ;
+        food:cuisine "Levantine" ;
+        .
+
+food:carob_powder a food:Spice ;
+        schema:name "Carob powder" ;
+        rdfs:label "Carob powder" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "sweet, cocoa-like" ;
+        food:cuisine "Mediterranean" ;
+        .
+
+food:cubeb_powder a food:Spice ;
+        schema:name "Cubeb powder" ;
+        rdfs:label "Cubeb powder" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "peppery, camphor" ;
+        food:cuisine "Indonesian" ;
+        .
+
+food:long_pepper_piper_retrofractum a food:Spice ;
+        schema:name "Long pepper (Piper retrofractum)" ;
+        rdfs:label "Long pepper (Piper retrofractum)" ;
+        food:category "Peppers & Peppercorns" ;
+        food:flavorProfile "hot, complex" ;
+        food:cuisine "Southeast Asian" ;
+        .
+
+food:morel_powder a food:Spice ;
+        schema:name "Morel powder" ;
+        rdfs:label "Morel powder" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "earthy, nutty, umami" ;
+        food:cuisine "Global" ;
+        .
+
+food:matsutake_powder a food:Spice ;
+        schema:name "Matsutake powder" ;
+        rdfs:label "Matsutake powder" ;
+        food:category "Special/Umami Powders & Sea" ;
+        food:flavorProfile "piney, spicy" ;
+        food:cuisine "Japanese" ;
+        .
+
+food:furikake_base a food:Spice ;
+        schema:name "Furikake (base)" ;
+        rdfs:label "Furikake (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "nori, sesame, fishy" ;
+        food:cuisine "Japanese" ;
+        .
+
+food:old_bay_base a food:Spice ;
+        schema:name "Old Bay (base)" ;
+        rdfs:label "Old Bay (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "celery salt, paprika" ;
+        food:cuisine "American" ;
+        .
+
+food:montreal_steak_seasoning_base a food:Spice ;
+        schema:name "Montreal steak seasoning (base)" ;
+        rdfs:label "Montreal steak seasoning (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "pepper, garlic, herbs" ;
+        food:cuisine "American" ;
+        .
+
+food:adobo_seasoning_base a food:Spice ;
+        schema:name "Adobo seasoning (base)" ;
+        rdfs:label "Adobo seasoning (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "garlic, oregano, cumin" ;
+        food:cuisine "Latin American" ;
+        .
+
+food:taco_seasoning_base a food:Spice ;
+        schema:name "Taco seasoning (base)" ;
+        rdfs:label "Taco seasoning (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "chili, cumin, oregano" ;
+        food:cuisine "American" ;
+        food:cuisine "Mexican" ;
+        .
+
+food:curry_powder_base a food:Spice ;
+        schema:name "Curry powder (base)" ;
+        rdfs:label "Curry powder (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "turmeric, coriander, cumin" ;
+        food:cuisine "British-Indian" ;
+        .
+
+food:advieh_polo_base a food:Spice ;
+        schema:name "Advieh polo (base)" ;
+        rdfs:label "Advieh polo (base)" ;
+        food:category "Blends/Seasonings" ;
+        food:flavorProfile "cinnamon, cumin, rose" ;
+        food:cuisine "Persian" ;
+        .
+
+food:paradise_nut_sapucaia_powder a food:Spice ;
+        schema:name "Paradise nut (sapucaia) powder" ;
+        rdfs:label "Paradise nut (sapucaia) powder" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "nutty, cocoa" ;
+        food:cuisine "Amazonian" ;
+        .
+
+food:brazil_nut_meal_seasoning a food:Spice ;
+        schema:name "Brazil nut meal (seasoning)" ;
+        rdfs:label "Brazil nut meal (seasoning)" ;
+        food:category "Seeds & Seed Pods" ;
+        food:flavorProfile "nutty, rich" ;
+        food:cuisine "Amazonian" ;
+        .
+
+food:lime_leaf_powder_makrut a food:Spice ;
+        schema:name "Lime leaf powder (makrut)" ;
+        rdfs:label "Lime leaf powder (makrut)" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "citrus, floral" ;
+        food:cuisine "Thai" ;
+        .
+
+food:curry_leaf_powder a food:Spice ;
+        schema:name "Curry leaf powder" ;
+        rdfs:label "Curry leaf powder" ;
+        food:category "Herbs (dried, culinary-spice use)" ;
+        food:flavorProfile "citrus, nutty" ;
+        food:cuisine "Indian" ;
+        .
+
+
+food:garam_masala a food:Blend ;
+    schema:name "Garam masala" ;
+    rdfs:label "Garam masala" .
+food:garam_masala food:hasIngredient food:cumin .
+food:garam_masala food:hasIngredient food:coriander_seed .
+food:garam_masala food:hasIngredient food:black_pepper .
+food:garam_masala food:hasIngredient food:cardamom_green .
+food:garam_masala food:hasIngredient food:cinnamon_ceylon .
+food:garam_masala food:hasIngredient food:clove .
+food:garam_masala food:hasIngredient food:nutmeg .
+
+food:ras_el_hanout a food:Blend ;
+    schema:name "Ras el hanout" ;
+    rdfs:label "Ras el hanout" .
+food:ras_el_hanout food:hasIngredient food:coriander_seed .
+food:ras_el_hanout food:hasIngredient food:cumin .
+food:ras_el_hanout food:hasIngredient food:cinnamon_ceylon .
+food:ras_el_hanout food:hasIngredient food:clove .
+food:ras_el_hanout food:hasIngredient food:cardamom_green .
+food:ras_el_hanout food:hasIngredient food:paprika_sweet .
+food:ras_el_hanout food:hasIngredient food:nutmeg .
+food:ras_el_hanout food:hasIngredient food:mace .
+
+food:baharat a food:Blend ;
+    schema:name "Baharat" ;
+    rdfs:label "Baharat" .
+food:baharat food:hasIngredient food:black_pepper .
+food:baharat food:hasIngredient food:coriander_seed .
+food:baharat food:hasIngredient food:cumin .
+food:baharat food:hasIngredient food:paprika_sweet .
+food:baharat food:hasIngredient food:cardamom_green .
+food:baharat food:hasIngredient food:cinnamon_ceylon .
+food:baharat food:hasIngredient food:clove .
+food:baharat food:hasIngredient food:nutmeg .
+
+food:advieh a food:Blend ;
+    schema:name "Advieh" ;
+    rdfs:label "Advieh" .
+food:advieh food:hasIngredient food:cinnamon_ceylon .
+food:advieh food:hasIngredient food:cumin .
+food:advieh food:hasIngredient food:rose_petals_dried .
+food:advieh food:hasIngredient food:cardamom_green .
+
+food:dukkah a food:Blend ;
+    schema:name "Dukkah" ;
+    rdfs:label "Dukkah" .
+food:dukkah food:hasIngredient food:sesame_seed_toasted .
+food:dukkah food:hasIngredient food:coriander_seed .
+food:dukkah food:hasIngredient food:cumin .
+
+food:za_atar a food:Blend ;
+    schema:name "Za'atar" ;
+    rdfs:label "Za'atar" .
+food:za_atar food:hasIngredient food:thyme .
+food:za_atar food:hasIngredient food:oregano .
+food:za_atar food:hasIngredient food:marjoram .
+food:za_atar food:hasIngredient food:sesame_seed_toasted .
+food:za_atar food:hasIngredient food:sumac .
+
+food:chinese_five_spice a food:Blend ;
+    schema:name "Chinese five-spice" ;
+    rdfs:label "Chinese five-spice" .
+food:chinese_five_spice food:hasIngredient food:star_anise .
+food:chinese_five_spice food:hasIngredient food:cinnamon_ceylon .
+food:chinese_five_spice food:hasIngredient food:clove .
+food:chinese_five_spice food:hasIngredient food:sichuan_pepper .
+food:chinese_five_spice food:hasIngredient food:fennel_seed .
+
+food:shichimi_togarashi a food:Blend ;
+    schema:name "Shichimi togarashi" ;
+    rdfs:label "Shichimi togarashi" .
+food:shichimi_togarashi food:hasIngredient food:togarashi_base .
+food:shichimi_togarashi food:hasIngredient food:sesame_seed_toasted .
+food:shichimi_togarashi food:hasIngredient food:nori_flakes .
+food:shichimi_togarashi food:hasIngredient food:sansho_pepper .
+
+food:berbere a food:Blend ;
+    schema:name "Berbere" ;
+    rdfs:label "Berbere" .
+food:berbere food:hasIngredient food:chili_flakes .
+food:berbere food:hasIngredient food:paprika_sweet .
+food:berbere food:hasIngredient food:coriander_seed .
+food:berbere food:hasIngredient food:fenugreek_seed .
+food:berbere food:hasIngredient food:ginger_dried .
+food:berbere food:hasIngredient food:black_pepper .
+food:berbere food:hasIngredient food:ajwain_carom .
+
+food:panch_phoron a food:Blend ;
+    schema:name "Panch phoron" ;
+    rdfs:label "Panch phoron" .
+food:panch_phoron food:hasIngredient food:cumin .
+food:panch_phoron food:hasIngredient food:fennel_seed .
+food:panch_phoron food:hasIngredient food:fenugreek_seed .
+food:panch_phoron food:hasIngredient food:mustard_seed_black .
+food:panch_phoron food:hasIngredient food:nigella_kalonji .
+
+food:chaat_masala a food:Blend ;
+    schema:name "Chaat masala" ;
+    rdfs:label "Chaat masala" .
+food:chaat_masala food:hasIngredient food:coriander_seed .
+food:chaat_masala food:hasIngredient food:cumin .
+food:chaat_masala food:hasIngredient food:black_salt_kala_namak .
+food:chaat_masala food:hasIngredient food:amchoor_mango_powder .
+
+food:sazon a food:Blend ;
+    schema:name "Sazon" ;
+    rdfs:label "Sazon" .
+food:sazon food:hasIngredient food:garlic_powder .
+food:sazon food:hasIngredient food:oregano .
+food:sazon food:hasIngredient food:coriander_seed .
+food:sazon food:hasIngredient food:cumin .
+food:sazon food:hasIngredient food:annatto .
+
+food:italian_seasoning a food:Blend ;
+    schema:name "Italian seasoning" ;
+    rdfs:label "Italian seasoning" .
+food:italian_seasoning food:hasIngredient food:oregano .
+food:italian_seasoning food:hasIngredient food:basil_dried .
+food:italian_seasoning food:hasIngredient food:thyme .
+food:italian_seasoning food:hasIngredient food:marjoram .
+food:italian_seasoning food:hasIngredient food:sage .
+food:italian_seasoning food:hasIngredient food:rosemary .
+
+food:herbes_de_provence a food:Blend ;
+    schema:name "Herbes de Provence" ;
+    rdfs:label "Herbes de Provence" .
+food:herbes_de_provence food:hasIngredient food:thyme .
+food:herbes_de_provence food:hasIngredient food:rosemary .
+food:herbes_de_provence food:hasIngredient food:savory .
+food:herbes_de_provence food:hasIngredient food:oregano .
+food:herbes_de_provence food:hasIngredient food:marjoram .
+food:herbes_de_provence food:hasIngredient food:lavender_culinary .
+
+food:tandoori_masala a food:Blend ;
+    schema:name "Tandoori masala" ;
+    rdfs:label "Tandoori masala" .
+food:tandoori_masala food:hasIngredient food:coriander_seed .
+food:tandoori_masala food:hasIngredient food:cumin .
+food:tandoori_masala food:hasIngredient food:kashmiri_chili .
+food:tandoori_masala food:hasIngredient food:garlic_powder .
+food:tandoori_masala food:hasIngredient food:ginger_dried .
+
+food:cajun_seasoning a food:Blend ;
+    schema:name "Cajun seasoning" ;
+    rdfs:label "Cajun seasoning" .
+food:cajun_seasoning food:hasIngredient food:paprika_sweet .
+food:cajun_seasoning food:hasIngredient food:garlic_powder .
+food:cajun_seasoning food:hasIngredient food:onion_powder .
+food:cajun_seasoning food:hasIngredient food:black_pepper .
+food:cajun_seasoning food:hasIngredient food:thyme .
+
+food:creole_seasoning a food:Blend ;
+    schema:name "Creole seasoning" ;
+    rdfs:label "Creole seasoning" .
+food:creole_seasoning food:hasIngredient food:paprika_sweet .
+food:creole_seasoning food:hasIngredient food:garlic_powder .
+food:creole_seasoning food:hasIngredient food:onion_powder .
+food:creole_seasoning food:hasIngredient food:oregano .
+food:creole_seasoning food:hasIngredient food:thyme .
+
+food:jerk_seasoning a food:Blend ;
+    schema:name "Jerk seasoning" ;
+    rdfs:label "Jerk seasoning" .
+food:jerk_seasoning food:hasIngredient food:allspice .
+food:jerk_seasoning food:hasIngredient food:thyme .
+food:jerk_seasoning food:hasIngredient food:scotch_bonnet_powder .
+food:jerk_seasoning food:hasIngredient food:garlic_powder .
+
+food:old_bay a food:Blend ;
+    schema:name "Old Bay" ;
+    rdfs:label "Old Bay" .
+food:old_bay food:hasIngredient food:celery_seed .
+food:old_bay food:hasIngredient food:paprika_sweet .
+food:old_bay food:hasIngredient food:mustard_seed_yellow .
+food:old_bay food:hasIngredient food:black_pepper .
+
+food:furikake a food:Blend ;
+    schema:name "Furikake" ;
+    rdfs:label "Furikake" .
+food:furikake food:hasIngredient food:nori_flakes .
+food:furikake food:hasIngredient food:sesame_seed_toasted .
+
+food:curry_powder a food:Blend ;
+    schema:name "Curry powder" ;
+    rdfs:label "Curry powder" .
+food:curry_powder food:hasIngredient food:turmeric .
+food:curry_powder food:hasIngredient food:coriander_seed .
+food:curry_powder food:hasIngredient food:cumin .
+food:curry_powder food:hasIngredient food:fenugreek_seed .
+food:curry_powder food:hasIngredient food:black_pepper .
+
+food:taco_seasoning a food:Blend ;
+    schema:name "Taco seasoning" ;
+    rdfs:label "Taco seasoning" .
+food:taco_seasoning food:hasIngredient food:chili_flakes .
+food:taco_seasoning food:hasIngredient food:cumin .
+food:taco_seasoning food:hasIngredient food:paprika_sweet .
+food:taco_seasoning food:hasIngredient food:oregano .
+food:taco_seasoning food:hasIngredient food:garlic_powder .
+food:taco_seasoning food:hasIngredient food:onion_powder .
+food:cumin food:memberOfBlend food:garam_masala .
+food:coriander_seed food:memberOfBlend food:garam_masala .
+food:black_pepper food:memberOfBlend food:garam_masala .
+food:cardamom_green food:memberOfBlend food:garam_masala .
+food:cinnamon_ceylon food:memberOfBlend food:garam_masala .
+food:clove food:memberOfBlend food:garam_masala .
+food:nutmeg food:memberOfBlend food:garam_masala .
+food:coriander_seed food:memberOfBlend food:ras_el_hanout .
+food:cumin food:memberOfBlend food:ras_el_hanout .
+food:cinnamon_ceylon food:memberOfBlend food:ras_el_hanout .
+food:clove food:memberOfBlend food:ras_el_hanout .
+food:cardamom_green food:memberOfBlend food:ras_el_hanout .
+food:paprika_sweet food:memberOfBlend food:ras_el_hanout .
+food:nutmeg food:memberOfBlend food:ras_el_hanout .
+food:mace food:memberOfBlend food:ras_el_hanout .
+food:black_pepper food:memberOfBlend food:baharat .
+food:coriander_seed food:memberOfBlend food:baharat .
+food:cumin food:memberOfBlend food:baharat .
+food:paprika_sweet food:memberOfBlend food:baharat .
+food:cardamom_green food:memberOfBlend food:baharat .
+food:cinnamon_ceylon food:memberOfBlend food:baharat .
+food:clove food:memberOfBlend food:baharat .
+food:nutmeg food:memberOfBlend food:baharat .
+food:cinnamon_ceylon food:memberOfBlend food:advieh .
+food:cumin food:memberOfBlend food:advieh .
+food:rose_petals_dried food:memberOfBlend food:advieh .
+food:cardamom_green food:memberOfBlend food:advieh .
+food:sesame_seed_toasted food:memberOfBlend food:dukkah .
+food:coriander_seed food:memberOfBlend food:dukkah .
+food:cumin food:memberOfBlend food:dukkah .
+food:thyme food:memberOfBlend food:za_atar .
+food:oregano food:memberOfBlend food:za_atar .
+food:marjoram food:memberOfBlend food:za_atar .
+food:sesame_seed_toasted food:memberOfBlend food:za_atar .
+food:sumac food:memberOfBlend food:za_atar .
+food:star_anise food:memberOfBlend food:chinese_five_spice .
+food:cinnamon_ceylon food:memberOfBlend food:chinese_five_spice .
+food:clove food:memberOfBlend food:chinese_five_spice .
+food:sichuan_pepper food:memberOfBlend food:chinese_five_spice .
+food:fennel_seed food:memberOfBlend food:chinese_five_spice .
+food:togarashi_base food:memberOfBlend food:shichimi_togarashi .
+food:sesame_seed_toasted food:memberOfBlend food:shichimi_togarashi .
+food:nori_flakes food:memberOfBlend food:shichimi_togarashi .
+food:sansho_pepper food:memberOfBlend food:shichimi_togarashi .
+food:chili_flakes food:memberOfBlend food:berbere .
+food:paprika_sweet food:memberOfBlend food:berbere .
+food:coriander_seed food:memberOfBlend food:berbere .
+food:fenugreek_seed food:memberOfBlend food:berbere .
+food:ginger_dried food:memberOfBlend food:berbere .
+food:black_pepper food:memberOfBlend food:berbere .
+food:ajwain_carom food:memberOfBlend food:berbere .
+food:cumin food:memberOfBlend food:panch_phoron .
+food:fennel_seed food:memberOfBlend food:panch_phoron .
+food:fenugreek_seed food:memberOfBlend food:panch_phoron .
+food:mustard_seed_black food:memberOfBlend food:panch_phoron .
+food:nigella_kalonji food:memberOfBlend food:panch_phoron .
+food:coriander_seed food:memberOfBlend food:chaat_masala .
+food:cumin food:memberOfBlend food:chaat_masala .
+food:black_salt_kala_namak food:memberOfBlend food:chaat_masala .
+food:amchoor_mango_powder food:memberOfBlend food:chaat_masala .
+food:garlic_powder food:memberOfBlend food:sazon .
+food:oregano food:memberOfBlend food:sazon .
+food:coriander_seed food:memberOfBlend food:sazon .
+food:cumin food:memberOfBlend food:sazon .
+food:annatto food:memberOfBlend food:sazon .
+food:oregano food:memberOfBlend food:italian_seasoning .
+food:basil_dried food:memberOfBlend food:italian_seasoning .
+food:thyme food:memberOfBlend food:italian_seasoning .
+food:marjoram food:memberOfBlend food:italian_seasoning .
+food:sage food:memberOfBlend food:italian_seasoning .
+food:rosemary food:memberOfBlend food:italian_seasoning .
+food:thyme food:memberOfBlend food:herbes_de_provence .
+food:rosemary food:memberOfBlend food:herbes_de_provence .
+food:savory food:memberOfBlend food:herbes_de_provence .
+food:oregano food:memberOfBlend food:herbes_de_provence .
+food:marjoram food:memberOfBlend food:herbes_de_provence .
+food:lavender_culinary food:memberOfBlend food:herbes_de_provence .
+food:coriander_seed food:memberOfBlend food:tandoori_masala .
+food:cumin food:memberOfBlend food:tandoori_masala .
+food:kashmiri_chili food:memberOfBlend food:tandoori_masala .
+food:garlic_powder food:memberOfBlend food:tandoori_masala .
+food:ginger_dried food:memberOfBlend food:tandoori_masala .
+food:paprika_sweet food:memberOfBlend food:cajun_seasoning .
+food:garlic_powder food:memberOfBlend food:cajun_seasoning .
+food:onion_powder food:memberOfBlend food:cajun_seasoning .
+food:black_pepper food:memberOfBlend food:cajun_seasoning .
+food:thyme food:memberOfBlend food:cajun_seasoning .
+food:paprika_sweet food:memberOfBlend food:creole_seasoning .
+food:garlic_powder food:memberOfBlend food:creole_seasoning .
+food:onion_powder food:memberOfBlend food:creole_seasoning .
+food:oregano food:memberOfBlend food:creole_seasoning .
+food:thyme food:memberOfBlend food:creole_seasoning .
+food:allspice food:memberOfBlend food:jerk_seasoning .
+food:thyme food:memberOfBlend food:jerk_seasoning .
+food:scotch_bonnet_powder food:memberOfBlend food:jerk_seasoning .
+food:garlic_powder food:memberOfBlend food:jerk_seasoning .
+food:celery_seed food:memberOfBlend food:old_bay .
+food:paprika_sweet food:memberOfBlend food:old_bay .
+food:mustard_seed_yellow food:memberOfBlend food:old_bay .
+food:black_pepper food:memberOfBlend food:old_bay .
+food:nori_flakes food:memberOfBlend food:furikake .
+food:sesame_seed_toasted food:memberOfBlend food:furikake .
+food:turmeric food:memberOfBlend food:curry_powder .
+food:coriander_seed food:memberOfBlend food:curry_powder .
+food:cumin food:memberOfBlend food:curry_powder .
+food:fenugreek_seed food:memberOfBlend food:curry_powder .
+food:black_pepper food:memberOfBlend food:curry_powder .
+food:chili_flakes food:memberOfBlend food:taco_seasoning .
+food:cumin food:memberOfBlend food:taco_seasoning .
+food:paprika_sweet food:memberOfBlend food:taco_seasoning .
+food:oregano food:memberOfBlend food:taco_seasoning .
+food:garlic_powder food:memberOfBlend food:taco_seasoning .
+food:onion_powder food:memberOfBlend food:taco_seasoning .
