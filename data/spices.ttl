@@ -1,0 +1,99 @@
+@prefix spice: <http://example.org/spice#> .
+@prefix schema: <http://schema.org/> .
+@prefix food: <http://example.org/food#> .
+
+spice:cumin a food:Spice ;
+    schema:name "Cumin" ;
+    food:flavorProfile "Earthy, Warm, Nutty" ;
+    food:cuisine "Indian", "Mexican", "Middle-Eastern" ;
+    food:pairsWellWith spice:coriander, spice:paprika, spice:chili, spice:turmeric .
+
+spice:coriander a food:Spice ;
+    schema:name "Coriander" ;
+    food:flavorProfile "Citrus, Fresh, Sweet" ;
+    food:cuisine "Indian", "Thai", "Middle-Eastern" ;
+    food:pairsWellWith spice:cumin, spice:turmeric, spice:ginger .
+
+spice:cinnamon a food:Spice ;
+    schema:name "Cinnamon" ;
+    food:flavorProfile "Sweet, Warm, Woody" ;
+    food:cuisine "Middle-Eastern", "American", "Indian" ;
+    food:pairsWellWith spice:cardamom, spice:clove, spice:nutmeg, spice:ginger .
+
+spice:cardamom a food:Spice ;
+    schema:name "Cardamom" ;
+    food:flavorProfile "Floral, Sweet, Eucalyptus" ;
+    food:cuisine "Indian", "Middle-Eastern", "Scandinavian" ;
+    food:pairsWellWith spice:cinnamon, spice:clove, spice:saffron .
+
+spice:paprika a food:Spice ;
+    schema:name "Paprika" ;
+    food:flavorProfile "Sweet, Mild, Smoky" ;
+    food:cuisine "Spanish", "Hungarian", "Middle-Eastern" ;
+    food:pairsWellWith spice:cumin, spice:garlic, spice:chili .
+
+spice:turmeric a food:Spice ;
+    schema:name "Turmeric" ;
+    food:flavorProfile "Earthy, Bitter, Peppery" ;
+    food:cuisine "Indian", "Southeast-Asian" ;
+    food:pairsWellWith spice:cumin, spice:coriander, spice:ginger, spice:blackPepper .
+
+spice:ginger a food:Spice ;
+    schema:name "Ginger" ;
+    food:flavorProfile "Spicy, Sharp, Sweet" ;
+    food:cuisine "Asian", "Indian", "Middle-Eastern" ;
+    food:pairsWellWith spice:garlic, spice:turmeric, spice:coriander, spice:cinnamon .
+
+spice:garlic a food:Spice ;
+    schema:name "Garlic" ;
+    food:flavorProfile "Pungent, Savory, Sharp" ;
+    food:cuisine "Universal" ;
+    food:pairsWellWith spice:ginger, spice:paprika, spice:chili, spice:blackPepper .
+
+spice:chili a food:Spice ;
+    schema:name "Chili" ;
+    food:flavorProfile "Hot, Fruity, Intense" ;
+    food:cuisine "Mexican", "Indian", "Thai" ;
+    food:pairsWellWith spice:cumin, spice:paprika, spice:garlic, spice:lime .
+
+spice:clove a food:Spice ;
+    schema:name "Clove" ;
+    food:flavorProfile "Sweet, Bitter, Astringent" ;
+    food:cuisine "Indian", "Middle-Eastern", "Indonesian" ;
+    food:pairsWellWith spice:cinnamon, spice:cardamom, spice:nutmeg .
+
+spice:nutmeg a food:Spice ;
+    schema:name "Nutmeg" ;
+    food:flavorProfile "Warm, Sweet, Nutty" ;
+    food:cuisine "European", "Indian", "Middle-Eastern" ;
+    food:pairsWellWith spice:cinnamon, spice:clove, spice:mace .
+
+spice:blackPepper a food:Spice ;
+    schema:name "Black Pepper" ;
+    food:flavorProfile "Sharp, Spicy, Earthy" ;
+    food:cuisine "Universal" ;
+    food:pairsWellWith spice:turmeric, spice:garlic, spice:cumin .
+
+spice:saffron a food:Spice ;
+    schema:name "Saffron" ;
+    food:flavorProfile "Floral, Honey, Earthy" ;
+    food:cuisine "Persian", "Spanish", "Indian" ;
+    food:pairsWellWith spice:cardamom, spice:rosewater .
+
+spice:lime a food:Spice ;
+    schema:name "Lime" ;
+    food:flavorProfile "Citrus, Tart, Bright" ;
+    food:cuisine "Mexican", "Thai", "Vietnamese" ;
+    food:pairsWellWith spice:chili, spice:ginger, spice:coriander .
+
+spice:rosewater a food:Spice ;
+    schema:name "Rosewater" ;
+    food:flavorProfile "Floral, Perfumed, Delicate" ;
+    food:cuisine "Persian", "Indian", "Middle-Eastern" ;
+    food:pairsWellWith spice:saffron, spice:cardamom .
+
+spice:mace a food:Spice ;
+    schema:name "Mace" ;
+    food:flavorProfile "Warm, Sweet, Delicate" ;
+    food:cuisine "European", "Indian" ;
+    food:pairsWellWith spice:nutmeg, spice:cinnamon .

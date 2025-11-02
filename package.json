@@ -1,0 +1,16 @@
+{
+  "name": "spice-network",
+  "version": "1.0.0",
+  "description": "Spice Pairing Network — static site using rdflib and vis-network",
+  "private": true,
+  "scripts": {
+    "start": "serve .",
+    "dev": "live-server --port=8000 --open=index.html .",
+    "deploy": "gh-pages -d ."
+  },
+  "devDependencies": {
+    "serve": "^14.1.2",
+    "live-server": "^1.2.2",
+    "gh-pages": "^5.0.0"
+  }
+}

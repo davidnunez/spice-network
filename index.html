@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spice Pairing Network</title>
+    <script src="https://cdn.jsdelivr.net/npm/rdflib@2.2.33/dist/rdflib.min.js"></script>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f0;
+        }
+
+        /* Layout: network and info side-by-side on wide screens, stacked on small screens */
+        .main {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        #network {
+            flex: 1 1 auto;
+            min-width: 320px;
+            height: 600px;
+            border: 2px solid #333;
+            background: white;
+        }
+
+        #info {
+            flex: 0 0 320px;
+            padding: 15px;
+            background: white;
+            border: 2px solid #333;
+            min-height: 200px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .spice-info {
+            margin: 10px 0;
+        }
+
+        #controls {
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+
+        button:hover {
+            background: #555;
+        }
+
+        /* Responsive: stack vertically on narrow screens */
+        @media (max-width: 900px) {
+            .main {
+                flex-direction: column;
+            }
+
+            #network {
+                height: 480px;
+            }
+
+            #info {
+                flex: 1 1 auto;
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🌶️ Spice Pairing Network (RDF Edition)</h1>
+    
+    <div id="controls">
+        <button onclick="resetView()">Reset View</button>
+        <button onclick="togglePhysics()">Toggle Physics</button>
+    </div>
+    
+    <div class="main">
+        <div id="network"></div>
+        <aside id="info" aria-live="polite">
+            <strong>Click a spice to see details and connections</strong>
+        </aside>
+    </div>
+
+    <script>
+        // Load RDF Turtle from an external file and initialize the visualization.
+        async function fetchRdfText() {
+            const candidates = [
+                './data/spices.ttl', // when served from repo root
+                '../data/spices.ttl', // when file is in docs/ and opened directly
+                '/data/spices.ttl', // absolute path when served from root
+                './spices.ttl',
+                'spices.ttl'
+            ];
+
+            for (const path of candidates) {
+                try {
+                    const resp = await fetch(path);
+                    if (resp.ok) return await resp.text();
+                } catch (e) {
+                    // ignore and try next
+                }
+            }
+            throw new Error('Unable to load RDF data from any candidate path. Make sure data/spices.ttl exists and you are serving the site over HTTP.');
+        }
+
+        async function init() {
+            const rdfText = await fetchRdfText();
+
+            // Parse RDF
+            const store = $rdf.graph();
+            const contentType = 'text/turtle';
+            const baseURI = 'http://example.org/';
+
+            try {
+                $rdf.parse(rdfText, store, baseURI, contentType);
+            } catch (e) {
+                console.error('Error parsing RDF:', e);
+                document.getElementById('info').textContent = 'Error parsing RDF data. See console.';
+                return;
+            }
+
+            // Extract data from RDF store
+            const SPICE = $rdf.Namespace('http://example.org/spice#');
+            const FOOD = $rdf.Namespace('http://example.org/food#');
+            const SCHEMA = $rdf.Namespace('http://schema.org/');
+            const RDF = $rdf.Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+
+            // Get all spices
+            const spices = store.each(undefined, RDF('type'), FOOD('Spice'));
+
+            // Build nodes
+            const nodes = new vis.DataSet();
+            const edges = new vis.DataSet();
+            const spiceData = {};
+
+            spices.forEach(spice => {
+                const id = spice.value;
+                const name = store.any(spice, SCHEMA('name'))?.value || id;
+                const flavorProfile = store.any(spice, FOOD('flavorProfile'))?.value || '';
+                const cuisines = store.each(spice, FOOD('cuisine')).map(c => c.value);
+
+                spiceData[id] = {
+                    name: name,
+                    flavorProfile: flavorProfile,
+                    cuisines: cuisines
+                };
+
+                nodes.add({
+                    id: id,
+                    label: name,
+                    title: name + '\n' + flavorProfile,
+                    color: {
+                        background: '#FFE5B4',
+                        border: '#8B4513',
+                        highlight: {
+                            background: '#FFD700',
+                            border: '#8B4513'
+                        }
+                    },
+                    font: { color: '#333' }
+                });
+            });
+
+            // Build edges
+            spices.forEach(spice => {
+                const pairings = store.each(spice, FOOD('pairsWellWith'));
+                pairings.forEach(pairedSpice => {
+                    // Only add edge if both nodes exist
+                    if (nodes.get(spice.value) && nodes.get(pairedSpice.value)) {
+                        edges.add({
+                            from: spice.value,
+                            to: pairedSpice.value,
+                            color: { color: '#999', highlight: '#8B4513' },
+                            width: 2
+                        });
+                    }
+                });
+            });
+
+            // Create network
+            const container = document.getElementById('network');
+            const data = { nodes: nodes, edges: edges };
+            const options = {
+                physics: {
+                    enabled: true,
+                    barnesHut: {
+                        gravitationalConstant: -8000,
+                        springConstant: 0.04,
+                        springLength: 150
+                    },
+                    stabilization: {
+                        iterations: 200
+                    }
+                },
+                interaction: {
+                    hover: true,
+                    tooltipDelay: 100
+                }
+            };
+
+            const network = new vis.Network(container, data, options);
+
+            // Handle node clicks
+            network.on('click', function(params) {
+                if (params.nodes.length > 0) {
+                    const nodeId = params.nodes[0];
+                    const spice = spiceData[nodeId];
+
+                    // Get connections
+                    const connectedEdges = network.getConnectedEdges(nodeId);
+                    const connectedNodes = network.getConnectedNodes(nodeId);
+                    const pairedSpices = connectedNodes.map(id => spiceData[id].name);
+
+                    // Display info
+                    document.getElementById('info').innerHTML = `
+                        <div class="spice-info">
+                            <h2>${spice.name}</h2>
+                            <p><strong>Flavor Profile:</strong> ${spice.flavorProfile}</p>
+                            <p><strong>Cuisines:</strong> ${spice.cuisines.join(', ')}</p>
+                            <p><strong>Pairs well with:</strong> ${pairedSpices.join(', ')}</p>
+                            <p><strong>Connections:</strong> ${connectedEdges.length}</p>
+                        </div>
+                    `;
+
+                    // Highlight connected nodes
+                    network.selectNodes([nodeId]);
+                }
+            });
+
+            // Control functions
+            window.resetView = function() {
+                network.fit();
+            };
+
+            let physicsEnabled = true;
+            window.togglePhysics = function() {
+                physicsEnabled = !physicsEnabled;
+                network.setOptions({ physics: { enabled: physicsEnabled } });
+            };
+
+            console.log('Network loaded with', nodes.length, 'spices and', edges.length, 'pairings');
+        }
+
+        // Start
+        init().catch(err => {
+            console.error(err);
+            document.getElementById('info').textContent = err.message;
+        });
+    </script>
+</body>
+</html>
