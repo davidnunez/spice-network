@@ -102,6 +102,32 @@
             background: #f0f0f0;
         }
 
+        /* Reuse styles for flavor and cuisine suggestion lists */
+        #search-list-flavor, #search-list-cuisine {
+            list-style: none;
+            margin: 4px 0 0 0;
+            padding: 0;
+            position: absolute;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ccc;
+            max-height: 220px;
+            overflow: auto;
+            z-index: 2000;
+            display: none;
+        }
+
+        #search-list-flavor li, #search-list-cuisine li {
+            padding: 8px 10px;
+            cursor: pointer;
+        }
+
+        #search-list-flavor li:hover, #search-list-flavor li.active,
+        #search-list-cuisine li:hover, #search-list-cuisine li.active {
+            background: #f0f0f0;
+        }
+
         /* Responsive: stack vertically on narrow screens */
         @media (max-width: 900px) {
             .main {
@@ -129,6 +155,14 @@
         <div class="search-container" style="display:inline-block; vertical-align:middle; margin-left:12px;">
             <input id="search" type="search" disabled placeholder="Loading..." aria-label="Search spices" />
             <ul id="search-list" role="listbox" aria-label="Search suggestions"></ul>
+        </div>
+        <div class="search-container" style="display:inline-block; vertical-align:middle; margin-left:8px;">
+            <input id="search-flavor" type="search" disabled placeholder="Search flavor..." aria-label="Search flavor" />
+            <ul id="search-list-flavor" role="listbox" aria-label="Flavor suggestions"></ul>
+        </div>
+        <div class="search-container" style="display:inline-block; vertical-align:middle; margin-left:8px;">
+            <input id="search-cuisine" type="search" disabled placeholder="Search cuisine..." aria-label="Search cuisine" />
+            <ul id="search-list-cuisine" role="listbox" aria-label="Cuisine suggestions"></ul>
         </div>
     </div>
     
@@ -453,9 +487,193 @@
                 });
             }
 
+            // --- Flavor search ---
+            const searchFlavorInput = document.getElementById('search-flavor');
+            const searchFlavorList = document.getElementById('search-list-flavor');
+            if (searchFlavorInput) {
+                searchFlavorInput.disabled = false;
+                searchFlavorInput.placeholder = 'Search flavor...';
+            }
+
+            const flavorSet = new Set();
+            Object.values(spiceData).forEach(s => {
+                if (s.flavorProfile) {
+                    s.flavorProfile.split(',').map(t => t.trim()).forEach(t => { if (t) flavorSet.add(t); });
+                }
+            });
+            const flavors = Array.from(flavorSet).sort((a,b) => a.localeCompare(b));
+            let activeFlavor = -1;
+
+            function renderFlavor(list) {
+                if (!searchFlavorList) return;
+                searchFlavorList.innerHTML = '';
+                if (!list.length) { searchFlavorList.style.display = 'none'; return; }
+                const frag = document.createDocumentFragment();
+                list.forEach(name => {
+                    const li = document.createElement('li');
+                    li.textContent = name;
+                    li.dataset.name = name;
+                    li.addEventListener('click', () => selectFlavor(name));
+                    frag.appendChild(li);
+                });
+                searchFlavorList.appendChild(frag);
+                searchFlavorList.style.display = 'block';
+            }
+
+            function selectFlavor(name) {
+                if (!searchFlavorInput) return;
+                searchFlavorInput.value = name;
+                if (searchFlavorList) searchFlavorList.style.display = 'none';
+                const matched = Object.keys(spiceData).filter(id => (spiceData[id].flavorProfile || '').toLowerCase().includes(name.toLowerCase()));
+                if (!matched.length) return;
+                try {
+                    network.selectNodes(matched);
+                    if (matched.length === 1) {
+                        const pos = network.getPositions(matched)[matched[0]];
+                        if (pos) network.moveTo({ position: pos, scale: 1.5, animation: { duration: 400 } });
+                    } else {
+                        network.fit({ nodes: matched, animation: { duration: 400 } });
+                    }
+                } catch (e) { console.warn('Flavor focus failed', e); }
+                // show aggregated info with clickable list of matches
+                const infoEl = document.getElementById('info');
+                infoEl.innerHTML = '';
+                const container = document.createElement('div');
+                container.className = 'spice-info';
+                const h2 = document.createElement('h2');
+                h2.textContent = `${name} (flavor)`;
+                container.appendChild(h2);
+                const pMatches = document.createElement('p');
+                pMatches.innerHTML = `<strong>Matches:</strong> ${matched.length} spice(s)`;
+                container.appendChild(pMatches);
+                const list = document.createElement('ul');
+                list.style.margin = '8px 0 0 0';
+                list.style.padding = '0 0 0 16px';
+                matched.forEach(id => {
+                    const li = document.createElement('li');
+                    li.style.listStyle = 'disc';
+                    const btn = document.createElement('button');
+                    btn.textContent = spiceData[id].name;
+                    btn.style.border = 'none';
+                    btn.style.background = 'transparent';
+                    btn.style.color = '#0066cc';
+                    btn.style.cursor = 'pointer';
+                    btn.style.padding = '0';
+                    btn.addEventListener('click', () => selectName(spiceData[id].name));
+                    li.appendChild(btn);
+                    list.appendChild(li);
+                });
+                container.appendChild(list);
+                infoEl.appendChild(container);
+            }
+
+            if (searchFlavorInput) {
+                searchFlavorInput.addEventListener('input', (e) => {
+                    const q = (e.target.value || '').trim().toLowerCase();
+                    if (!q) { if (searchFlavorList) searchFlavorList.style.display = 'none'; return; }
+                    const filtered = flavors.filter(n => n.toLowerCase().includes(q)).slice(0,12);
+                    activeFlavor = -1;
+                    renderFlavor(filtered);
+                });
+
+                searchFlavorInput.addEventListener('keydown', (e) => {
+                    if (!searchFlavorList) return;
+                    const items = Array.from(searchFlavorList.children);
+                    if (e.key === 'ArrowDown') { e.preventDefault(); if (!items.length) return; activeFlavor = Math.min(items.length-1, activeFlavor+1); items.forEach((li,i)=>li.classList.toggle('active', i===activeFlavor)); }
+                    else if (e.key === 'ArrowUp') { e.preventDefault(); if (!items.length) return; activeFlavor = Math.max(0, activeFlavor-1); items.forEach((li,i)=>li.classList.toggle('active', i===activeFlavor)); }
+                    else if (e.key === 'Enter') { e.preventDefault(); if (items.length>0 && activeFlavor>=0) selectFlavor(items[activeFlavor].dataset.name); }
+                });
+            }
+
+            // --- Cuisine search ---
+            const searchCuisineInput = document.getElementById('search-cuisine');
+            const searchCuisineList = document.getElementById('search-list-cuisine');
+            if (searchCuisineInput) { searchCuisineInput.disabled = false; searchCuisineInput.placeholder = 'Search cuisine...'; }
+            const cuisineSet = new Set();
+            Object.values(spiceData).forEach(s => { (s.cuisines||[]).forEach(c => { if (c) cuisineSet.add(c); }); });
+            const cuisines = Array.from(cuisineSet).sort((a,b)=>a.localeCompare(b));
+            let activeCuisine = -1;
+
+            function renderCuisine(list) {
+                if (!searchCuisineList) return;
+                searchCuisineList.innerHTML = '';
+                if (!list.length) { searchCuisineList.style.display = 'none'; return; }
+                const frag = document.createDocumentFragment();
+                list.forEach(name => { const li = document.createElement('li'); li.textContent = name; li.dataset.name = name; li.addEventListener('click', ()=>selectCuisine(name)); frag.appendChild(li); });
+                searchCuisineList.appendChild(frag); searchCuisineList.style.display = 'block';
+            }
+
+            function selectCuisine(name) {
+                if (!searchCuisineInput) return;
+                searchCuisineInput.value = name;
+                if (searchCuisineList) searchCuisineList.style.display = 'none';
+                const matched = Object.keys(spiceData).filter(id => (spiceData[id].cuisines||[]).some(c => c.toLowerCase()===name.toLowerCase()));
+                if (!matched.length) return;
+                try {
+                    network.selectNodes(matched);
+                    if (matched.length === 1) {
+                        const pos = network.getPositions(matched)[matched[0]];
+                        if (pos) network.moveTo({ position: pos, scale: 1.5, animation: { duration: 400 } });
+                    } else {
+                        network.fit({ nodes: matched, animation: { duration: 400 } });
+                    }
+                } catch (e) { console.warn('Cuisine focus failed', e); }
+                // show aggregated info with clickable list of matches
+                const infoElC = document.getElementById('info');
+                infoElC.innerHTML = '';
+                const containerC = document.createElement('div');
+                containerC.className = 'spice-info';
+                const h2c = document.createElement('h2');
+                h2c.textContent = `${name} (cuisine)`;
+                containerC.appendChild(h2c);
+                const pMatchesC = document.createElement('p');
+                pMatchesC.innerHTML = `<strong>Matches:</strong> ${matched.length} spice(s)`;
+                containerC.appendChild(pMatchesC);
+                const listC = document.createElement('ul');
+                listC.style.margin = '8px 0 0 0';
+                listC.style.padding = '0 0 0 16px';
+                matched.forEach(id => {
+                    const li = document.createElement('li');
+                    li.style.listStyle = 'disc';
+                    const btn = document.createElement('button');
+                    btn.textContent = spiceData[id].name;
+                    btn.style.border = 'none';
+                    btn.style.background = 'transparent';
+                    btn.style.color = '#0066cc';
+                    btn.style.cursor = 'pointer';
+                    btn.style.padding = '0';
+                    btn.addEventListener('click', () => selectName(spiceData[id].name));
+                    li.appendChild(btn);
+                    listC.appendChild(li);
+                });
+                containerC.appendChild(listC);
+                infoElC.appendChild(containerC);
+            }
+
+            if (searchCuisineInput) {
+                searchCuisineInput.addEventListener('input', (e) => {
+                    const q = (e.target.value || '').trim().toLowerCase();
+                    if (!q) { if (searchCuisineList) searchCuisineList.style.display = 'none'; return; }
+                    const filtered = cuisines.filter(n => n.toLowerCase().includes(q)).slice(0,12);
+                    activeCuisine = -1; renderCuisine(filtered);
+                });
+
+                searchCuisineInput.addEventListener('keydown', (e) => {
+                    if (!searchCuisineList) return;
+                    const items = Array.from(searchCuisineList.children);
+                    if (e.key === 'ArrowDown') { e.preventDefault(); if (!items.length) return; activeCuisine = Math.min(items.length-1, activeCuisine+1); items.forEach((li,i)=>li.classList.toggle('active', i===activeCuisine)); }
+                    else if (e.key === 'ArrowUp') { e.preventDefault(); if (!items.length) return; activeCuisine = Math.max(0, activeCuisine-1); items.forEach((li,i)=>li.classList.toggle('active', i===activeCuisine)); }
+                    else if (e.key === 'Enter') { e.preventDefault(); if (items.length>0 && activeCuisine>=0) selectCuisine(items[activeCuisine].dataset.name); }
+                });
+            }
+
             document.addEventListener('click', (e) => {
-                if (searchContainer && !searchContainer.contains(e.target)) {
+                const containers = document.querySelectorAll('.search-container');
+                const clickedInsideAny = Array.from(containers).some(c => c.contains(e.target));
+                if (!clickedInsideAny) {
                     if (searchList) searchList.style.display = 'none';
+                    if (searchFlavorList) searchFlavorList.style.display = 'none';
+                    if (searchCuisineList) searchCuisineList.style.display = 'none';
                 }
             });
         }
