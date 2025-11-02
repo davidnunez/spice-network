@@ -3,146 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spice Pairing Network</title>
-    <script src="https://cdn.jsdelivr.net/npm/rdflib@2.2.33/dist/rdflib.min.js"></script>
-    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <style>
-        body {
-            font-family: 'Courier New', monospace;
-            margin: 0;
-            padding: 20px;
-            background: #f5f5f0;
-        }
+        /* Global layout and typography */
+        :root { --info-width: 320px; --muted: #666; }
+        body { margin: 20px; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; color: #222; background: #fafafa; }
+        h1 { margin: 0 0 12px 0; font-size: 20px; }
+        #controls { margin-bottom: 12px; }
 
-        /* Layout: network and info side-by-side on wide screens, stacked on small screens */
-        .main {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
+        /* Main layout: network + right-hand info panel */
+        .main { display: flex; gap: 20px; align-items: flex-start; }
+    #network { flex: 1 1 auto; height: 720px; background: #fff; border: 1px solid #ddd; border-radius: 6px; }
+        aside#info { width: var(--info-width); flex: 0 0 var(--info-width); background: #fff; border: 1px solid #ddd; padding: 12px; border-radius: 6px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+        .spice-info h2 { margin: 0 0 8px 0; font-size: 18px; }
+        .spice-info p { margin: 6px 0; color: var(--muted); }
 
-        #network {
-            flex: 1 1 auto;
-            min-width: 320px;
-            height: 600px;
-            border: 2px solid #333;
-            background: white;
-        }
+        /* Controls / search */
+        .search-container { position: relative; display: inline-block; }
+        #search, #search-flavor, #search-cuisine { padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; width: 180px; }
 
-        #info {
-            flex: 0 0 320px;
-            padding: 15px;
-            background: white;
-            border: 2px solid #333;
-            min-height: 200px;
-        }
-
-        h1 {
-            margin-top: 0;
-        }
-
-        .spice-info {
-            margin: 10px 0;
-        }
-
-        #controls {
-            margin: 20px 0;
-        }
-
-        button {
-            padding: 10px 20px;
-            margin-right: 10px;
-            background: #333;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-family: 'Courier New', monospace;
-        }
-
-        button:hover {
-            background: #555;
-        }
-
-        /* Search typeahead styles */
-        .search-container {
-            position: relative;
-            font-family: inherit;
-        }
-
-        #search {
-            padding: 8px 10px;
-            font-family: inherit;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            min-width: 220px;
-        }
-
-        #search-list {
-            list-style: none;
-            margin: 4px 0 0 0;
-            padding: 0;
-            position: absolute;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #ccc;
-            max-height: 220px;
-            overflow: auto;
-            z-index: 2000;
-            display: none;
-        }
-
-        #search-list li {
-            padding: 8px 10px;
-            cursor: pointer;
-        }
-
-        #search-list li:hover,
-        #search-list li.active {
-            background: #f0f0f0;
-        }
-
-        /* Reuse styles for flavor and cuisine suggestion lists */
-        #search-list-flavor, #search-list-cuisine {
-            list-style: none;
-            margin: 4px 0 0 0;
-            padding: 0;
-            position: absolute;
-            left: 0;
-            right: 0;
-            background: white;
-            border: 1px solid #ccc;
-            max-height: 220px;
-            overflow: auto;
-            z-index: 2000;
-            display: none;
-        }
-
-        #search-list-flavor li, #search-list-cuisine li {
-            padding: 8px 10px;
-            cursor: pointer;
-        }
-
-        #search-list-flavor li:hover, #search-list-flavor li.active,
-        #search-list-cuisine li:hover, #search-list-cuisine li.active {
-            background: #f0f0f0;
-        }
+        /* Suggestion lists */
+        #search-list, #search-list-flavor, #search-list-cuisine { list-style: none; margin: 4px 0 0 0; padding: 0; position: absolute; left: 0; right: 0; background: white; border: 1px solid #ccc; max-height: 220px; overflow: auto; z-index: 2000; display: none; }
+        #search-list li, #search-list-flavor li, #search-list-cuisine li { padding: 8px 10px; cursor: pointer; }
+        #search-list li:hover, #search-list li.active, #search-list-flavor li:hover, #search-list-flavor li.active, #search-list-cuisine li:hover, #search-list-cuisine li.active { background: #f0f0f0; }
 
         /* Responsive: stack vertically on narrow screens */
         @media (max-width: 900px) {
-            .main {
-                flex-direction: column;
-            }
-
-            #network {
-                height: 480px;
-            }
-
-            #info {
-                flex: 1 1 auto;
-                width: 100%;
-                margin-top: 20px;
-            }
+            .main { flex-direction: column; }
+            #network { height: 480px; min-height: auto; }
+            #info { flex: 1 1 auto; width: 100%; margin-top: 20px; }
         }
     </style>
 </head>
@@ -173,6 +61,9 @@
         </aside>
     </div>
 
+    <!-- Libraries: rdflib and vis-network (UMD) -->
+    <script src="https://cdn.jsdelivr.net/npm/rdflib@2.2.33/dist/rdflib.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js" crossorigin="anonymous"></script>
     <script>
         // Load RDF Turtle from an external file and initialize the visualization.
         async function fetchRdfText() {
@@ -309,6 +200,8 @@
                 setTimeout(() => {
                     try {
                         network.moveTo({ scale: INITIAL_SCALE });
+                        // ensure canvas redraw and fit after stabilization
+                        try { network.redraw(); network.fit(); } catch (e) { /* ignore */ }
                     } catch (e) {
                         console.warn('moveTo failed after stabilization:', e);
                     }
@@ -325,29 +218,117 @@
                 }
             }, 1000);
 
+            // Ensure the network redraws and fits after initial layout pass
+            setTimeout(() => {
+                try {
+                    network.redraw();
+                    network.fit();
+                } catch (e) {
+                    console.warn('redraw/fit fallback failed:', e);
+                }
+            }, 1200);
+
+            // On window resize, redraw and fit so the canvas matches container size
+            window.addEventListener('resize', () => {
+                try {
+                    network.redraw();
+                    network.fit({ animation: { duration: 150 } });
+                } catch (e) {
+                    // ignore if network not ready
+                }
+            });
+
+            // Render spice info into the info box for a given node id.
+            function renderSpiceInfo(nodeId) {
+                console.debug('renderSpiceInfo called for', nodeId);
+                const spice = spiceData[nodeId];
+                if (!spice) return;
+                // Get connections
+                const connectedEdges = network.getConnectedEdges(nodeId);
+                const connectedNodes = network.getConnectedNodes(nodeId);
+                const pairedSpices = connectedNodes.map(id => spiceData[id].name);
+
+                const infoEl = document.getElementById('info');
+                infoEl.innerHTML = '';
+                const wrapper = document.createElement('div');
+                wrapper.className = 'spice-info';
+
+                const title = document.createElement('h2');
+                title.textContent = spice.name;
+                wrapper.appendChild(title);
+
+                // Flavor profile tokens (click to search flavor)
+                const fpP = document.createElement('p');
+                const fpStrong = document.createElement('strong');
+                fpStrong.textContent = 'Flavor Profile:';
+                fpP.appendChild(fpStrong);
+                fpP.appendChild(document.createTextNode(' '));
+                if (spice.flavorProfile) {
+                    const tokens = spice.flavorProfile.split(',').map(t => t.trim()).filter(Boolean);
+                    tokens.forEach((token) => {
+                        const btn = document.createElement('button');
+                        btn.textContent = token;
+                        btn.style.border = 'none';
+                        btn.style.background = 'transparent';
+                        btn.style.color = '#0066cc';
+                        btn.style.cursor = 'pointer';
+                        btn.style.padding = '0 6px 0 0';
+                        btn.addEventListener('click', () => selectFlavor(token));
+                        fpP.appendChild(btn);
+                    });
+                }
+                wrapper.appendChild(fpP);
+
+                // Cuisines (click to search cuisine)
+                const cuP = document.createElement('p');
+                const cuStrong = document.createElement('strong');
+                cuStrong.textContent = 'Cuisines:';
+                cuP.appendChild(cuStrong);
+                cuP.appendChild(document.createTextNode(' '));
+                (spice.cuisines || []).forEach((c) => {
+                    const btn = document.createElement('button');
+                    btn.textContent = c;
+                    btn.style.border = 'none';
+                    btn.style.background = 'transparent';
+                    btn.style.color = '#0066cc';
+                    btn.style.cursor = 'pointer';
+                    btn.style.padding = '0 6px 0 0';
+                    btn.addEventListener('click', () => selectCuisine(c));
+                    cuP.appendChild(btn);
+                });
+                wrapper.appendChild(cuP);
+
+                // Pairs well with (click spice to focus)
+                const pwP = document.createElement('p');
+                const pwStrong = document.createElement('strong');
+                pwStrong.textContent = 'Pairs well with:';
+                pwP.appendChild(pwStrong);
+                pwP.appendChild(document.createTextNode(' '));
+                pairedSpices.forEach((pname) => {
+                    const btn = document.createElement('button');
+                    btn.textContent = pname;
+                    btn.style.border = 'none';
+                    btn.style.background = 'transparent';
+                    btn.style.color = '#0066cc';
+                    btn.style.cursor = 'pointer';
+                    btn.style.padding = '0 6px 0 0';
+                    btn.addEventListener('click', () => selectName(pname));
+                    pwP.appendChild(btn);
+                });
+                wrapper.appendChild(pwP);
+
+                const connP = document.createElement('p');
+                connP.innerHTML = `<strong>Connections:</strong> ${connectedEdges.length}`;
+                wrapper.appendChild(connP);
+
+                infoEl.appendChild(wrapper);
+            }
+
             // Handle node clicks
             network.on('click', function(params) {
                 if (params.nodes.length > 0) {
                     const nodeId = params.nodes[0];
-                    const spice = spiceData[nodeId];
-
-                    // Get connections
-                    const connectedEdges = network.getConnectedEdges(nodeId);
-                    const connectedNodes = network.getConnectedNodes(nodeId);
-                    const pairedSpices = connectedNodes.map(id => spiceData[id].name);
-
-                    // Display info
-                    document.getElementById('info').innerHTML = `
-                        <div class="spice-info">
-                            <h2>${spice.name}</h2>
-                            <p><strong>Flavor Profile:</strong> ${spice.flavorProfile}</p>
-                            <p><strong>Cuisines:</strong> ${spice.cuisines.join(', ')}</p>
-                            <p><strong>Pairs well with:</strong> ${pairedSpices.join(', ')}</p>
-                            <p><strong>Connections:</strong> ${connectedEdges.length}</p>
-                        </div>
-                    `;
-
-                    // Highlight connected nodes
+                    renderSpiceInfo(nodeId);
                     network.selectNodes([nodeId]);
                 }
             });
@@ -414,10 +395,12 @@
             }
 
             function selectName(name) {
+                console.debug('selectName called for', name);
                 if (!searchInput) return;
                 searchInput.value = name;
                 if (searchList) searchList.style.display = 'none';
                 const nodeId = nameToId[name];
+                console.debug('selectName resolved nodeId', nodeId);
                 if (!nodeId) return;
                 try {
                     network.selectNodes([nodeId]);
@@ -432,20 +415,8 @@
                     console.warn('Focus failed:', e);
                 }
 
-                // update info panel
-                const spice = spiceData[nodeId];
-                const connectedEdges = network.getConnectedEdges(nodeId);
-                const connectedNodes = network.getConnectedNodes(nodeId);
-                const pairedSpices = connectedNodes.map(id => spiceData[id].name);
-                document.getElementById('info').innerHTML = `
-                    <div class="spice-info">
-                        <h2>${spice.name}</h2>
-                        <p><strong>Flavor Profile:</strong> ${spice.flavorProfile}</p>
-                        <p><strong>Cuisines:</strong> ${spice.cuisines.join(', ')}</p>
-                        <p><strong>Pairs well with:</strong> ${pairedSpices.join(', ')}</p>
-                        <p><strong>Connections:</strong> ${connectedEdges.length}</p>
-                    </div>
-                `;
+                // update info panel (use shared renderer so links are interactive)
+                renderSpiceInfo(nodeId);
             }
 
             if (searchInput) {
@@ -535,6 +506,11 @@
                         network.fit({ nodes: matched, animation: { duration: 400 } });
                     }
                 } catch (e) { console.warn('Flavor focus failed', e); }
+                // if only one match, show the detailed interactive info using the shared renderer
+                if (matched.length === 1) {
+                    renderSpiceInfo(matched[0]);
+                    return;
+                }
                 // show aggregated info with clickable list of matches
                 const infoEl = document.getElementById('info');
                 infoEl.innerHTML = '';
@@ -608,7 +584,6 @@
                 searchCuisineInput.value = name;
                 if (searchCuisineList) searchCuisineList.style.display = 'none';
                 const matched = Object.keys(spiceData).filter(id => (spiceData[id].cuisines||[]).some(c => c.toLowerCase()===name.toLowerCase()));
-                if (!matched.length) return;
                 try {
                     network.selectNodes(matched);
                     if (matched.length === 1) {
@@ -618,6 +593,11 @@
                         network.fit({ nodes: matched, animation: { duration: 400 } });
                     }
                 } catch (e) { console.warn('Cuisine focus failed', e); }
+                // if only one match, show the detailed interactive info using the shared renderer
+                if (matched.length === 1) {
+                    renderSpiceInfo(matched[0]);
+                    return;
+                }
                 // show aggregated info with clickable list of matches
                 const infoElC = document.getElementById('info');
                 infoElC.innerHTML = '';
