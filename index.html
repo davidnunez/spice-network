@@ -63,6 +63,45 @@
             background: #555;
         }
 
+        /* Search typeahead styles */
+        .search-container {
+            position: relative;
+            font-family: inherit;
+        }
+
+        #search {
+            padding: 8px 10px;
+            font-family: inherit;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            min-width: 220px;
+        }
+
+        #search-list {
+            list-style: none;
+            margin: 4px 0 0 0;
+            padding: 0;
+            position: absolute;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ccc;
+            max-height: 220px;
+            overflow: auto;
+            z-index: 2000;
+            display: none;
+        }
+
+        #search-list li {
+            padding: 8px 10px;
+            cursor: pointer;
+        }
+
+        #search-list li:hover,
+        #search-list li.active {
+            background: #f0f0f0;
+        }
+
         /* Responsive: stack vertically on narrow screens */
         @media (max-width: 900px) {
             .main {
@@ -87,6 +126,10 @@
     <div id="controls">
         <button onclick="resetView()">Reset View</button>
         <button onclick="togglePhysics()">Toggle Physics</button>
+        <div class="search-container" style="display:inline-block; vertical-align:middle; margin-left:12px;">
+            <input id="search" type="search" disabled placeholder="Loading..." aria-label="Search spices" />
+            <ul id="search-list" role="listbox" aria-label="Search suggestions"></ul>
+        </div>
     </div>
     
     <div class="main">
@@ -120,6 +163,17 @@
 
         async function init() {
             const rdfText = await fetchRdfText();
+
+            // Ensure search elements exist and indicate loading state. These
+            // are declared here for compatibility with environments where
+            // DOM is available (script is at page bottom).
+            let searchInput = document.getElementById('search');
+            let searchList = document.getElementById('search-list');
+            const searchContainer = document.querySelector('.search-container');
+            if (searchInput) {
+                searchInput.disabled = true;
+                searchInput.placeholder = 'Loading...';
+            }
 
             // Parse RDF
             const store = $rdf.graph();
@@ -276,6 +330,134 @@
             };
 
             console.log('Network loaded with', nodes.length, 'spices and', edges.length, 'pairings');
+
+            // --- Lightweight search + typeahead ---
+            // reuse searchInput/searchList/searchContainer initialized above
+
+            if (searchInput) {
+                searchInput.disabled = false;
+                searchInput.placeholder = 'Search spices...';
+            }
+
+            const nameToId = {};
+            const names = [];
+            Object.keys(spiceData).forEach(id => {
+                const name = spiceData[id].name;
+                nameToId[name] = id;
+                names.push(name);
+            });
+            names.sort((a,b) => a.localeCompare(b));
+
+            let activeIndex = -1;
+
+            function renderSuggestions(list) {
+                if (!searchList) return;
+                searchList.innerHTML = '';
+                if (!list.length) {
+                    searchList.style.display = 'none';
+                    return;
+                }
+                const frag = document.createDocumentFragment();
+                list.forEach((name) => {
+                    const li = document.createElement('li');
+                    li.textContent = name;
+                    li.setAttribute('role','option');
+                    li.dataset.name = name;
+                    li.addEventListener('click', () => selectName(name));
+                    frag.appendChild(li);
+                });
+                searchList.appendChild(frag);
+                searchList.style.display = 'block';
+            }
+
+            function updateActive() {
+                if (!searchList) return;
+                const items = Array.from(searchList.children);
+                items.forEach((li, i) => li.classList.toggle('active', i === activeIndex));
+                if (activeIndex >= 0 && items[activeIndex]) {
+                    items[activeIndex].scrollIntoView({ block: 'nearest' });
+                }
+            }
+
+            function selectName(name) {
+                if (!searchInput) return;
+                searchInput.value = name;
+                if (searchList) searchList.style.display = 'none';
+                const nodeId = nameToId[name];
+                if (!nodeId) return;
+                try {
+                    network.selectNodes([nodeId]);
+                    const positions = network.getPositions([nodeId]);
+                    const pos = positions && positions[nodeId] ? positions[nodeId] : undefined;
+                    if (pos) {
+                        network.moveTo({ position: pos, scale: 1.5, animation: { duration: 400, easingFunction: 'easeInOutQuad' } });
+                    } else {
+                        network.moveTo({ scale: 1.5, animation: { duration: 400, easingFunction: 'easeInOutQuad' } });
+                    }
+                } catch (e) {
+                    console.warn('Focus failed:', e);
+                }
+
+                // update info panel
+                const spice = spiceData[nodeId];
+                const connectedEdges = network.getConnectedEdges(nodeId);
+                const connectedNodes = network.getConnectedNodes(nodeId);
+                const pairedSpices = connectedNodes.map(id => spiceData[id].name);
+                document.getElementById('info').innerHTML = `
+                    <div class="spice-info">
+                        <h2>${spice.name}</h2>
+                        <p><strong>Flavor Profile:</strong> ${spice.flavorProfile}</p>
+                        <p><strong>Cuisines:</strong> ${spice.cuisines.join(', ')}</p>
+                        <p><strong>Pairs well with:</strong> ${pairedSpices.join(', ')}</p>
+                        <p><strong>Connections:</strong> ${connectedEdges.length}</p>
+                    </div>
+                `;
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const q = (e.target.value || '').trim().toLowerCase();
+                    if (!q) {
+                        if (searchList) searchList.style.display = 'none';
+                        return;
+                    }
+                    const filtered = names.filter(n => n.toLowerCase().includes(q)).slice(0, 12);
+                    activeIndex = -1;
+                    renderSuggestions(filtered);
+                });
+
+                searchInput.addEventListener('keydown', (e) => {
+                    if (!searchList) return;
+                    const items = Array.from(searchList.children);
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        if (items.length === 0) return;
+                        activeIndex = Math.min(items.length - 1, activeIndex + 1);
+                        updateActive();
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        if (items.length === 0) return;
+                        activeIndex = Math.max(0, activeIndex - 1);
+                        updateActive();
+                    } else if (e.key === 'Enter') {
+                        e.preventDefault();
+                        if (items.length > 0 && activeIndex >= 0) {
+                            selectName(items[activeIndex].dataset.name);
+                        } else if (searchInput.value.trim()) {
+                            const name = names.find(n => n.toLowerCase() === searchInput.value.trim().toLowerCase());
+                            if (name) selectName(name);
+                        }
+                    } else if (e.key === 'Escape') {
+                        if (searchList) searchList.style.display = 'none';
+                    }
+                });
+            }
+
+            document.addEventListener('click', (e) => {
+                if (searchContainer && !searchContainer.contains(e.target)) {
+                    if (searchList) searchList.style.display = 'none';
+                }
+            });
         }
 
         // Start
