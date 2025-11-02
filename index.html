@@ -214,6 +214,28 @@
             };
 
             const network = new vis.Network(container, data, options);
+            const INITIAL_SCALE = 0.2;
+
+            network.once('stabilizationIterationsDone', function() {
+                // small timeout to allow final layout to settle visually
+                setTimeout(() => {
+                    try {
+                        network.moveTo({ scale: INITIAL_SCALE });
+                    } catch (e) {
+                        console.warn('moveTo failed after stabilization:', e);
+                    }
+                }, 1000);
+            });
+
+            // Fallback: if stabilization event doesn't fire for any reason,
+            // attempt to set the initial zoom after a short delay.
+            setTimeout(() => {
+                try {
+                    network.moveTo({ scale: INITIAL_SCALE });
+                } catch (e) {
+                    console.warn('moveTo fallback failed:', e);
+                }
+            }, 1000);
 
             // Handle node clicks
             network.on('click', function(params) {
